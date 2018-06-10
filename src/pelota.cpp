@@ -1,5 +1,5 @@
 #include "pelota.h"
-#include "commonTypes.h"
+// #include "commonTypes.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ Pelota::~Pelota()
 void Pelota::Avanzar(Posicion direccion)
 {
 	ult_pos = pos;
-	pos = sumTuple(pos, direccion);
+	pos = sumarPosiciones(pos, direccion);
 }
 
 void Pelota::Interceptada(Posicion nueva_posicion)
@@ -38,7 +38,7 @@ void Pelota::Guardar_trayectoria(Posicion direccion, int fuerza)
 {	
 	Posicion fut_pos = pos;
 	for(int i = 1; i < fuerza; ++i) {
-		Posicion siguiente_pos = sumTuple(fut_pos, duplicarTuple(direccion));
+		Posicion siguiente_pos = sumarPosiciones(fut_pos, duplicarDireccion(direccion));
 		futuras_pos.push_back(siguiente_pos);
 		fut_pos = siguiente_pos;
 	}

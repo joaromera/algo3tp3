@@ -11,19 +11,17 @@
 
 typedef std::tuple < int, int > Posicion;
 
-class sumTuple {
-    public:
-        Posicion operator()(const Posicion & a,
-            const Posicion & b) const {
-            return make_tuple(get < 0 > (a) + get < 0 > (b), get < 1 > (a) + get < 1 > (b));
-        }
-};
+using namespace std;
 
-class duplicarTuple {
-    public:
-        Posicion operator()(const Posicion & a) const {
-            return make_tuple(get < 0 > (a) * 2, get < 1 > (a) * 2);
-        }
-};
+Posicion sumarPosiciones(const Posicion & a, const Posicion & b);
+Posicion duplicarDireccion(const Posicion & a);
+
+Posicion duplicarDireccion(const Posicion & a) {
+  return make_tuple(get < 0 > (a) * 2, get < 1 > (a) * 2);
+}
+
+Posicion sumarPosiciones(const Posicion &a, const Posicion &b) {
+  return make_tuple(get < 0 > (a) + get < 0 > (b), get < 1 > (a) + get < 1 > (b));
+}
 
 #endif
