@@ -1,0 +1,1068 @@
+Parameters: 10 5 250
+send position: 0 0 0 1 1 0 2 2 0
+Step: 0
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 1
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 2
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 3
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 4
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 5
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 6
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 7
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 8
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 9
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 10
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 11
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 12
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 13
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 14
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 15
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 16
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 17
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 18
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 19
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 20
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 21
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 22
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 23
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 24
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 25
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 26
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 27
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 28
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 29
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 30
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 31
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 32
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 33
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 34
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 35
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 36
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 37
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 38
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 39
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 40
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 41
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 42
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 43
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 44
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 45
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 46
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 47
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 48
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 49
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 50
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 51
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 52
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 53
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 54
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 55
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 56
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 57
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 58
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 59
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 60
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 61
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 62
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 63
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 64
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 65
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 66
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 67
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 68
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 69
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 70
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 71
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 72
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 73
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 74
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 75
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 76
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 77
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 78
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 79
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 80
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 81
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 82
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 83
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 84
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 85
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 86
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 87
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 88
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 89
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 90
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 91
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 92
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 93
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 94
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 95
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 96
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 97
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 98
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 99
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 100
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 101
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 102
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 103
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 104
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 105
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 106
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 107
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 108
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 109
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 110
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 111
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 112
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 113
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 114
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 115
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 116
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 117
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 118
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 119
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 120
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 121
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 122
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 123
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 124
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 125
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 126
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 127
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 128
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 129
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 130
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 131
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 132
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 133
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 134
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 135
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 136
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 137
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 138
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 139
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 140
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 141
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 142
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 143
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 144
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 145
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 146
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 147
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 148
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 149
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 150
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 151
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 152
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 153
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 154
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 155
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 156
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 157
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 158
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 159
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 160
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 161
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 162
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 163
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 164
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 165
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 166
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 167
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 168
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 169
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 170
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 171
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 172
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 173
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 174
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 175
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 176
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 177
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 178
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 179
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 180
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 181
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 182
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 183
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 184
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 185
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 186
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 187
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 188
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 189
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 190
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 191
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 192
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 193
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 194
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 195
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 196
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 197
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 198
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 199
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 200
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 201
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 202
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 203
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 204
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 205
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 206
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 207
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 208
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 209
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 210
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 211
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 212
+player_id: 0
+player_id: 1
+player_id: 2
+send move: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+Step: 213

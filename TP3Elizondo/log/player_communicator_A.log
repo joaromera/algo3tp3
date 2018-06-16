@@ -1,0 +1,1508 @@
+
+/*************** Nueva partida *****************/
+columnas: 10
+filas: 5
+duración en movimientos: 250
+equipo: A
+equipo del oponente: B
+/**********************************************/
+envio <type 'str'>: 10 5 250
+envio <type 'str'>: IZQUIERDA
+envio <type 'str'>: 0 0.5
+envio <type 'str'>: 1 0.5
+envio <type 'str'>: 2 0.5
+envio <type 'str'>: 0 0.5
+envio <type 'str'>: 1 0.5
+envio <type 'str'>: 2 0.5
+recibo <type 'str'>: 0 0 0 1 1 0 2 2 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 1 9 SIN_PELOTA
+envio <type 'str'>: 2 2 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 8 SIN_PELOTA
+envio <type 'str'>: 2 3 8 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 7 SIN_PELOTA
+envio <type 'str'>: 2 4 8 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 6 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 5 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 1 4 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 3 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 2 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 1 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0
+envio <type 'str'>: 0 2 4 CON_PELOTA
+envio <type 'str'>: 1 1 0 SIN_PELOTA
+envio <type 'str'>: 2 2 0 SIN_PELOTA
+envio <type 'str'>: 0 0 9 SIN_PELOTA
+envio <type 'str'>: 1 0 0 SIN_PELOTA
+envio <type 'str'>: 2 4 9 SIN_PELOTA
+recibo <type 'str'>: 0 MOVIMIENTO 0 1 MOVIMIENTO 0 2 MOVIMIENTO 0

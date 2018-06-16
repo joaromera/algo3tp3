@@ -2,6 +2,7 @@
 from constants import *
 from random import uniform
 from math import floor
+from Helpers import *
 
 moves = [(0, 0), (-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1)]
 
@@ -18,20 +19,22 @@ class Player:
         self.j = None
         self.ball = None
 
-    def move(self, move):
+    def move(self, direction):
         self.old_position = (self.i, self.j)
-        self.i += moves[move][0]
-        self.j += moves[move][1]
+        self.i += moves[direction][0]
+        self.j += moves[direction][1]
         self.moveBall()
 
-    def backwardMove(self, move):
+    def backwardMove(self, direction):
         self.old_position = (self.i, self.j)
-        self.i -= moves[move][0]
-        self.j -= moves[move][1]
+        self.i -= moves[direction][0]
+        self.j -= moves[direction][1]
         self.moveBall()
-
 
     def undoMove(self):
+        if self.old_position is None:
+            return # no hay previa jugada a donde ir
+        
         self.i = self.old_position[0]
         self.j = self.old_position[1]
         self.moveBall()
@@ -51,7 +54,7 @@ class Player:
 
     def __str__(self):
         position = (self.id, self.i, self.j, IN_POSETION)
-        if self.ball is not None:
+        if self.ball is None:
             position = (self.id, self.i, self.j, FREE_PLAYER)
 
         return str(position)
@@ -74,35 +77,52 @@ class Ball:
 
         if self.movement[1] > 0:
             move = moves[self.movement[0]] 
-            self.i += move[0]
-            self.j += move[1]
-            self.movement[1] -= 1
+            self.i += 2*move[0]
+            self.j += 2*move[1]
+            self.movement = (self.movement[0], self.movement[1] - 1)
 
     def finalPosition(self):
         move = moves[self.movement[0]]
         steps = 2*self.movement[1]
         return (self.i + steps*move[0], self.j + steps*move[1])
 
+    def trajectory(self):
+        move = moves[self.movement[0]]
+        steps = 2*self.movement[1]
+        return [(self.i + i*move[0], self.j + i*move[1]) for i in range(steps + 1)]
+
     def undoMove(self):
+        if self.movement is None:
+            return
+
+        move = moves[self.movement[0]] 
+        self.i -= 2*move[0]
+        self.j -= 2*move[1]
+        self.movement = (self.movement[0], self.movement[1] + 1)
+
+    def step_back_one(self):
         if self.movement is None:
             return
 
         move = moves[self.movement[0]] 
         self.i -= move[0]
         self.j -= move[1]
-        self.movement[1] += 1
 
     def __str__(self):
         position = (self.i, self.j)
         if self.movement is not None:
             position = (self.i, self.j, self.movement[0], self.movement[1])
-        
+
         return str(position)
 
 
 class LogicalBoard:
 
     def __init__(self, columns, rows, team_A, team_B):
+
+        assert is_odd(rows) and rows >= 3
+        assert is_even(columns) and columns >= 2*rows
+
         self.score = {A: 0, B: 0} # arrancan 0 - 0
         self.team_A = [Player(p_id, p_quite) for p_id, p_quite in team_A] # jugadores de equipo A
         self.team_B = [Player(p_id, p_quite) for p_id, p_quite in team_B] # jugadores de equipo B
@@ -132,7 +152,26 @@ class LogicalBoard:
                 p.move(player_move['value'])
             elif p.ball is None:
                 valid = False # Quiere pasar la pelota pero no la tiene
-        
+            else:
+                # Mirar que el pase es válido: O sea que termina adentro de la cancha, en algún 
+                # arco o cruza un arco (ya que va de a dos pasos por vez).
+                # Además, no puede ser más largo que M / 2
+                valid = valid and player_move['value'][1] <= self.rows / 2
+
+                ball = Ball()
+                ball.i = p.i
+                ball.j = p.j
+                print "is valid move ball"
+                print ball
+                ball.setMovement(player_move['value'])
+                print ball
+                ball_trajectory = ball.trajectory()
+                print ball_trajectory                
+                print "is valid move ball"
+                trajectory_in_board = all([self.positionInBoard(t[0], t[1]) for t in ball_trajectory])
+                trajectory_in_goal = any([t in self.goal_A + self.goal_B for t in ball_trajectory])
+                valid = valid and (trajectory_in_board or trajectory_in_goal)
+
         # Dos jugadores del mismo equipo estan en la misma posicion
         valid = valid and len(set([(p.i, p.j) for p in team])) == len(team)
 
@@ -145,7 +184,8 @@ class LogicalBoard:
 
         # Deshago los movimientos
         for p in team:
-            p.undoMove()
+            if moves[p.id]['move_type'] == MOVIMIENTO: 
+                p.undoMove()
 
         return valid
 
@@ -177,9 +217,11 @@ class LogicalBoard:
             p_ball.ball = None
 
     def fairFaightBall(self, p1, p2):
+        
         _, prob_p2 = self.normalize(p1.p_quite, p2.p_quite) # ambos usan la probabilidad de quite
+        x = uniform(0,1)
 
-        if uniform(0, 1) < prob_p2:
+        if x < prob_p2:
             p2.takeBall(self.free_ball)
         else:
             p1.takeBall(self.free_ball)
@@ -188,12 +230,12 @@ class LogicalBoard:
 
     # Este metodo asume fuertemente que la pelota todavia no fue actualizada a su nueva posicion
     # y que la pelota esta libre. 
-    def intercepted(self, curr_state_player):
+    def intercepted(self, curr_state_player, team):
         result = True
 
         # Buscar el estado anterior del jugador
         prev_state_player = None
-        for p in self.last_state['players'][A] + self.last_state['players'][B]:
+        for p in self.last_state['players'][team]:
             if p.id == curr_state_player.id:
                 prev_state_player = p
 
@@ -218,37 +260,34 @@ class LogicalBoard:
 
         # El balon se mueve en la dirección indicada por el ultimo pase
         if self.free_ball is not None:
-            # Mirar que el pase es válido
-            ball_final_position = self.free_ball.finalPosition()
-            ball_in_board = self.positionInBoard(ball_final_position[0], ball_final_position[1])
-            ball_in_goal = ball_final_position in self.goal_A + self.goal_B 
-            assert ball_in_board or ball_in_goal
-
             # Mira si alguien interceptó la pelota
-            intercepters = [p for p in self.team_A + self.team_B if self.intercepted(p)]
-
+            intercepters = [p for p in self.team_A if self.intercepted(p, A)] + [p for p in self.team_B if self.intercepted(p, B)]
+            
             assert len(intercepters) < 3
-
             if len(intercepters) == 1:
                 intercepters[0].takeBall(self.free_ball)
                 self.free_ball = None
             elif len(intercepters) == 2:
                 p1, p2 = intercepters
-                fairFaightBall(p1, p2)
+                self.fairFaightBall(p1, p2)
             else:
                 self.free_ball.move()
-                in_goal = (self.free_ball.i, self.free_ball.j) in self.goal_A + self.goal_B
-                assert self.positionInBoard(self.free_ball.i, self.free_ball.j) or in_goal
-
-                # Si hay jugadores en ese casillero, entonces hay que ver si es uno
-                # solo entonces agarra la pelota y si son dos se la disputan
-                players_to_fight = [p for p in self.team_A + self.team_B if p.i == self.free_ball.i and p.j == self.free_ball.j]
-                if len(players_to_fight) == 1:
-                    players_to_fight[0].takeBall(self.free_ball)
-                    self.free_ball = None
-                elif len(players_to_fight) == 2:
-                    p1, p2 = players_to_fight
-                    fairFaightBall(p1, p2)
+                ball_in_board = self.positionInBoard(self.free_ball.i, self.free_ball.j)
+                
+                if ball_in_board:
+                    # Si hay jugadores en ese casillero, entonces hay que ver si es uno
+                    # solo entonces agarra la pelota y si son dos se la disputan
+                    players_to_fight = [p for p in self.team_A + self.team_B if p.i == self.free_ball.i and p.j == self.free_ball.j]
+                    if len(players_to_fight) == 1:
+                        players_to_fight[0].takeBall(self.free_ball)
+                        self.free_ball = None
+                    elif len(players_to_fight) == 2:
+                        p1, p2 = players_to_fight
+                        self.fairFaightBall(p1, p2)
+                elif is_neighbor((self.free_ball.i, self.free_ball.j), self.goal_A + self.goal_B):
+                    # Si la pelota no está en la cancha y es vecina del arco, entonces cruzo el arco 
+                    # y quedó atrapada en las redes, por lo que hay que volver un paso atrás.
+                    self.free_ball.step_back_one()
 
         else:
             # Si dos jugadores estan en el mismo casillero y uno tiene la pelota
@@ -333,8 +372,11 @@ class LogicalBoard:
     def positionInBoard(self, i, j):
         return 0 <= i and i < self.rows and 0 <= j and j < self.columns 
 
-    # TODO: mirar que sean posiciones validas
     def startingPositions(self, position_A, position_B, starting):
+
+        # Mira que las posiciones iniciales sean en el lado correcto de la cancha
+        assert all([j < int(floor(self.columns / 2)) for _, j in position_A.values()])
+        assert all([j >= int(floor(self.columns / 2)) for _, j in position_B.values()])
 
         # Saco la pelota del juego
         for p in self.team_A + self.team_B:
@@ -353,13 +395,13 @@ class LogicalBoard:
 
         # le doy la pelota al jugador que saca y lo pongo en el centro
         if starting == A:
-            self.team_A[0].takeBall(Ball())
             self.team_A[0].i = int(self.rows / 2)
             self.team_A[0].j = (self.columns / 2) - 1
+            self.team_A[0].takeBall(Ball())
         else:
-            self.team_B[0].takeBall(Ball())
             self.team_B[0].i = int(self.rows / 2)
             self.team_B[0].j = (self.columns / 2)
+            self.team_B[0].takeBall(Ball())
 
     def getState(self):
         ball_position = None

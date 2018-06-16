@@ -141,7 +141,7 @@ class GraphicalBoard:
 
         # If ball is free, draw the ball
         if self.logicalBoard.free_ball is not None:
-            spaceRect.topleft = (self.margin['x'] + (self.logicalBoard.ball.j * SPACESIZE), self.margin['y'] + (self.logicalBoard.ball.i * SPACESIZE))
+            spaceRect.topleft = (self.margin['x'] + (self.logicalBoard.free_ball.j * SPACESIZE), self.margin['y'] + (self.logicalBoard.free_ball.i * SPACESIZE))
             self.canvas.blit(self.ball_token, spaceRect)
 
         pygame.display.update()

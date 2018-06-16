@@ -43,7 +43,7 @@ class PlayerCommunicator:
             os.mkdir('log')
         self.log_file = open('log/player_communicator_' + self.team + '.log', 'a')
 
-    def startGame(self, columns, rows, steps, players, oponent_players):
+    def startGame(self, columns, rows, steps, side, players, oponent_players):
         
         assert len(players) == len(oponent_players)
 
@@ -57,7 +57,7 @@ class PlayerCommunicator:
         
 
         self.sendArray([columns, rows, steps])
-        self.send(SIDE[self.team])
+        self.send(side)
         
         for player in players:
             self.sendArray(player)

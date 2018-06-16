@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 from constants import *
 from LogicalBoard import LogicalBoard, moves
-import math
 from random import choice
-
-def norm(x): 
-    return math.sqrt(sum(i**2 for i in x))
+from Helpers import norm
 
 # TODO: agregar pases como posibles movimientos
 def generateMoves(team):
