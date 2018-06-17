@@ -60,6 +60,36 @@ class Ball {
         int steps = 2 * get<1>(this->movement);
         return make_tuple(this->i + steps * move.first, this->j + steps * move.second);
     }
+
+    vector<tuple<int,int>> trajectory() {
+        pair<int,int> move = moves[get<0>(this->movement)];
+        int steps = 2 * get<1>(this->movement);
+        vector<tuple<int,int>> trajectory;
+        for(int i = 0; i++; i <= steps) {
+            trajectory.push_back(make_tuple(this->i + this-> i * move.first, this->j + i * move.second));
+        }
+        return trajectory;
+    }
     
-    
+    void undoMove() {
+        if (this->isStill()) {
+            return;
+        }
+
+        pair<int,int> move = moves[get<0>(this->movement)];
+        this->i -= 2 * move.first;
+        this->j -= 2 * move.second;
+        get<1>(this->movement) = get<1>(this->movement) + 1;
+    }
+
+    void step_back_one() {
+        if (this->isStill()) {
+            return;
+        }
+        
+        pair<int,int> move = moves[get<0>(this->movement)];
+        this->i -= move.first;
+        this->j -= move.second;
+    }
+
 };
