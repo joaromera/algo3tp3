@@ -22,7 +22,7 @@ class Ball {
   public:
 
     int i;
-	int j;
+    int j;
     tuple < int, int > movement;
 
     Ball() {
