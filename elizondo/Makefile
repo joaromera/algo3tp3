@@ -1,6 +1,6 @@
 
-static_player:
-	g++ -std=c++11 main.cpp -o static_player
+greedy_player:
+	g++ -std=c++11 main.cpp -o greedy_player
 
 clean:
-	rm -f static_player *.o *~
+	rm -f greedy_player *.o *~
