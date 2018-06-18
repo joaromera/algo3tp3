@@ -5,9 +5,9 @@
 #include <map>
 #include <stdbool.h>
 
-#include "constants.hpp"
+// #include "constants.hpp"
 #include "player.h"
-#include "ball.hpp"
+#include "ball.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ class LogicalBoard {
     vector<tuple< int, int> > goalA;
 	vector<tuple< int, int> > goalB;
     Ball* free_ball;
-    LogicalBoard lastState;
+    // LogicalBoard lastState;
 
 	LogicalBoard();
 
@@ -41,9 +41,9 @@ class LogicalBoard {
 		this->free_ball = nullptr;
 	}
 
-    void makeTeamMove(vector<Player> &team, vector<move> &moves) {
+    // void makeTeamMove(vector<Player> &team, vector<move> &moves) {
         
-    };
+    // };
 
     double normalize(double &prob_1, double &prob_2) {
         double total = prob_1 + prob_2;
@@ -51,16 +51,16 @@ class LogicalBoard {
     }
 
     void fightBall(Player &p_ball, Player &p_empty) {
-        double prob_ball = 1 - p_ball->p_quite;
-        double prob_empty = p_empty->p_quite;
+        double prob_ball = 1 - p_ball.p_quite;
+        double prob_empty = p_empty.p_quite;
 
         prob_empty = normalize(prob_ball, prob_empty);
         
         double random_prob = (rand() % 101) / 100;
 
         if (random_prob <= prob_empty) {
-            p_empty->takeBall(p_ball->ball);
-            p_ball->ball = nullptr;
+            p_empty.takeBall(p_ball.ball);
+            p_ball.ball = nullptr;
         }
     }
 
@@ -78,7 +78,7 @@ class LogicalBoard {
     }
 
     bool intercepted() {
-        bool result = True;
+        bool result = true;
 
         // método para interceptar la pelota
 
@@ -91,11 +91,11 @@ class LogicalBoard {
 
     string winner() {
         if (scoreA > scoreB) {
-            return "A"
+            return "A";
         } else if (scoreB > scoreA) {
-            return "B"
+            return "B";
         } else {
-            return "Empate"
+            return "Empate";
         }
     }
 
@@ -113,27 +113,27 @@ class LogicalBoard {
         return 0 <= i && i < rows && 0 <= j && j < columns;
     }
 
-    void startingPositions(position_A, position_B, const string &starting) {
-        // chequea que las posiciones iniciales sean en los lados correctos de la cancha
-        // busca al jugador con la pelota y se la saca
+    // void startingPositions(position_A, position_B, const string &starting) {
+    //     // chequea que las posiciones iniciales sean en los lados correctos de la cancha
+    //     // busca al jugador con la pelota y se la saca
 
-        free_ball = nullptr;
+    //     free_ball = nullptr;
 
-        // coloca los jugadores en las posiciones correctas
+    //     // coloca los jugadores en las posiciones correctas
 
-        // le doy la pelota al jugador que saca y lo pongo en el centro
-        if (starting == "A") {
+    //     // le doy la pelota al jugador que saca y lo pongo en el centro
+    //     if (starting == "A") {
 
-        } else {
+    //     } else {
 
-        }
-    }
+    //     }
+    // }
 
     void getState() {
         tuple<int, int> ball_position;
         if (free_ball != nullptr) {
-            ball_position.first = free_ball->i;
-            ball_position.second = free_ball->j;
+            get<0>(ball_position) = free_ball->i;
+            get<1>(ball_position) = free_ball->j;
 
         }
 
@@ -166,3 +166,7 @@ class LogicalBoard {
 	}
 
 };
+
+int main() {
+    return 0;
+}

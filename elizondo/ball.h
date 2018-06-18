@@ -8,7 +8,7 @@
 
 using namespace std;
 
-array < pair < int, int >, 9 > moves = { 
+vector < pair < int, int > > moves = { 
     make_pair(0,0), 
     make_pair(-1,-1), 
     make_pair(-1,0), 
@@ -21,7 +21,7 @@ array < pair < int, int >, 9 > moves = {
 };
 
 class Ball {
-    
+    public:
     Ball();
     virtual ~Ball();
     void setMovement(tuple<int,int> movement);
