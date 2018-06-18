@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const vector<tuple<int, int > > movimientos = {
+const vector< tuple<int, int > > movimientos = {
   make_tuple(-1, -1),
   make_tuple(-1, 0),
   make_tuple(-1, 1),

@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-
 const std::string IZQUIERDA = "IZQUIERDA";
 
 const std::string MOVIMIENTO = "MOVIMIENTO";

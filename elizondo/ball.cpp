@@ -1,3 +1,4 @@
+#include "ball.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -5,26 +6,8 @@
 
 using namespace std;
 
-array < pair < int, int >, 9 > moves = { 
-    make_pair(0,0), 
-    make_pair(-1,-1), 
-    make_pair(-1,0), 
-    make_pair(-1,1), 
-    make_pair(0,1), 
-    make_pair(1,1), 
-    make_pair(1,0), 
-    make_pair(1,-1), 
-    make_pair(0,-1) 
-};
-
 class Ball {
-
-  public:
-
-    int i;
-    int j;
-    tuple < int, int > movement;
-
+    
     Ball() {
         get<0>(this->movement) = -1;
         get<1>(this->movement) = -1;
@@ -52,7 +35,6 @@ class Ball {
             this->j += 2 * move.second;
             get<1>(this->movement) = get<1>(this->movement) - 1;
         }
- 
     }
 
     tuple<int,int> finalPosition() {

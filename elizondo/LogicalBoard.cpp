@@ -38,7 +38,7 @@ class LogicalBoard {
 		this->playersA = playersA;
 		this->playersB = playersB;
 
-		this->free_ball = BallStatus();
+		this->free_ball = nullptr;
 	}
 
     void makeTeamMove(vector<Player> &team, vector<move> &moves) {
@@ -50,7 +50,7 @@ class LogicalBoard {
         return prob_2 / total; //en LogicalBoard.py siempre usan el prob_2
     }
 
-    void fightBall(Player* p_ball, Player* p_empty) {
+    void fightBall(Player &p_ball, Player &p_empty) {
         double prob_ball = 1 - p_ball->p_quite;
         double prob_empty = p_empty->p_quite;
 
@@ -154,9 +154,9 @@ class LogicalBoard {
         // si la pelota está libre agrega el str de la pelota
     }
 	
-    vector<tuple< int, int> > CreateGoal(int col) {
-		vector< tuple< int, int> > goal;
-		int floor = this->rows / 2 - 1;
+    vector< tuple<int, int> > CreateGoal(int col) {
+		vector< tuple<int, int> > goal;
+		int floor = (this->rows / 2) - 1;
 
 		for (int i = 0; i < 3; ++i) {
 			goal.push_back(make_tuple(floor + i, col));
