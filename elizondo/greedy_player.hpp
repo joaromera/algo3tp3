@@ -44,6 +44,7 @@ public:
         }
     }
 
+    // Aca se usa la función punteadora, greedy, genetica, etc
     void make_move(const board_status& current_board, std::vector<player_move>& made_moves) {
         made_moves.clear();
         player_move new_move;

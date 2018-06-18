@@ -100,14 +100,44 @@ class LogicalBoard {
     }
 
     void updateScore() { // no sé si es void
-        // si nadie tiene la pelota retorna None ¿?
-        // si la pelota está en el arco de A, le suma un gol a B y devuelve "A"
-        // si la pelota está en el arco de B, le suma un gol a A y devuelve "B"
+        Ball* ball = free_ball;
+
+        if (ball == nullptr) {
+            for (auto p : playersA) {
+                if (p.ball != nullptr) {
+                    ball = p.ball;
+                }
+            }
+
+            for (auto p : playersB) {
+                if (p.ball != nullptr) {
+                    ball = p.ball;
+                }
+            }
+        }
+
+        for (auto g : goalA) { // si la pelota está en el arco de A, le suma un gol a B y devuelve "A"
+            if (get<0>(g)==ball->i && get<0>(g)==ball->j) {
+                scoreB++;
+                // return A; // ?
+            }
+        }
+
+        for (auto g : goalB) { // si la pelota está en el arco de B, le suma un gol a A y devuelve "B"
+            if (get<0>(g)==ball->i && get<0>(g)==ball->j) {
+                scoreA++;
+                // return B; // ?
+            }
+        }        
     }
 
     void reset() {}
         // mueve a los jugadores a las posiciones iniciales
+        
+
         // pone los scores en 0 para ambos equipos
+        scoreA = 0;
+        scoreB = 0;
     
     bool positionInBoard(int i, int j) {
         return 0 <= i && i < rows && 0 <= j && j < columns;
