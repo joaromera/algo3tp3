@@ -123,8 +123,8 @@ private:
         return valid_position(team[0], i) && valid_position(team[1], j) && valid_position(team[2], k) && in_different_positions(team, i, j, k);
     }
 
-    bool valid_position(const player_status &player, int index) {   //validar tambien > 0
-        return (player.i + moves[index].i < rows) && (player.j + moves[index].j < columns);
+    bool valid_position(const player_status &player, int index) {
+        return (player.i + moves[index].i >= 0) && (player.j + moves[index].j >= 0) && (player.i + moves[index].i < rows) && (player.j + moves[index].j < columns);
     }
 
     bool in_different_positions(const std::vector<player_status>& team, int i, int j, int k) {
