@@ -6,9 +6,6 @@
 #include <iostream>
 #include <fstream>
 
-#include "board_status.hpp"
-#include "constants.hpp"
-
 void send(const std::string& msg) {
     std::cout << msg << std::endl;
 }
