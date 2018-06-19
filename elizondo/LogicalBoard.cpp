@@ -8,6 +8,7 @@
 // #include "constants.hpp"
 #include "player.h"
 #include "ball.h"
+#include "board_status.hpp"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ class LogicalBoard {
     vector<tuple< int, int> > goalA;
 	vector<tuple< int, int> > goalB;
     Ball* free_ball;
+    vector<player_status> initial_positions;
     // LogicalBoard lastState;
 
 	LogicalBoard();
@@ -26,7 +28,8 @@ class LogicalBoard {
 			int columns,
 			int rows,
 			vector<Player>& playersA,
-			vector<Player>& playersB
+			vector<Player>& playersB,
+            vector<player_status> initial_positions
 	) {
 		this->columns = columns;
 		this->rows = rows;
@@ -37,7 +40,7 @@ class LogicalBoard {
 
 		this->playersA = playersA;
 		this->playersB = playersB;
-
+        this->initial_positions = initial_positions;
 		this->free_ball = nullptr;
 	}
 
@@ -131,14 +134,15 @@ class LogicalBoard {
         }        
     }
 
-    void reset() {}
+    void reset() {
         // mueve a los jugadores a las posiciones iniciales
         
 
         // pone los scores en 0 para ambos equipos
         scoreA = 0;
         scoreB = 0;
-    
+    }
+        
     bool positionInBoard(int i, int j) {
         return 0 <= i && i < rows && 0 <= j && j < columns;
     }
@@ -171,8 +175,14 @@ class LogicalBoard {
         // y la posicion de la pelota
     }
 
-    void getGoal() {
-        // devuelve posicion del arco segun el equipo
+    vector<tuple< int, int> > getGoal(const string &team) {
+        vector<tuple< int, int> > goal;
+        if (team == "A") {
+            goal = goalA;
+        } else if (team == "B") {
+            goal = goalB;
+        }
+        return goal;
     }
 
     void getTeam() {
