@@ -4,17 +4,19 @@
 #include <map>
 #include <iostream>
 
-#include "constants.hpp"
 #include "board_status.hpp"
+#include "constants.hpp"
 #include "logical_board.cpp"
 
-std::random_device rd;
-std::mt19937 generator(rd());
+random_device rd;
+mt19937 generator(rd());
 
 class greedy_player {
     
     int columns, rows, steps;
-    std::string team, side;
+    string team, side;
+    const vector<player>* players;
+    const vector<player>* oponents;
 
 public:
 
@@ -24,18 +26,28 @@ public:
         int columns,
         int rows,
         int steps,
-        std::string side,
-        const std::vector<player>& players, // Este no lo usa para nada
-        const std::vector<player>& oponent_players // Este no lo usa para nada
+        string side,
+        const vector<player>& players,
+        const vector<player>& oponent_players
     ) {
         this->columns = columns;
         this->rows = rows;
         this->steps = steps;
         this->side = side;
         this->team = team;
+
+        this->players = &players;
+        this->oponents = &oponent_players;
+        
+        LogicalBoard* logical_board = new LogicalBoard(
+            columns,
+            rows,
+            players,
+            oponent_players
+        );
     }
 
-    void starting_positions(std::vector<player_status>& positions) {
+    void starting_positions(vector<player_status>& positions) {
         int column = this->columns - 1;
         if (this->side == IZQUIERDA) {
             column = 0;
@@ -46,8 +58,8 @@ public:
         }
     }
 
-// Aca se usa la función punteadora, greedy, genetica, etc
-    void make_move(const board_status& current_board, std::vector<player_move>& made_moves) {
+    // Aca se usa la función punteadora, greedy, genetica, etc
+    void make_move(const board_status& current_board, vector<player_move>& made_moves) {
         int max_rank = 0;
         //itero por todos los posibles mov del jugador 0
         for (int i = 0; i < moves.size(); i++) {
@@ -76,7 +88,7 @@ public:
         }
     }
 
-    void finish(std::string result) { }
+    void finish(string result) { }
 
 private:
 
@@ -86,6 +98,7 @@ private:
         int steps = 0;
         int i = player.i;
         int j = player.j;
+
         bool is_in_range = true;
         //mientras este en la cancha o algun arco, itero
         while (is_in_range) {
@@ -198,7 +211,7 @@ private:
     void update_move(int id, player_move& current_move, int dir, int steps) {
         current_move.player_id = id;
         current_move.move_type = steps == 0 ? MOVIMIENTO : PASE;
-        current_move.dir = dir;
+        current_move.dir = _moves[dir].number;
         current_move.steps = steps;
     }
 
@@ -214,7 +227,7 @@ private:
         return i >= 0 && j >= 0 && i < rows && j < columns;
     }
 
-    bool in_different_positions(const std::vector<player_status>& team, int i, int j, int k) {
+    bool in_different_positions(const vector<player_status>& team, int i, int j, int k) {
         return !(in_same_position(team[0], i, team[1], j) || in_same_position(team[0], i, team[2], k) || in_same_position(team[1], j, team[2], k));
     }
 
@@ -226,7 +239,36 @@ private:
         return new_p1_pos == new_p2_pos;
     }
 
-    int evaluate_board(const board_status &board, int i, int j, int k, int player_with_ball = 0, int steps = 0) {   //Si steps no es 0, entonces miro en player_with_ball cual tiene la pelota
-        return 0;
+  double distance(int ball_i, int ball_j, int player_i, int player_j) {
+        double x = static_cast<double>(ball_i) - static_cast<double>(player_i);
+        double y = static_cast<double>(ball_j) - static_cast<double>(player_j);
+      return sqrt(pow(x, 2) + pow(y, 2));
+  }
+
+  int evaluate_board(const board_status &board, int i, int j, int k, int player_with_ball = 0, int steps = 0) {   //Si steps no es 0, entonces miro en player_with_ball cual tiene la pelota
+        player_status player_0 = board.team[0];
+        player_status player_1 = board.team[1];
+        player_status player_2 = board.team[2];
+        int board_ranking = 0;
+        double MAX_DIST = distance(0, 0, this->columns, this->rows); //
+        // por ahora solovemos el puntaje cuando nuestro equpio no tiene la pelota
+        if (steps == 0) {
+            // hace el movimiento, o sea pone a los jugadores en donde deberían estar
+            player_0.i += _moves[i].i;
+            player_0.j += _moves[i].j;
+            player_1.i += _moves[j].i;
+            player_1.j += _moves[j].j;
+            player_2.i += _moves[k].i;
+            player_2.j += _moves[k].j;
+
+            // cuando no tenemos la pleota puntuamos bien tenerla cerca (despues se verá)
+            double distance_to_ball_p0 = MAX_DIST - distance(board.ball.i, board.ball.j, player_0.i, player_0.j);
+            double distance_to_ball_p1 = MAX_DIST - distance(board.ball.i, board.ball.j, player_1.i, player_1.j);
+            double distance_to_ball_p2 = MAX_DIST - distance(board.ball.i, board.ball.j, player_2.i, player_2.j);
+            int ball_distance_ranking = static_cast<int>(distance_to_ball_p0 + distance_to_ball_p1 + distance_to_ball_p2);
+            board_ranking += ball_distance_ranking;
+        }
+
+        return board_ranking;
     }
 };
