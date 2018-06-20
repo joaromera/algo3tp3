@@ -77,8 +77,8 @@ private:
         int i = player.i;
         int j = player.j;
         while (i < rows && j < columns) {
-            i += playerMoves[dir].i;
-            j += playerMoves[dir].j;
+            i += moves[dir].first;
+            j += moves[dir].second;
             ++steps;
         }
 
@@ -118,7 +118,7 @@ private:
     void update_move(int id, player_move& current_move, int dir, int steps) {
         current_move.player_id = id;
         current_move.move_type = steps == 0 ? MOVIMIENTO : PASE;
-        current_move.dir = moves[dir].number;
+        current_move.dir = dir;
         current_move.steps = steps;
     }
 
@@ -127,7 +127,7 @@ private:
     }
 
     bool valid_position(const player_status &player, int dir) {
-        return (player.i + moves[dir].i >= 0) && (player.j + moves[dir].j >= 0) && (player.i + moves[dir].i < rows) && (player.j + moves[dir].j < columns);
+        return (player.i + moves[dir].first >= 0) && (player.j + moves[dir].second >= 0) && (player.i + moves[dir].first < rows) && (player.j + moves[dir].second < columns);
     }
 
     bool in_different_positions(const std::vector<player_status>& team, int i, int j, int k) {
@@ -135,7 +135,7 @@ private:
     }
 
     bool in_same_position(const player_status& p1, int dir1, const player_status& p2, int dir2) {
-        return (p1.i + moves[dir1].i == p2.i + moves[dir2].i) && (p1.j + moves[dir1].j == p2.j + moves[dir2].j);
+        return (p1.i + moves[dir1].first == p2.i + moves[dir2].first) && (p1.j + moves[dir1].second == p2.j + moves[dir2].second);
     }
 
     int evaluate_board(const board_status &board, int i, int j, int k, int player_with_ball = 0, int steps = 0) {   //Si steps no es 0, entonces miro en player_with_ball cual tiene la pelota
