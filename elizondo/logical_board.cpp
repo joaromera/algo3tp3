@@ -7,7 +7,6 @@
 
 #include "player.h"
 #include "ball.h"
-#include "board_status.hpp"
 
 using namespace std;
 
@@ -133,33 +132,9 @@ class LogicalBoard {
         }
     }
 
-    void reset() {
-        // mueve a los jugadores a las posiciones iniciales
-
-        // pone los scores en 0 para ambos equipos
-        scoreA = 0;
-        scoreB = 0;
-    }
-
     bool positionInBoard(int i, int j) {
         return 0 <= i && i < rows && 0 <= j && j < columns;
     }
-
-    // void startingPositions(position_A, position_B, const string &starting) {
-    //     // chequea que las posiciones iniciales sean en los lados correctos de la cancha
-    //     // busca al jugador con la pelota y se la saca
-
-    //     free_ball = nullptr;
-
-    //     // coloca los jugadores en las posiciones correctas
-
-    //     // le doy la pelota al jugador que saca y lo pongo en el centro
-    //     if (starting == "A") {
-
-    //     } else {
-
-    //     }
-    // }
 
     void getState() {
         tuple < int, int > ball_position;
@@ -181,10 +156,6 @@ class LogicalBoard {
             goal = goalB;
         }
         return goal;
-    }
-
-    void getTeam() {
-        // devuelve el team_A o team_B
     }
 
     void print() {

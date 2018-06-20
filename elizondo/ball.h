@@ -6,19 +6,9 @@
 #include <vector>
 #include <map>
 
-using namespace std;
+#include "constants.hpp"
 
-vector < pair < int, int > > moves = { 
-    make_pair(0,0), 
-    make_pair(-1,-1), 
-    make_pair(-1,0), 
-    make_pair(-1,1), 
-    make_pair(0,1), 
-    make_pair(1,1), 
-    make_pair(1,0), 
-    make_pair(1,-1), 
-    make_pair(0,-1) 
-};
+using namespace std;
 
 class Ball {
     public:

@@ -3,8 +3,9 @@
 #include <vector>
 #include <map>
 
-#include "board_status.hpp"
 #include "constants.hpp"
+#include "board_status.hpp"
+#include "logical_board.cpp"
 
 std::random_device rd;
 std::mt19937 generator(rd());
@@ -76,8 +77,8 @@ private:
         int i = player.i;
         int j = player.j;
         while (i < rows && j < columns) {
-            i += moves[dir].i;
-            j += moves[dir].j;
+            i += playerMoves[dir].i;
+            j += playerMoves[dir].j;
             ++steps;
         }
 

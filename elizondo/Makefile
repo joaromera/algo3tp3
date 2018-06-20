@@ -1,6 +1,7 @@
 CXX=g++
 
-STDFLAGS = -std=c++11 -O3 -Ofast -Wall -Wextra
+STDFLAGS = -std=c++11 -O3 -Ofast 
+XTRAFLAGS = -Wall -Wextra
 
 RM=rm -f
 
