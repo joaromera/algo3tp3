@@ -55,9 +55,22 @@ class LogicalBoard {
             this->last_state = nullptr;
         }
 
-        // void makeTeamMove(vector<Player> &team, vector<move> &moves) {
+        void makeTeamMove(vector<Player*> *team, vector<player_move> &moves) {
+            for (int i = 0; i < 3; i++) {
+                Player* aPlayer = (*team)[i];
+                player_move aMove = moves[aPlayer->id];
 
-        // };
+                if (aMove.move_type == "MOVIMIENTO") {
+                    aPlayer->move(aMove.dir);
+                }
+
+                if (aMove.move_type == "PASE") {
+                    this->free_ball = aPlayer->ball;
+                    this->free_ball->setMovement(aMove.dir, aMove.steps);
+                    aPlayer->ball = nullptr;
+                }
+            }
+        };
 
         double normalize(double & prob_1, double & prob_2) {
             double total = prob_1 + prob_2;

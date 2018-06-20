@@ -69,7 +69,7 @@ class Player{
 
     void takeBall(Ball* ball) {
       this->ball = ball;
-      this->ball->setMovement(make_tuple(-1, -1));
+      this->ball->setMovement(-1, -1);
       moveBall();
     }
 
