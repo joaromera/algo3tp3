@@ -2,7 +2,9 @@
 #define PLAYER_H
 
 #include <vector>
-#include "ball.cpp"
+
+#include "constants.hpp"
+#include "ball.h"
 
 using namespace std;
 

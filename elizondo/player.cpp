@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "player.h"
 
 Player::Player(int &player_id, double &p_quite) {
