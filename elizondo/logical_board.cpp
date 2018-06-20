@@ -32,15 +32,15 @@ class LogicalBoard {
 
             vector < Player* > _teamA;
             for(int i = 0; i < 3; i++) {
-                // Player *aux = new Player(teamA[i]);
-                // _teamA.push_back(aux);
+                Player *aux = new Player(teamA[i]);
+                _teamA.push_back(aux);
             }
             this->teamA = _teamA;
 
             vector < Player* > _teamB;
             for(int i = 0; i < 3; i++) {
-                // Player* aux = new Player(teamB[i].id, teamB[i].probability);
-                // _teamB.push_back(aux);
+                Player *aux = new Player(teamB[i]);
+                _teamB.push_back(aux);
             }
             this->teamB = _teamB;
 
