@@ -27,6 +27,7 @@ struct player_status {
     int j;
     bool in_posetion = false;
 
+    player_status() {}
     player_status(int id) : id(id) {}
     player_status(int id, int i, int j, bool in_posetion) : id(id), i(i), j(j), in_posetion(in_posetion) {}
 };

@@ -74,7 +74,7 @@ class LogicalBoard {
 
         double normalize(double & prob_1, double & prob_2) {
             double total = prob_1 + prob_2;
-            return prob_2 / total; //en LogicalBoard.py siempre usan el prob_2
+            return prob_2 / total;
         }
 
         void fightBall(Player & p_ball, Player & p_empty) {
@@ -96,18 +96,41 @@ class LogicalBoard {
             double random_prob = (rand() % 101) / 100;
 
             if (random_prob < prob_p2) {
-                p2.takeBall(free_ball);
+                p2.takeBall(this->free_ball);
             } else {
-                p1.takeBall(free_ball);
+                p1.takeBall(this->free_ball);
             }
 
-            free_ball = nullptr;
+            this->free_ball = nullptr;
         }
 
-        bool intercepted() {
+        bool intercepted(Player* player, bool isOponent) {
             bool result = true;
+            
+            player_status prevStatePlayer;
+            vector<player_status> team;
 
-            // método para interceptar la pelota
+            if (isOponent) {
+                team = this->last_state->oponent_team;
+            } else {
+                team = this->last_state->team;
+            }
+            
+            for(int i; i < 3; i++) {
+                if (player->id == team[i].id) {
+                    prevStatePlayer = team[i];
+                }
+            }
+            
+            result = result 
+                && prevStatePlayer.i == player->i 
+                && prevStatePlayer.j == player->j;
+
+            player->backwardMove(get<0>(this->free_ball->movement));
+            result = result 
+                && player->i == this->free_ball->i 
+                && player->j == this->free_ball->j;
+            player->undoMove();
 
             return result;
         }
