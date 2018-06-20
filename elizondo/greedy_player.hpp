@@ -3,17 +3,20 @@
 #include <vector>
 #include <map>
 
-#include "constants.hpp"
 #include "board_status.hpp"
+#include "constants.hpp"
 #include "logical_board.cpp"
 
-std::random_device rd;
-std::mt19937 generator(rd());
+random_device rd;
+mt19937 generator(rd());
 
 class greedy_player {
     
     int columns, rows, steps;
-    std::string team, side;
+    string team, side;
+    LogicalBoard* logical_board;
+    const vector<player>* players;
+    const vector<player>* oponents;
 
 public:
 
@@ -23,18 +26,23 @@ public:
         int columns,
         int rows,
         int steps,
-        std::string side,
-        const std::vector<player>& players, // Este no lo usa para nada
-        const std::vector<player>& oponent_players // Este no lo usa para nada
+        string side,
+        const vector<player>& players,
+        const vector<player>& oponent_players
     ) {
         this->columns = columns;
         this->rows = rows;
         this->steps = steps;
         this->side = side;
         this->team = team;
+
+        this->players = &players;
+        this->oponents = &oponent_players;
+        
+        this->logical_board = new LogicalBoard();
     }
 
-    void starting_positions(std::vector<player_status>& positions) {
+    void starting_positions(vector<player_status>& positions) {
         int column = this->columns - 1;
         if (this->side == IZQUIERDA) {
             column = 0;
@@ -45,14 +53,14 @@ public:
         }
     }
 
-// Aca se usa la función punteadora, greedy, genetica, etc
-    void make_move(const board_status& current_board, std::vector<player_move>& made_moves) {
+    // Aca se usa la función punteadora, greedy, genetica, etc
+    void make_move(const board_status& current_board, vector<player_move>& made_moves) {
         int max_rank = 0;
         for (int i = 0; i < moves.size(); i++) {
             for (int j = 0; j < moves.size(); j++) {
                 for (int k = 0; k < moves.size(); k++) {
                     for(int jugador = 0; jugador < 3; ++jugador) {
-                        std::vector<int> player_moves{ i, j, k };
+                        vector<int> player_moves{ i, j, k };
                         int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
                         max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
                     }
@@ -67,7 +75,7 @@ public:
         }
     }
 
-    void finish(std::string result) { }
+    void finish(string result) { }
 
 private:
 
@@ -85,8 +93,8 @@ private:
         return steps < half_board ? steps : half_board;
     }
 
-    int calculate_max_board_for_player_passes(const board_status& current_board, int max_steps, int max_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball) {
-        std::vector<int> player_moves{ i, j, k };
+    int calculate_max_board_for_player_passes(const board_status& current_board, int max_steps, int max_rank, vector<player_move>& made_moves, int i, int j, int k, int player_with_ball) {
+        vector<int> player_moves{ i, j, k };
         player_moves[player_with_ball] = 8;
 
         if (current_board.team[player_with_ball].in_posetion && valid_positions(current_board.team, player_moves[0], player_moves[1], player_moves[2])) {
@@ -100,8 +108,8 @@ private:
         return max_rank;
     }
 
-    int update_moves(int max_rank, int current_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
-        std::vector<int> steps_players(3, 0);
+    int update_moves(int max_rank, int current_rank, vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
+        vector<int> steps_players(3, 0);
         steps_players[player_with_ball] = steps;
 
         if (current_rank > max_rank) {
@@ -122,7 +130,7 @@ private:
         current_move.steps = steps;
     }
 
-    bool valid_positions(const std::vector<player_status>& team, int i, int j, int k) {
+    bool valid_positions(const vector<player_status>& team, int i, int j, int k) {
         return valid_position(team[0], i) && valid_position(team[1], j) && valid_position(team[2], k) && in_different_positions(team, i, j, k);
     }
 
@@ -130,7 +138,7 @@ private:
         return (player.i + moves[dir].first >= 0) && (player.j + moves[dir].second >= 0) && (player.i + moves[dir].first < rows) && (player.j + moves[dir].second < columns);
     }
 
-    bool in_different_positions(const std::vector<player_status>& team, int i, int j, int k) {
+    bool in_different_positions(const vector<player_status>& team, int i, int j, int k) {
         return !(in_same_position(team[0], i, team[1], j) || in_same_position(team[0], i, team[2], k) || in_same_position(team[1], j, team[2], k));
     }
 
