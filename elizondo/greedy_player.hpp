@@ -135,7 +135,36 @@ private:
         return (p1.i + moves[idx1].i == p2.i + moves[idx2].i) && (p1.j + moves[idx1].j == p2.j + moves[idx2].j);
     }
 
-    int evaluate_board(const board_status &board, int i, int j, int k, int player_with_ball = 0, int steps = 0) {   //Si steps no es 0, entonces miro en player_with_ball cual tiene la pelota
-        return 0;
+  double distance(int ball_i, int ball_j, int player_i, int player_j) {
+        double x = static_cast<double>(ball_i) - static_cast<double>(player_i);
+        double y = static_cast<double>(ball_j) - static_cast<double>(player_j);
+      return sqrt(pow(x, 2) + pow(y, 2));
+  }
+
+  int evaluate_board(const board_status &board, int i, int j, int k, int player_with_ball = 0, int steps = 0) {   //Si steps no es 0, entonces miro en player_with_ball cual tiene la pelota
+        player_status player_0 = board.team[0];
+        player_status player_1 = board.team[1];
+        player_status player_2 = board.team[2];
+        int board_ranking = 0;
+        double MAX_DIST = distance(0, 0, this->columns, this->rows); //
+        // por ahora solovemos el puntaje cuando nuestro equpio no tiene la pelota
+        if (steps == 0) {
+            // hace el movimiento, o sea pone a los jugadores en donde deberían estar
+            player_0.i += moves[i].i;
+            player_0.j += moves[i].j;
+            player_1.i += moves[j].i;
+            player_1.j += moves[j].j;
+            player_2.i += moves[k].i;
+            player_2.j += moves[k].j;
+
+            // cuando no tenemos la pleota puntuamos bien tenerla cerca (despues se verá)
+            double distance_to_ball_p0 = MAX_DIST - distance(board.ball.i, board.ball.j, player_0.i, player_0.j);
+            double distance_to_ball_p1 = MAX_DIST - distance(board.ball.i, board.ball.j, player_1.i, player_1.j);
+            double distance_to_ball_p2 = MAX_DIST - distance(board.ball.i, board.ball.j, player_2.i, player_2.j);
+            int ball_distance_ranking = static_cast<int>(distance_to_ball_p0 + distance_to_ball_p1 + distance_to_ball_p2);
+            board_ranking += ball_distance_ranking;
+        }
+
+        return board_ranking;
     }
 };
