@@ -12,13 +12,14 @@
 using namespace std;
 
 class LogicalBoard {
+
     public:
         int scoreA, scoreB, columns, rows;
         vector < Player* > teamA, teamB;
         vector < tuple < int, int > > goalA;
         vector < tuple < int, int > > goalB;
-        Ball * free_ball;
-        // LogicalBoard lastState;
+        Ball* free_ball;
+        board_status* last_state;
 
         LogicalBoard(
             int columns,
@@ -46,10 +47,12 @@ class LogicalBoard {
 
             this->columns = columns;
             this->rows = rows;
+
             this->goalA = CreateGoal(-1);
             this->goalB = CreateGoal(this->columns);
 
             this->free_ball = nullptr;
+            this->last_state = nullptr;
         }
 
         // void makeTeamMove(vector<Player> &team, vector<move> &moves) {
