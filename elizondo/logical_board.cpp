@@ -14,34 +14,41 @@ using namespace std;
 class LogicalBoard {
     public:
         int scoreA, scoreB, columns, rows;
-        vector < Player > playersA, playersB;
+        vector < Player* > teamA, teamB;
         vector < tuple < int, int > > goalA;
         vector < tuple < int, int > > goalB;
         Ball * free_ball;
-        vector < player_status > initial_positions;
         // LogicalBoard lastState;
-
-        LogicalBoard(){
-            
-        }
 
         LogicalBoard(
             int columns,
             int rows,
-            vector < Player > playersA,
-            vector < Player > playersB,
-            vector < player_status > initial_positions
+            vector < player > teamA,
+            vector < player > teamB
         ) {
-            this->columns = columns;
-            this->rows = rows;
             this->scoreA = 0;
             this->scoreB = 0;
+
+
+            vector < Player* > _teamA;
+            for(int i = 0; i < 3; i++) {
+                // Player *aux = new Player(teamA[i]);
+                // _teamA.push_back(aux);
+            }
+            this->teamA = _teamA;
+
+            vector < Player* > _teamB;
+            for(int i = 0; i < 3; i++) {
+                // Player* aux = new Player(teamB[i].id, teamB[i].probability);
+                // _teamB.push_back(aux);
+            }
+            this->teamB = _teamB;
+
+            this->columns = columns;
+            this->rows = rows;
             this->goalA = CreateGoal(-1);
             this->goalB = CreateGoal(this->columns);
 
-            this->playersA = playersA;
-            this->playersB = playersB;
-            this->initial_positions = initial_positions;
             this->free_ball = nullptr;
         }
 
@@ -107,15 +114,15 @@ class LogicalBoard {
             Ball * ball = free_ball;
 
             if (ball == nullptr) {
-                for (auto p: playersA) {
-                    if (p.ball != nullptr) {
-                        ball = p.ball;
+                for (auto p: teamA) {
+                    if (p->ball != nullptr) {
+                        ball = p->ball;
                     }
                 }
 
-                for (auto p: playersB) {
-                    if (p.ball != nullptr) {
-                        ball = p.ball;
+                for (auto p: teamB) {
+                    if (p->ball != nullptr) {
+                        ball = p->ball;
                     }
                 }
             }

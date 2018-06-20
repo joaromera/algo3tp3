@@ -9,6 +9,13 @@ Player::Player(int &player_id, double &p_quite) {
   this->ball = nullptr;
 }
 
+Player::Player(player player) {
+  this->id = player.id;
+  this->p_quite = player.probability;
+  this->old_position = make_tuple(-1, -1);
+  this->ball = nullptr;
+}
+
 void Player::move(int &direction) {
   this->old_position = make_tuple(this->i, this->j);
   this->i += get<0>(movimientos[direction]);

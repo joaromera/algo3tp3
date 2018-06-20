@@ -14,7 +14,6 @@ class greedy_player {
     
     int columns, rows, steps;
     string team, side;
-    LogicalBoard* logical_board;
     const vector<player>* players;
     const vector<player>* oponents;
 
@@ -39,7 +38,12 @@ public:
         this->players = &players;
         this->oponents = &oponent_players;
         
-        this->logical_board = new LogicalBoard();
+        LogicalBoard* logical_board = new LogicalBoard(
+            columns,
+            rows,
+            players,
+            oponent_players
+        );
     }
 
     void starting_positions(vector<player_status>& positions) {

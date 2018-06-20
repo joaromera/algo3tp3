@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "board_status.hpp"
 #include "constants.hpp"
 #include "ball.h"
 
@@ -24,6 +25,7 @@ class Player{
 
   public:
     Player(int & player_id, double & p_quite);
+    Player(player player);
     ~Player();
     void move(int & direction);
     void backwardMove(int & direction);
