@@ -165,12 +165,12 @@ private:
         // por ahora solovemos el puntaje cuando nuestro equpio no tiene la pelota
         if (steps == 0) {
             // hace el movimiento, o sea pone a los jugadores en donde deberían estar
-            player_0.i += moves[i].i;
-            player_0.j += moves[i].j;
-            player_1.i += moves[j].i;
-            player_1.j += moves[j].j;
-            player_2.i += moves[k].i;
-            player_2.j += moves[k].j;
+            player_0.i += _moves[i].i;
+            player_0.j += _moves[i].j;
+            player_1.i += _moves[j].i;
+            player_1.j += _moves[j].j;
+            player_2.i += _moves[k].i;
+            player_2.j += _moves[k].j;
 
             // cuando no tenemos la pleota puntuamos bien tenerla cerca (despues se verá)
             double distance_to_ball_p0 = MAX_DIST - distance(board.ball.i, board.ball.j, player_0.i, player_0.j);
