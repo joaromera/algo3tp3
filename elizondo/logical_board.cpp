@@ -135,7 +135,32 @@ class LogicalBoard {
             return result;
         }
 
-        void makeMove() {}
+        void makeMove(vector< player_move > movesA, vector< player_move > movesB) {
+            this->getState();
+            this->makeTeamMove(&(this->teamA), movesA);
+            this->makeTeamMove(&(this->teamB), movesB);
+            
+            if (this->free_ball == nullptr) {
+                vector< Player* > intercepters;
+                for (int i = 0; i < 3; i++) {
+                    if (this->intercepted(this->teamA[i], false)) {
+                        intercepters.push_back(this->teamA[i]);
+                    }
+                }
+                for (int i = 0; i < 3; i++) {
+                    if (this->intercepted(this->teamB[i], true)) {
+                        intercepters.push_back(this->teamB[i]);
+                    }
+                }
+                
+                if (intercepters.size() == 1) {
+                    intercepters[0]->takeBall(this->free_ball);
+                    this->free_ball = nullptr;
+                } else if(intercepters.size() == 2) {
+                    this->fairFightBall(*intercepters[0], *intercepters[1]);
+                }
+            }
+        }
 
         void undoMove() {}
 
@@ -186,15 +211,13 @@ class LogicalBoard {
         }
 
         void getState() {
+            //We need to update this->last_state
             tuple < int, int > ball_position;
             if (free_ball != nullptr) {
                 get < 0 > (ball_position) = free_ball->i;
                 get < 1 > (ball_position) = free_ball->j;
 
             }
-
-            // devuelve las posiciones de los jugadores sus ids sus prob de quite
-            // y la posicion de la pelota
         }
 
         vector < tuple < int, int > > getGoal(const string & team) {
