@@ -47,44 +47,17 @@ public:
 // Aca se usa la función punteadora, greedy, genetica, etc
     void make_move(const board_status& current_board, std::vector<player_move>& made_moves) {
         int max_rank = 0;
-        int max_steps = columns/2;
         for (int i = 0; i < moves.size(); i++) {
             for (int j = 0; j < moves.size(); j++) {
                 for (int k = 0; k < moves.size(); k++) {
-                    int current_rank = 0;
-                    std::vector<player_status> team = current_board.team;
-                    
-                    if (team[0].in_posetion && valid_positions(team, 8, j, k)) {
-                        for (int steps = 1; steps <= max_steps; ++steps) {
-                            //evaluar que jugador 0 patee y los otros se muevan en direccion j y k
-                            current_rank = evaluate_board(current_board, i, j, k, 0, steps);
-                            //evaluar que los jugadores se muevan en direccion i, j y k
-
-                            max_rank = update_moves(max_rank, current_rank, made_moves, i, j, k, 0, steps);
-                        }
+                    for(int jugador = 0; jugador < 3; ++jugador) {
+                        std::vector<int> player_moves{ i, j, k };
+                        int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
+                        max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
                     }
                     
-                    if (team[1].in_posetion && valid_positions(team, i, 8, k)) {
-                        for (int steps = 1; steps <= max_steps; ++steps) {
-                            //evaluar que jugador 1 patee y los otros se muevan en direccion i y k
-                            current_rank = evaluate_board(current_board, i, j, k, 1, steps);
-                            //evaluar que los jugadores se muevan en direccion i, j y k
-                        
-                            max_rank = update_moves(max_rank, current_rank, made_moves, i, j, k, 1, steps);
-                        }
-                    }
-                    
-                    if (team[2].in_posetion && valid_positions(team, i, j, 8)) {
-                        for (int steps = 1; steps <= max_steps; ++steps) {
-                            //evaluar que jugador 2 patee y los otros se muevan en direccion i y j
-                            current_rank = evaluate_board(current_board, i, j, k, 2, steps);
-                        
-                            max_rank = update_moves(max_rank, current_rank, made_moves, i, j, k, 2, steps);
-                        }
-                    }
-                    
-                    if (valid_positions(team, i, j, k)) {
-                        current_rank = evaluate_board(current_board, i, j, k);
+                    if (valid_positions(current_board.team, i, j, k)) {
+                        int current_rank = evaluate_board(current_board, i, j, k);
                         
                         max_rank = update_moves(max_rank, current_rank, made_moves, i, j, k);
                     }
@@ -96,6 +69,35 @@ public:
     void finish(std::string result) { }
 
 private:
+
+    int calculate_max_steps(const player_status &player, int dir, int rows, int columns) {
+        int half_board = columns/2;
+        int steps = 0;
+        int i = player.i;
+        int j = player.j;
+        while (i < rows && j < columns) {
+            i += moves[dir].i;
+            j += moves[dir].j;
+            ++steps;
+        }
+
+        return steps < half_board ? steps : half_board;
+    }
+
+    int calculate_max_board_for_player_passes(const board_status& current_board, int max_steps, int max_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball) {
+        std::vector<int> player_moves{ i, j, k };
+        player_moves[player_with_ball] = 8;
+
+        if (current_board.team[player_with_ball].in_posetion && valid_positions(current_board.team, player_moves[0], player_moves[1], player_moves[2])) {
+            for (int steps = 1; steps <= max_steps; ++steps) {
+                int current_rank = evaluate_board(current_board, i, j, k, player_with_ball, steps);
+            
+                max_rank = update_moves(max_rank, current_rank, made_moves, i, j, k, player_with_ball, steps);
+            }
+        }
+
+        return max_rank;
+    }
 
     int update_moves(int max_rank, int current_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
         std::vector<int> steps_players(3, 0);
@@ -112,10 +114,10 @@ private:
         return max_rank;
     }
 
-    void update_move(int id, player_move& current_move, int index, int steps) {
+    void update_move(int id, player_move& current_move, int dir, int steps) {
         current_move.player_id = id;
         current_move.move_type = steps == 0 ? MOVIMIENTO : PASE;
-        current_move.dir = moves[index].number;
+        current_move.dir = moves[dir].number;
         current_move.steps = steps;
     }
 
@@ -123,16 +125,16 @@ private:
         return valid_position(team[0], i) && valid_position(team[1], j) && valid_position(team[2], k) && in_different_positions(team, i, j, k);
     }
 
-    bool valid_position(const player_status &player, int index) {
-        return (player.i + moves[index].i >= 0) && (player.j + moves[index].j >= 0) && (player.i + moves[index].i < rows) && (player.j + moves[index].j < columns);
+    bool valid_position(const player_status &player, int dir) {
+        return (player.i + moves[dir].i >= 0) && (player.j + moves[dir].j >= 0) && (player.i + moves[dir].i < rows) && (player.j + moves[dir].j < columns);
     }
 
     bool in_different_positions(const std::vector<player_status>& team, int i, int j, int k) {
         return !(in_same_position(team[0], i, team[1], j) || in_same_position(team[0], i, team[2], k) || in_same_position(team[1], j, team[2], k));
     }
 
-    bool in_same_position(const player_status& p1, int idx1, const player_status& p2, int idx2) {
-        return (p1.i + moves[idx1].i == p2.i + moves[idx2].i) && (p1.j + moves[idx1].j == p2.j + moves[idx2].j);
+    bool in_same_position(const player_status& p1, int dir1, const player_status& p2, int dir2) {
+        return (p1.i + moves[dir1].i == p2.i + moves[dir2].i) && (p1.j + moves[dir1].j == p2.j + moves[dir2].j);
     }
 
     int evaluate_board(const board_status &board, int i, int j, int k, int player_with_ball = 0, int steps = 0) {   //Si steps no es 0, entonces miro en player_with_ball cual tiene la pelota
