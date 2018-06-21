@@ -30,7 +30,6 @@ class LogicalBoard {
             this->scoreA = 0;
             this->scoreB = 0;
 
-
             vector < Player* > _teamA;
             for(int i = 0; i < 3; i++) {
                 Player *aux = new Player(teamA[i]);
@@ -51,8 +50,64 @@ class LogicalBoard {
             this->goalA = CreateGoal(-1);
             this->goalB = CreateGoal(this->columns);
 
-            this->free_ball = nullptr;
+            this->free_ball = new Ball();
             this->last_state = nullptr;
+        }
+
+        LogicalBoard( // con board status
+            int columns,
+            int rows,
+            vector < player > teamA,
+            vector < player > teamB,
+            board_status status
+        ) {
+            this->columns = columns;
+            this->rows = rows;
+            this->scoreA = 0;
+            this->scoreB = 0;
+            this->goalA = CreateGoal(-1);
+            this->goalB = CreateGoal(this->columns);
+            this->free_ball = new Ball();
+            this->last_state = nullptr;
+
+            vector < Player* > _teamA;
+            for(int i = 0; i < 3; i++) {
+                Player *aux = new Player(teamA[i]);
+                _teamA.push_back(aux);
+            }
+            this->teamA = _teamA;
+
+            vector < Player* > _teamB;
+            for(int i = 0; i < 3; i++) {
+                Player *aux = new Player(teamB[i]);
+                _teamB.push_back(aux);
+            }
+            this->teamB = _teamB;
+
+            for (auto ps : status.team) {
+                for (auto p : this->teamA) {
+                    if (p->id == ps.id) {
+                        p->i = ps.i;
+                        p->j = ps.j;
+                        if (ps.in_posetion) {
+                            p->ball = this->free_ball;
+                            this->free_ball = nullptr;
+                        }
+                    }
+                }
+            }
+            for (auto ps : status.oponent_team) {
+                for (auto p : this->teamB) {
+                    if (p->id == ps.id) {
+                        p->i = ps.i;
+                        p->j = ps.j;
+                        if (ps.in_posetion) {
+                            p->ball = this->free_ball;
+                            this->free_ball = nullptr;
+                        }
+                    }
+                }
+            }
         }
 
         void makeTeamMove(vector<Player*> *team, vector<player_move> &moves) {
