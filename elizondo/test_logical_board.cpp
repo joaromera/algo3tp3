@@ -23,15 +23,14 @@ int main() {
         teamB.push_back(player(id, probability));
     }
 
-    LogicalBoard board;
-    if (lado == "DERECHA") {
-        board = LogicalBoard(n,m,teamA, teamB);
-        
-    } else {
-        board = LogicalBoard(n,m,teamB, teamA);
-    }
+    LogicalBoard board = LogicalBoard(n,m,teamA, teamB);
 
-    
+    // if (lado == "DERECHA") {
+    //     board = LogicalBoard(n,m,teamA, teamB);
+        
+    // } else {
+    //     board = LogicalBoard(n,m,teamB, teamA);
+    // }
     
     return 0;
 }
