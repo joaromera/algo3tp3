@@ -76,7 +76,7 @@ class Player{
     void printPlayer() {
       string with_ball = "CON_PELOTA";
       string without_ball = "SIN_PELOTA";
-      string possession = this->ball != nullptr ? without_ball : with_ball;
+      string possession = this->ball != nullptr ? with_ball : without_ball;
       cout << id << " " << i << " " << j << " " << possession << endl;
     }
 
