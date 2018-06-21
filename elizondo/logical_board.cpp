@@ -156,10 +156,71 @@ class LogicalBoard {
                 if (intercepters.size() == 1) {
                     intercepters[0]->takeBall(this->free_ball);
                     this->free_ball = nullptr;
-                } else if(intercepters.size() == 2) {
+                } else if (intercepters.size() == 2) {
                     this->fairFightBall(*intercepters[0], *intercepters[1]);
+                } else {
+                    this->free_ball->move();
+                    if (this->positionInBoard(this->free_ball->i, this->free_ball->j)) {
+                        vector< Player* > playersToFight;
+                        for (int i = 0; i < 3; i++) {
+                            if (this->teamA[i]->i == this->free_ball->i 
+                                && this->teamA[i]->j == this->free_ball->j) {
+                                playersToFight.push_back(this->teamA[i]);
+                            }
+                        }
+                        for (int i = 0; i < 3; i++) {
+                            if (this->teamB[i]->i == this->free_ball->i 
+                                && this->teamB[i]->j == this->free_ball->j) {
+                                playersToFight.push_back(this->teamB[i]);
+                            }
+                        }
+                        if (playersToFight.size() == 1) {
+                            playersToFight[0]->takeBall(this->free_ball);
+                            this->free_ball = nullptr;
+                        } else if(playersToFight.size() == 2) {
+                            this->fairFightBall(*playersToFight[0], *playersToFight[1]);
+                        }
+                    } else if (is_neighbor(this->free_ball->i, this->free_ball->j, this->goalA)
+                                && is_neighbor(this->free_ball->i, this->free_ball->j, this->goalB)) {
+                        this->free_ball->step_back_one();
+                    }
+                }
+            } else {
+                bool alreadyFight = false;
+                for (int i = 0; i < 3; i++) {
+                    if (alreadyFight) {
+                        break;
+                    }
+                    if (this->teamA[i]->ball != nullptr) {
+                        for (int j = 0; j < 3; j++) {
+                            if (this->teamA[i]->i == this->teamB[j]->i
+                                && this->teamA[i]->j == this->teamB[j]->j) {
+                                this->fightBall(*(this->teamA[i]), *(this->teamB[j]));
+                                alreadyFight = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!alreadyFight) {
+                    for (int i = 0; i < 3; i++) {
+                        if (alreadyFight) {
+                            break;
+                        }
+                        if (this->teamB[i]->ball != nullptr) {
+                            for (int j = 0; j < 3; j++) {
+                                if (this->teamB[i]->i == this->teamA[j]->i
+                                    && this->teamB[i]->j == this->teamA[j]->j) {
+                                    this->fightBall(*(this->teamB[i]), *(this->teamA[j]));
+                                    alreadyFight = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            this->updateScore();
         }
 
         void undoMove() {}
