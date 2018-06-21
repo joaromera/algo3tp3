@@ -223,7 +223,61 @@ class LogicalBoard {
             this->updateScore();
         }
 
-        void undoMove() {}
+        void undoMove() {
+            // Al parecer solo sirve para retroceder UN movimiento
+            
+            if (this->last_state == nullptr) {
+                return;
+            }
+
+            // Busco la pelota
+            Ball* ball = this->free_ball;
+            for (auto p : this->teamA) {
+                if (p->ball != nullptr) ball = p->ball;
+            }
+            for (auto p : this->teamB) {
+                if (p->ball != nullptr) ball = p->ball;
+            }
+            
+            // Pongo posiciones anteriores para jugadores A
+            for (auto p_status : this->last_state->team) {
+                for (auto p : teamA) {
+                    if (p_status.id == p->id) {
+                        p->i = p_status.i;
+                        p->j = p_status.j;
+                        if (p_status.in_posetion) {
+                            p->ball = ball;
+                        }
+                    }
+                }
+            }
+
+            // Pongo posiciones anteriores para jugadores B
+            for (auto p_status : this->last_state->oponent_team) {
+                for (auto p : teamB) {
+                    if (p_status.id == p->id) {
+                        p->i = p_status.i;
+                        p->j = p_status.j;
+                        if (p_status.in_posetion) {
+                            p->ball = ball;
+                        }
+                    }
+                }
+            }
+
+            // Si la pelota estaba libre
+            this->free_ball = nullptr;
+            if (this->last_state->ball.is_free) {
+                this->free_ball = ball;
+            }
+
+            ball->i = this->last_state->ball.i;
+            ball->j = this->last_state->ball.j;
+            int dir = this->last_state->ball.dir;
+            int steps = this->last_state->ball.steps;
+            ball->movement = make_tuple(dir, steps);
+            
+        }
 
         string winner() {
             if (scoreA > scoreB) {
