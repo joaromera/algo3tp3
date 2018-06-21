@@ -381,8 +381,15 @@ class LogicalBoard {
         }
 
         void print() {
-            // invoca el str de cada jugdador
-            // si la pelota está libre agrega el str de la pelota
+            for (auto p : this->teamA) {
+                p->printPlayer();
+            }
+            for (auto p : this->teamB) {
+                p->printPlayer();
+            }
+            if (this->free_ball != nullptr) {
+                cout << this->free_ball->i << " " << this->free_ball->j << endl;
+            }
         }
 
         vector < tuple < int, int > > CreateGoal(int col) {
