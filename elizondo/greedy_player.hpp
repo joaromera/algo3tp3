@@ -60,6 +60,12 @@ public:
 
     // Aca se usa la función punteadora, greedy, genetica, etc
     void make_move(const board_status& current_board, vector<player_move>& made_moves) {
+        made_moves.clear();
+        player_move p_move;
+        made_moves.push_back(p_move);
+        made_moves.push_back(p_move);
+        made_moves.push_back(p_move);
+        
         int max_rank = 0;
         //itero por todos los posibles mov del jugador 0
         for (int i = 0; i < moves.size(); i++) {
