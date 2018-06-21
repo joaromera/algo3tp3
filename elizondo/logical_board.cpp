@@ -108,6 +108,11 @@ class LogicalBoard {
                     }
                 }
             }
+            if (this->free_ball != nullptr) {
+                this->free_ball->i = status.ball.i;
+                this->free_ball->j = status.ball.j;
+                this->free_ball->movement = make_tuple(status.ball.dir, status.ball.steps);
+            }
         }
 
         void makeTeamMove(vector<Player*> *team, vector<player_move> &moves) {
