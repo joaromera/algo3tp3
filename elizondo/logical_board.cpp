@@ -225,7 +225,7 @@ class LogicalBoard {
 
         void undoMove() {
             // Al parecer solo sirve para retroceder UN movimiento
-            
+
             if (this->last_state == nullptr) {
                 return;
             }
@@ -285,7 +285,7 @@ class LogicalBoard {
             } else if (scoreB > scoreA) {
                 return "B";
             } else {
-                return "Empate";
+                return "EMPATARON";
             }
         }
 
@@ -296,12 +296,16 @@ class LogicalBoard {
                 for (auto p: teamA) {
                     if (p->ball != nullptr) {
                         ball = p->ball;
+                        p->ball = nullptr;
+                        this->free_ball = ball;
                     }
                 }
 
                 for (auto p: teamB) {
                     if (p->ball != nullptr) {
                         ball = p->ball;
+                        p->ball = nullptr;
+                        this->free_ball = ball;
                     }
                 }
             }
@@ -326,13 +330,44 @@ class LogicalBoard {
         }
 
         void getState() {
-            //We need to update this->last_state
-            tuple < int, int > ball_position;
-            if (free_ball != nullptr) {
-                get < 0 > (ball_position) = free_ball->i;
-                get < 1 > (ball_position) = free_ball->j;
 
+            this->last_state->clear();
+
+            Ball* ball = nullptr;
+
+            if (this->free_ball != nullptr) {
+                ball = this->free_ball;
+                this->last_state->ball.is_free = true;
             }
+
+            for (auto p : this->teamA) {
+                int id = p->id;
+                int i = p->i;
+                int j = p->j;
+                bool in_posetion = false;
+                if (p->ball != nullptr) {
+                    in_posetion = true;
+                    ball = p->ball;
+                }
+                this->last_state->team.push_back(player_status(id,i,j,in_posetion));
+            }
+
+            for (auto p : this->teamB) {
+                int id = p->id;
+                int i = p->i;
+                int j = p->j;
+                bool in_posetion = false;
+                if (p->ball != nullptr) {
+                    in_posetion = true;
+                    ball = p->ball;
+                }
+                this->last_state->oponent_team.push_back(player_status(id,i,j,in_posetion));
+            }
+
+            this->last_state->ball.i = ball->i;
+            this->last_state->ball.j = ball->j;
+            this->last_state->ball.dir = get<0>(ball->movement);
+            this->last_state->ball.dir = get<1>(ball->movement);
         }
 
         vector < tuple < int, int > > getGoal(const string & team) {
