@@ -135,7 +135,7 @@ class LogicalBoard {
             return result;
         }
 
-        void makeMove(vector< player_move > movesA, vector< player_move > movesB) {
+        vector < Player* > makeMove(vector< player_move > movesA, vector< player_move > movesB) {
             this->getState();
             this->makeTeamMove(&(this->teamA), movesA);
             this->makeTeamMove(&(this->teamB), movesB);
@@ -220,7 +220,7 @@ class LogicalBoard {
                     }
                 }
             }
-            this->updateScore();
+            return this->updateScore();
         }
 
         void undoMove() {
@@ -276,7 +276,6 @@ class LogicalBoard {
             int dir = this->last_state->ball.dir;
             int steps = this->last_state->ball.steps;
             ball->movement = make_tuple(dir, steps);
-            
         }
 
         string winner() {
@@ -289,11 +288,11 @@ class LogicalBoard {
             }
         }
 
-        void updateScore() { // no sé si es void
-            Ball * ball = free_ball;
+        vector < Player* > updateScore() {
+            Ball * ball = this->free_ball;
 
             if (ball == nullptr) {
-                for (auto p: teamA) {
+                for (auto p: this->teamA) {
                     if (p->ball != nullptr) {
                         ball = p->ball;
                         p->ball = nullptr;
@@ -301,7 +300,7 @@ class LogicalBoard {
                     }
                 }
 
-                for (auto p: teamB) {
+                for (auto p: this->teamB) {
                     if (p->ball != nullptr) {
                         ball = p->ball;
                         p->ball = nullptr;
@@ -310,19 +309,24 @@ class LogicalBoard {
                 }
             }
 
-            for (auto g: goalA) { // si la pelota está en el arco de A, le suma un gol a B y devuelve "A"
+            // Si la pelota está en el arco de A, le suma un gol a B y devuelve "A"
+            for (auto g: this->goalA) {
                 if (get < 0 > (g) == ball->i && get < 0 > (g) == ball->j) {
-                    scoreB++;
-                    // return A; // ?
+                    this->scoreB++;
+                    return this->teamA;
                 }
             }
 
-            for (auto g: goalB) { // si la pelota está en el arco de B, le suma un gol a A y devuelve "B"
+            // Si la pelota está en el arco de B, le suma un gol a A y devuelve "B"
+            for (auto g: this->goalB) {
                 if (get < 0 > (g) == ball->i && get < 0 > (g) == ball->j) {
-                    scoreA++;
-                    // return B; // ?
+                    this->scoreA++;
+                    return this->teamB;
                 }
             }
+            
+            vector < Player* > empty;
+            return empty;
         }
 
         bool positionInBoard(int i, int j) {
