@@ -61,4 +61,14 @@ struct board_status {
     }
 };
 
+bool is_neighbor(int &i, int &j, const std::vector < std::tuple < int, int > > &goal) {
+    for (auto c : goal) {
+        if (abs(i - std::get<0>(c)) < 2 && abs(j - std::get<1>(c)) < 2 && i != std::get<0>(c) && j != std::get<1>(c)) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 #endif //BOARD_STATUS
