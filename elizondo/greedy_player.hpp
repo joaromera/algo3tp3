@@ -30,6 +30,7 @@ public:
         const vector<player>& players,
         const vector<player>& oponent_players
     ) {
+        cout << "-> constructor" << endl;
         this->columns = columns;
         this->rows = rows;
         this->steps = steps;
@@ -38,16 +39,10 @@ public:
 
         this->players = &players;
         this->oponents = &oponent_players;
-        
-        LogicalBoard* logical_board = new LogicalBoard(
-            columns,
-            rows,
-            players,
-            oponent_players
-        );
     }
 
     void starting_positions(vector<player_status>& positions) {
+        cout << "-> starting_positions" << endl;
         int column = this->columns - 1;
         if (this->side == IZQUIERDA) {
             column = 0;
@@ -60,6 +55,7 @@ public:
 
     // Aca se usa la función punteadora, greedy, genetica, etc
     void make_move(const board_status& current_board, vector<player_move>& made_moves) {
+        cout << "-> make_move" << endl;
         made_moves.clear();
         player_move p_move;
         made_moves.push_back(p_move);
@@ -99,6 +95,7 @@ public:
 private:
 
     int calculate_max_steps(const player_status &player, int dir, int rows, int columns) {
+        cout << "-> calculate_max_steps" << endl;
         //la pelota no puede avanzar mas que la mitad de filas de la cancha
         int middle_row = rows/2;
         int steps = 0;
@@ -131,6 +128,7 @@ private:
     }
 
     bool position_is_in_board(int i, int j, int dir, int rows, int columns) {
+        cout << "-> position_is_in_board" << endl;
         //como la pelota se mueve de a 2 posiciones, me creo la prox posicion
         //y verifico que siga en la cancha
         int new_i = i + moves[dir].first * 2;
@@ -140,6 +138,7 @@ private:
     }
 
     bool ball_is_in_any_goal(int i, int j, int dir, int rows, int columns) {
+        cout << "-> ball_is_in_any_goal" << endl;
         //hay 2 casos, en el que la pelota con un pase mas entre en el arco
         //o que con medio pase más entre (por que estaba a 1 casillero de distancia)
         int i_half_pass = i + moves[dir].first;
@@ -167,6 +166,7 @@ private:
     }
 
     vector<std::pair <int, int> > get_goal(int row, int col) {
+        cout << "-> get_goal" << endl;
         //obtengo el vector con las 3 posiciones del arco
         vector<std::pair <int, int> > goal;
         goal.push_back(make_pair(row-1, col));
@@ -177,6 +177,7 @@ private:
     };
 
     int calculate_max_board_for_player_passes(const board_status& current_board, int max_steps, int max_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball) {
+        cout << "-> calculate_max_board_for_player_passes" << endl;
         //me guardo en un vector los movimientos de los jugadores
         std::vector<int> player_moves{ i, j, k };
         //este metodo se llama solamente cuando se patea
@@ -197,6 +198,7 @@ private:
     }
 
     int update_rank_and_moves(int max_rank, int current_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
+        cout << "-> update_rank_and_moves" << endl;
         //si nadie patea todos tienen step 0
         std::vector<int> steps_players(3, 0);
         //si algun jugador pateo, actualizo su step
@@ -215,6 +217,7 @@ private:
     }
 
     void update_move(int id, player_move& current_move, int dir, int steps) {
+        cout << "-> update_move" << endl;
         current_move.player_id = id;
         current_move.move_type = steps == 0 ? MOVIMIENTO : PASE;
         current_move.dir = _moves[dir].number;
@@ -222,11 +225,13 @@ private:
     }
 
     bool valid_positions(const std::vector<player_status>& team, int i, int j, int k) {
+        cout << "-> valid_positions" << endl;
         //verifico que todos los jugaores esten dentro de la cancha y que ninguno comparta posicion
         return inside_board(team[0], i) && inside_board(team[1], j) && inside_board(team[2], k) && in_different_positions(team, i, j, k);
     }
 
     bool inside_board(const player_status &player, int dir) {
+        cout << "-> inside_board" << endl;
         int i = player.i + moves[dir].first;
         int j = player.j + moves[dir].second;
 
@@ -234,10 +239,12 @@ private:
     }
 
     bool in_different_positions(const vector<player_status>& team, int i, int j, int k) {
+        cout << "-> in_different_positions" << endl;
         return !(in_same_position(team[0], i, team[1], j) || in_same_position(team[0], i, team[2], k) || in_same_position(team[1], j, team[2], k));
     }
 
     bool in_same_position(const player_status& p1, int dir1, const player_status& p2, int dir2) {
+        cout << "-> in_same_position" << endl;
         //le sumo a la posicion del jugador el movimiento que realiza
         std::pair<int, int> new_p1_pos = make_pair(p1.i + moves[dir1].first, p1.j + moves[dir1].second);
         std::pair<int, int> new_p2_pos = make_pair(p2.i + moves[dir2].first, p2.j + moves[dir2].second);
@@ -246,12 +253,14 @@ private:
     }
 
   double distance(int ball_i, int ball_j, int player_i, int player_j) {
+        cout << "-> distance" << endl;
         double x = static_cast<double>(ball_i) - static_cast<double>(player_i);
         double y = static_cast<double>(ball_j) - static_cast<double>(player_j);
       return sqrt(pow(x, 2) + pow(y, 2));
   }
 
   int evaluate_board(const board_status &board, int i, int j, int k, int player_with_ball = 0, int steps = 0) {   //Si steps no es 0, entonces miro en player_with_ball cual tiene la pelota
+        cout << "-> evaluate_board" << endl;
         player_status player_0 = board.team[0];
         player_status player_1 = board.team[1];
         player_status player_2 = board.team[2];
