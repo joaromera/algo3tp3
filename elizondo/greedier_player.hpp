@@ -7,6 +7,7 @@
 
 #include "board_status.hpp"
 #include "constants.hpp"
+#include "logical_board.cpp"
 
 std::random_device rd;
 std::mt19937 generator(rd());
@@ -17,8 +18,8 @@ class greedier_player {
     std::string team, side;
     std::vector<std::pair <int, int> > own_goal;
     std::vector<std::pair <int, int> > opponnent_goal;
-    // const vector<player>* players;
-    // const vector<player>* opponnents;
+    const vector<player>* players;
+    const vector<player>* opponnents;
 
 public:
 
@@ -37,8 +38,8 @@ public:
         this->steps = steps;
         this->side = side;
         this->team = team;
-        // this->players = &players;
-        // this->opponnents = &opponnent_players;
+        this->players = &players;
+        this->opponnents = &opponnent_players;
         this->get_goal_positions();
     }
 
@@ -79,6 +80,14 @@ public:
             new_move.dir = 0;
             made_moves.push_back(new_move);
         }
+
+        LogicalBoard* logical_board = new LogicalBoard(
+            this->columns,
+            this->rows,
+            *this->players,
+            *this->opponnents,
+            current_board
+        );
 
         int board_score = evaluate_board(current_board);
         
