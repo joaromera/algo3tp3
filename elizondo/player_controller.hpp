@@ -59,7 +59,6 @@ class player_controller {
 
 public:
     player_controller(std::string team_name) {
-        cout << "-> player_controller" << endl;
 
         // Lee los datos generales del juego
         int columns = read_int();
