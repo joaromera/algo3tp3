@@ -132,7 +132,7 @@ public:
         int di2 = distance(ball_i, ball_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
         int di3 = distance(ball_i, ball_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
     
-        return std::min(di1,di2,di3);
+        return std::min(di1,std::min(di2,di3));
     }
 
     // Si tenemos la pelota queremos que sea grande, si no la tenemos queremos que sea baja
@@ -149,7 +149,7 @@ public:
         int di2 = distance(player_i, player_j, current_board.oponent_team[1].i, current_board.oponent_team[1].j);
         int di3 = distance(player_i, player_j, current_board.oponent_team[2].i, current_board.oponent_team[2].j);
     
-        return std::min(di1,di2,di3);
+        return std::min(di1,std::min(di2,di3));
     }
 
     // Con la pelota queremos que sea bajo
@@ -166,7 +166,7 @@ public:
         int di2 = distance(player_i, player_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
         int di3 = distance(player_i, player_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
     
-        return std::min(di1,di2,di3);
+        return std::min(di1,std::min(di2,di3));
     }
 
     // Si no tenemos la pelota queremos que sea chico
@@ -183,7 +183,7 @@ public:
         int di2 = distance(player_i, player_j, current_board.ball.i, current_board.ball.j);
         int di3 = distance(player_i, player_j, current_board.ball.i, current_board.ball.j);
     
-        return std::min(di1,di2,di3);
+        return std::min(di1,std::min(di2,di3));
     }
 
     std::string who_has_the_ball(const board_status& current_board) {
