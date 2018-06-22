@@ -8,6 +8,11 @@
 #include "player_controller.hpp"
 
 int main(int argc, char **argv ) {
+    string fileName = "static.log";
+    ofstream f;
+    f.open(fileName, fstream::out);
+    f << v << " " << e << endl;
+    f.close();
     player_controller<static_player> player(argv[1]);
     player.play();
     return 0;
