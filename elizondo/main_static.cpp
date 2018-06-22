@@ -8,7 +8,6 @@
 #include "player_controller.hpp"
 
 int main(int argc, char **argv ) {
-    cout << "-> main" << endl;
     player_controller<static_player> player(argv[1]);
     player.play();
     return 0;
