@@ -14,6 +14,7 @@ using namespace std;
 class LogicalBoard {
 
     public:
+    
         int scoreA, scoreB, columns, rows;
         vector < Player* > teamA, teamB;
         vector < tuple < int, int > > goalA;
@@ -393,6 +394,45 @@ class LogicalBoard {
             return 0 <= i && i < rows && 0 <= j && j < columns;
         }
 
+        void reset(vector< player_status > positionsA, vector< player_status > positionsB, bool isStartingA) {
+            this->startingPositions(positionsA, positionsB, isStartingA);
+            this->scoreA = 0;
+            this->scoreB = 0;
+        }
+
+        void startingPositions(vector< player_status > positionsA, vector< player_status > positionsB, bool isStartingA) {
+            // Saco la pelota del juego
+            for (auto p: this->teamA) {
+                p->ball = nullptr;
+            }
+            for (auto p: this->teamB) {
+                p->ball = nullptr;
+            }
+
+            this->free_ball = nullptr;
+
+            // Coloco los jugadores en las posiciones correctas
+            for (int i = 0; i < 3;  i++) {
+                this->teamA[positionsA[i].id]->i = positionsA[i].i;
+                this->teamA[positionsA[i].id]->j = positionsA[i].j;
+            }
+            for (int i = 0; i < 3;  i++) {
+                this->teamB[positionsB[i].id]->i = positionsB[i].i;
+                this->teamB[positionsB[i].id]->j = positionsB[i].j;
+            }
+
+            // Le doy la pelota al jugador que saca y lo pongo en el centro
+            if (isStartingA) {                
+                this->teamA[0]->i = int(this->rows / 2);
+                this->teamA[0]->j = (this->columns / 2) - 1;
+                this->teamA[0]->takeBall(new Ball());
+            } else {
+                this->teamB[0]->i = int(this->rows / 2);
+                this->teamB[0]->j = (this->columns / 2) - 1;
+                this->teamB[0]->takeBall(new Ball());
+            }
+        }
+            
         void getState() {
 
             this->last_state->clear();
