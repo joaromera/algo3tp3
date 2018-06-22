@@ -11,7 +11,7 @@
 std::random_device rd;
 std::mt19937 generator(rd());
 
-class static_player {
+class greedier_player {
     
     int columns, rows, steps;
     std::string team, side;
@@ -22,9 +22,9 @@ class static_player {
 
 public:
 
-    static_player() = default;
+    greedier_player() = default;
 
-    static_player(
+    greedier_player(
         int columns,
         int rows,
         int steps,
