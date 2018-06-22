@@ -72,7 +72,14 @@ public:
     void make_move(const board_status& current_board, std::vector<player_move>& made_moves) {
         made_moves.clear();
         player_move new_move;
-        
+            
+        for (auto& p : current_board.team) {
+            new_move.player_id = p.id;
+            new_move.move_type = MOVIMIENTO;
+            new_move.dir = 0;
+            made_moves.push_back(new_move);
+        }
+
         int board_score = evaluate_board(current_board);
         
         std::string fileName = "board.log";
@@ -80,13 +87,6 @@ public:
         f.open(fileName, std::fstream::out);
         f << board_score << std::endl;
         f.close();
-        
-        for (auto& p : current_board.team) {
-            new_move.player_id = p.id;
-            new_move.move_type = MOVIMIENTO;
-            new_move.dir = 0;
-            made_moves.push_back(new_move);
-        }
     }
 
     int evaluate_board(const board_status& current_board) {
@@ -126,8 +126,27 @@ public:
 
     // Queremos que sea bajo
     int distance_ball_opponnent_goal(const board_status& current_board) {
-        int ball_i = current_board.ball.i;
-        int ball_j = current_board.ball.j;
+        int ball_i;
+        int ball_j;
+
+        if (current_board.ball.is_free) {
+            ball_i = current_board.ball.i;
+            ball_j = current_board.ball.j;
+        } else {
+            for (auto p : current_board.team) {
+                if (p.in_posetion) {
+                    ball_i = p.i;
+                    ball_j = p.j;
+                }
+        }
+            for (auto p : current_board.oponent_team) {
+                if (p.in_posetion) {
+                    ball_i = p.i;
+                    ball_j = p.j;
+                }
+            }
+        }
+
         int di1 = distance(ball_i, ball_j, this->opponnent_goal[0].first, this->opponnent_goal[0].second);
         int di2 = distance(ball_i, ball_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
         int di3 = distance(ball_i, ball_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
