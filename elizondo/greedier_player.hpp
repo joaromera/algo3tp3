@@ -18,8 +18,8 @@ class greedier_player {
     std::string team, side;
     std::vector<std::pair <int, int> > own_goal;
     std::vector<std::pair <int, int> > opponnent_goal;
-    const vector<player>* players;
-    const vector<player>* opponnents;
+    vector<player> players;
+    vector<player> opponnents;
 
 public:
 
@@ -38,8 +38,8 @@ public:
         this->steps = steps;
         this->side = side;
         this->team = team;
-        this->players = &players;
-        this->opponnents = &opponnent_players;
+        this->players = players;
+        this->opponnents = opponnent_players;
         this->get_goal_positions();
     }
 
@@ -81,20 +81,45 @@ public:
             made_moves.push_back(new_move);
         }
 
+        int board_score = evaluate_board(current_board);
+    
         LogicalBoard* logical_board = new LogicalBoard(
             this->columns,
             this->rows,
-            *this->players,
-            *this->opponnents,
+            this->players,
+            this->opponnents,
             current_board
         );
 
-        int board_score = evaluate_board(current_board);
-        
+        vector<player_move> moves_A = {
+            {0,"MOVIMIENTO",1},
+            {1,"MOVIMIENTO",1},
+            {2,"MOVIMIENTO",1}
+        };
+
+        logical_board->makeMove(moves_A, moves_A);
+
+        board_status aftermove = logical_board->getNewState();
+        int new_board_score = evaluate_board(aftermove);
+
         std::string fileName = "board.log";
         std::ofstream f;
         f.open(fileName, std::fstream::out);
-        f << board_score << std::endl;
+        f << "ANTES" << std::endl;
+        for (auto p : current_board.team) {
+            f << "ID: " << p.id << " i: " << p.i << " j: " << p.j << " has ball: " << p.in_posetion << std::endl;
+        }
+        for (auto p : current_board.oponent_team) {
+            f << "ID: " << p.id << " i: " << p.i << " j: " << p.j << " has ball: " << p.in_posetion << std::endl;
+        }
+        f << "DESPUES" << std::endl;
+        for (auto p : aftermove.team) {
+            f << "ID: " << p.id << " i: " << p.i << " j: " << p.j << " has ball: " << p.in_posetion << std::endl;
+        }
+        for (auto p : aftermove.oponent_team) {
+            f << "ID: " << p.id << " i: " << p.i << " j: " << p.j << " has ball: " << p.in_posetion << std::endl;
+        }
+        f << new_board_score << std::endl;
         f.close();
     }
 

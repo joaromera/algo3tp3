@@ -21,6 +21,7 @@ class LogicalBoard {
         vector < tuple < int, int > > goalB;
         Ball* free_ball;
         board_status* last_state;
+        board_status* new_state;
 
         LogicalBoard(
             int columns,
@@ -53,6 +54,7 @@ class LogicalBoard {
 
             this->free_ball = new Ball();
             this->last_state = nullptr;
+            this->new_state = nullptr;
         }
 
         LogicalBoard( // con board status
@@ -70,6 +72,7 @@ class LogicalBoard {
             this->goalB = CreateGoal(this->columns);
             this->free_ball = new Ball();
             this->last_state = nullptr;
+            this->new_state = nullptr;
 
             vector < Player* > _teamA;
             for(int i = 0; i < 3; i++) {
@@ -166,6 +169,7 @@ class LogicalBoard {
         }
 
         bool intercepted(Player* player, bool isOponent) {
+
             bool result = true;
             
             player_status prevStatePlayer;
@@ -176,18 +180,19 @@ class LogicalBoard {
             } else {
                 team = this->last_state->team;
             }
-            
+
             for(int i; i < 3; i++) {
                 if (player->id == team[i].id) {
                     prevStatePlayer = team[i];
                 }
             }
-            
+
             result = result 
                 && prevStatePlayer.i == player->i 
                 && prevStatePlayer.j == player->j;
 
             player->backwardMove(get<0>(this->free_ball->movement));
+
             result = result 
                 && player->i == this->free_ball->i 
                 && player->j == this->free_ball->j;
@@ -201,7 +206,8 @@ class LogicalBoard {
             this->makeTeamMove(&(this->teamA), movesA);
             this->makeTeamMove(&(this->teamB), movesB);
             
-            if (this->free_ball == nullptr) {
+            if (this->free_ball != nullptr) {
+                
                 vector< Player* > intercepters;
                 for (int i = 0; i < 3; i++) {
                     if (this->intercepted(this->teamA[i], false)) {
@@ -281,6 +287,7 @@ class LogicalBoard {
                     }
                 }
             }
+            this->updateNewState();
             return this->updateScore();
         }
 
@@ -434,7 +441,9 @@ class LogicalBoard {
         }
             
         void getState() {
-
+            if (this->last_state == nullptr) {
+                this->last_state = new board_status();
+            }
             this->last_state->clear();
 
             Ball* ball = nullptr;
@@ -442,6 +451,10 @@ class LogicalBoard {
             if (this->free_ball != nullptr) {
                 ball = this->free_ball;
                 this->last_state->ball.is_free = true;
+                this->last_state->ball.i = ball->i;
+                this->last_state->ball.j = ball->j;
+                this->last_state->ball.dir = get<0>(ball->movement);
+                this->last_state->ball.dir = get<1>(ball->movement);
             }
 
             for (auto p : this->teamA) {
@@ -452,6 +465,7 @@ class LogicalBoard {
                 if (p->ball != nullptr) {
                     in_posetion = true;
                     ball = p->ball;
+                    this->last_state->ball.is_free = false;
                 }
                 this->last_state->team.push_back(player_status(id,i,j,in_posetion));
             }
@@ -464,14 +478,58 @@ class LogicalBoard {
                 if (p->ball != nullptr) {
                     in_posetion = true;
                     ball = p->ball;
+                    this->last_state->ball.is_free = false;
                 }
                 this->last_state->oponent_team.push_back(player_status(id,i,j,in_posetion));
             }
+        }
 
-            this->last_state->ball.i = ball->i;
-            this->last_state->ball.j = ball->j;
-            this->last_state->ball.dir = get<0>(ball->movement);
-            this->last_state->ball.dir = get<1>(ball->movement);
+        void updateNewState() {
+            if (this->new_state == nullptr) {
+                this->new_state = new board_status();
+            }
+            this->new_state->clear();
+
+            Ball* ball = nullptr;
+
+            if (this->free_ball != nullptr) {
+                ball = this->free_ball;
+                this->new_state->ball.is_free = true;
+                this->new_state->ball.i = ball->i;
+                this->new_state->ball.j = ball->j;
+                this->new_state->ball.dir = get<0>(ball->movement);
+                this->new_state->ball.dir = get<1>(ball->movement);
+            }
+
+            for (auto p : this->teamA) {
+                int id = p->id;
+                int i = p->i;
+                int j = p->j;
+                bool in_posetion = false;
+                if (p->ball != nullptr) {
+                    in_posetion = true;
+                    ball = p->ball;
+                    this->new_state->ball.is_free = false;
+                }
+                this->new_state->team.push_back(player_status(id,i,j,in_posetion));
+            }
+
+            for (auto p : this->teamB) {
+                int id = p->id;
+                int i = p->i;
+                int j = p->j;
+                bool in_posetion = false;
+                if (p->ball != nullptr) {
+                    in_posetion = true;
+                    ball = p->ball;
+                    this->new_state->ball.is_free = false;
+                }
+                this->new_state->oponent_team.push_back(player_status(id,i,j,in_posetion));
+            }
+        }
+
+        board_status getNewState() {
+            return *(this->new_state);
         }
 
         vector < tuple < int, int > > getGoal(const string & team) {
@@ -508,3 +566,10 @@ class LogicalBoard {
         }
 
 };
+
+//// Para testear copypaste cambiar f <<
+// std::string fileName = "logiboard.log";
+// std::ofstream f;
+// f.open(fileName, std::fstream::out);
+// f <<  " chau " << player->i << " " << player->j << std::endl;
+// f.close(); 
