@@ -10,10 +10,10 @@ BINARIES = greedy_player static_player
 all: $(BINARIES)
 
 greedy_player:
-	$(CXX) $(STDFLAGS) main.cpp -o greedy_player
+	$(CXX) $(STDFLAGS) main_greedy.cpp -o greedy_player
 
 static_player:
-	$(CXX) $(STDFLAGS) main.cpp -o static_player
+	$(CXX) $(STDFLAGS) main_static.cpp -o static_player
 
 clean:
 	$(RM) greedy_player

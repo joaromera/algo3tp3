@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace std;
+
 void send(const std::string& msg) {
     std::cout << msg << std::endl;
 }
