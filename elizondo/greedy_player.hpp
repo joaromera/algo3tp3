@@ -177,31 +177,16 @@ private:
         int j_full_pass = j + moves[dir].second * 2;
         std::pair <int, int> pos_full_pass = make_pair(i_full_pass, j_full_pass);
 
-        //me genero los 2 arcos de la cancha
-        int middle_row = rows/2;
-        vector<std::pair <int, int> > goal_a = get_goal(middle_row, -1);
-        vector<std::pair <int, int> > goal_b = get_goal(middle_row, columns);
-
         //como los arcos tienen 3 posiciones, itero de [0, 3)
         for (int index = 0; index < 3; ++index) {
             // verifico si la pelota llega a la posicion "index" de algun arco con 1 pase o medio
-            if (pos_half_pass == goal_a[index] || pos_half_pass == goal_b[index]
-                || pos_full_pass == goal_a[index] || pos_full_pass == goal_b[index]) return true;
+            if (pos_half_pass == this->opponnent_goal[index] || pos_half_pass == this->own_goal[index]
+                || pos_full_pass == this->opponnent_goal[index] || pos_full_pass == this->own_goal[index]) return true;
         }
 
         //si no cayo en el return del ciclo, entonces la pelota no entra al arco
         return false;
     }
-
-    vector<std::pair <int, int> > get_goal(int row, int col) {
-        //obtengo el vector con las 3 posiciones del arco
-        vector<std::pair <int, int> > goal;
-        goal.push_back(make_pair(row-1,col));
-        goal.push_back(make_pair(row,col));
-        goal.push_back(make_pair(row+1,col));
-
-        return goal;
-    };
 
     void update_moves(const board_status& current_board, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
         //si nadie patea todos tienen step 0
