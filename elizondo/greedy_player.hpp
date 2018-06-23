@@ -91,19 +91,19 @@ public:
                                 if (in_different_positions(current_board.team, i, j, k)) {
                                     double current_rank = -999999;
                                     int best_max_steps = 0;
-                                    // for (int jugador = 0; jugador < 3; ++jugador) {
-                                    //     vector<int> player_moves { i, j, k };
-                                    //     if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
-                                    //         int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
-                                    //         for (int steps = 1; steps <= max_steps; steps++) {
-                                    //             current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
-                                    //             if (current_rank > max_rank) {
-                                    //                 max_rank = current_rank;
-                                    //                 update_moves(made_moves, i, j, k, jugador, steps);
-                                    //             }
-                                    //         }
-                                    //     }
-                                    // }
+                                    for (int jugador = 0; jugador < 3; jugador++) {
+                                        vector<int> player_moves { i, j, k };
+                                        if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
+                                            int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
+                                            for (int steps = 1; steps <= max_steps; steps++) {
+                                                current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
+                                                if (current_rank > max_rank) {
+                                                    max_rank = current_rank;
+                                                    update_moves(current_board, made_moves, i, j, k, jugador, steps);
+                                                }
+                                            }
+                                        }
+                                    }
 
                                     //ahora verifico que los jugadores al realizar la combinacion
                                     //de movimientos de esta iteracion sean posiciones validas
@@ -179,8 +179,8 @@ private:
 
         //me genero los 2 arcos de la cancha
         int middle_row = rows/2;
-        vector<std::pair <int, int> > goal_a = get_goal(middle_row, 0);
-        vector<std::pair <int, int> > goal_b = get_goal(middle_row, columns);
+        vector<std::pair <int, int> > goal_a = get_goal(0, middle_row);
+        vector<std::pair <int, int> > goal_b = get_goal(columns, middle_row);
 
         //como los arcos tienen 3 posiciones, itero de [0, 3)
         for (int index = 0; index < 3; ++index) {
@@ -196,9 +196,9 @@ private:
     vector<std::pair <int, int> > get_goal(int row, int col) {
         //obtengo el vector con las 3 posiciones del arco
         vector<std::pair <int, int> > goal;
-        goal.push_back(make_pair(row-1, col));
-        goal.push_back(make_pair(row, col));
-        goal.push_back(make_pair(row+1, col));
+        goal.push_back(make_pair(col,row-1));
+        goal.push_back(make_pair(col,row));
+        goal.push_back(make_pair(col,row+1));
 
         return goal;
     };
