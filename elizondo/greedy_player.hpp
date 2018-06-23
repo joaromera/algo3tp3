@@ -103,9 +103,6 @@ public:
                                             }
                                         }
                                     }
-
-                                    //ahora verifico que los jugadores al realizar la combinacion
-                                    //de movimientos de esta iteracion sean posiciones validas
                                     current_rank = evaluate_board(current_board, i, j, k);
                                     if (current_rank > max_rank) {
                                         max_rank = current_rank;
@@ -251,10 +248,12 @@ private:
             {current_board.team[2].id, "MOVIMIENTO", k}
         };
 
-        for (auto pm : moves_A) {
-            if (pm.player_id == jugador) {
-                pm.move_type = "PASE";
-                pm.steps = steps;
+        if(steps > 0) {
+            for (auto pm : moves_A) {
+                if (pm.player_id == jugador) {
+                    pm.move_type = "PASE";
+                    pm.steps = steps;
+                }
             }
         }
         
