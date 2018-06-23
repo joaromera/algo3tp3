@@ -92,7 +92,7 @@ public:
                                 for (int jugador = 0; jugador < 3; ++jugador) {
                                     vector<int> player_moves { i, j, k };
                                     if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
-                                        double max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
+                                        int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
                                         max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
                                     }
                                 }
@@ -117,7 +117,7 @@ public:
 
 private:
 
-    int calculate_max_steps(const player_status &player, int dir, int rows, int columns) {
+    int calculate_max_steps(const player_status &player, int dir) {
         //la pelota no puede avanzar mas que la mitad de filas de la cancha
         int middle_row = rows/2;
         int steps = 0;
@@ -128,12 +128,12 @@ private:
         //mientras este en la cancha o algun arco, itero
         while (is_in_range) {
             //me fijo que si avanzo la pelota 1 vez siga en la cancha
-            if (position_is_in_board(i, j, dir, rows, columns)) {
+            if (position_is_in_board(i, j, dir)) {
                 //actualizo la posicion y sumo uno a la cantidad maxima de steps
                 i += moves[dir].first * 2;
                 j += moves[dir].second * 2;
                 ++steps;
-            } else if (ball_is_in_any_goal(i, j, dir, rows, columns)) {
+            } else if (ball_is_in_any_goal(i, j, dir)) {
                 //si la pelota llego al arco con el proximo step, entonces
                 //sumo uno a la cantidad maxima de steps y salgo del ciclo
                 ++steps;
@@ -149,7 +149,7 @@ private:
         return steps < middle_row ? steps : middle_row;
     }
 
-    bool position_is_in_board(int i, int j, int dir, int rows, int columns) {
+    bool position_is_in_board(int i, int j, int dir) {
         //como la pelota se mueve de a 2 posiciones, me creo la prox posicion
         //y verifico que siga en la cancha
         int new_i = i + moves[dir].first * 2;
@@ -158,7 +158,7 @@ private:
         return  0 <= new_i && new_i < rows && 0 <= new_j && new_j < columns;
     }
 
-    bool ball_is_in_any_goal(int i, int j, int dir, int rows, int columns) {
+    bool ball_is_in_any_goal(int i, int j, int dir) {
         //hay 2 casos, en el que la pelota con un pase mas entre en el arco
         //o que con medio pase más entre (por que estaba a 1 casillero de distancia)
         int i_half_pass = i + moves[dir].first;
