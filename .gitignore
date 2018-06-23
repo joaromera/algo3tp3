@@ -1,4 +1,1 @@
-clase-algoritmos-geneticos/
-cmake-build-debug/
-.idea/
-CMakeLists.txt
+*.pyc
