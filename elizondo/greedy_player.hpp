@@ -273,24 +273,27 @@ private:
         result -= distance_ball_opponnent_goal(aftermove);
 
         if (who_has_the_ball(aftermove) == "GREEDY") {
-            result++;
             // Queremos que se acerquen al arco contrario y que se alejen de los oponentes
             for (auto p : aftermove.team) {
                 result -= distance_player_opponnent_goal(aftermove, p.id);
-                result += distance_player_closest_opponnent(aftermove, p.id);
+                //result += distance_player_closest_opponnent(aftermove, p.id);
             }
-        } else if (who_has_the_ball(aftermove) == "OPPONNENT") {
-            result--;
+        }
+        
+        if (who_has_the_ball(aftermove) == "OPPONNENT") {
             // Queremos que se acerquen a los contrarios
             for (auto p : aftermove.team) {
                 result -= distance_player_closest_opponnent(aftermove, p.id);
             }
-        } else {
+        }
+
+        if (who_has_the_ball(aftermove) == "FREE") {
             // Queremos que se acerquen a la pelota porque está libre
             for (auto p : aftermove.team) {
                 result -= distance_player_ball(aftermove, p.id);
             }   
         }
+
         return result;
     }
 
