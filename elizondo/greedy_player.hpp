@@ -55,8 +55,8 @@ public:
         }
 
         for (int i = -1; i < 2; i++) {
-            own_goal.push_back(std::make_pair(i, column_own_goal));
-            opponnent_goal.push_back(std::make_pair(i, column_opoent_goal));
+            own_goal.push_back(std::make_pair(column_own_goal, i));
+            opponnent_goal.push_back(std::make_pair(column_opoent_goal, i));
         }
 
     }
@@ -110,7 +110,7 @@ public:
                                     current_rank = evaluate_board(current_board, i, j, k);
                                     if (current_rank > max_rank) {
                                         max_rank = current_rank;
-                                        update_moves(made_moves, i, j, k);
+                                        update_moves(current_board, made_moves, i, j, k);
                                     }
                                 }
                             }
@@ -203,22 +203,22 @@ private:
         return goal;
     };
 
-    void update_moves(std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
+    void update_moves(const board_status& current_board, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
         //si nadie patea todos tienen step 0
         std::vector<int> steps_players(3, 0);
         //si algun jugador pateo, actualizo su step
         steps_players[player_with_ball] = steps;
 
-        update_move(0, made_moves[0], i, steps_players[0]);
-        update_move(1, made_moves[1], j, steps_players[1]);
-        update_move(2, made_moves[2], k, steps_players[2]);
+        update_move(current_board.team[0].id, made_moves[0], i, steps_players[0]);
+        update_move(current_board.team[1].id, made_moves[1], j, steps_players[1]);
+        update_move(current_board.team[2].id, made_moves[2], k, steps_players[2]);
     }
 
     void update_move(int id, player_move& current_move, int dir, int steps) {
         current_move.player_id = id;
         current_move.move_type = steps == 0 ? MOVIMIENTO : PASE;
         // current_move.dir = _moves[dir].number;
-        current_move.dir = dir;
+        current_move.dir = 0;
         current_move.steps = steps;
     }
 
