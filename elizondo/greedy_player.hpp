@@ -81,6 +81,7 @@ public:
         made_moves.push_back(p_move);
         
         double max_rank = -9999999;
+        double current_rank = -999999;
         
         for (int i = 0; i < moves.size(); i++) {
             if (inside_board(current_board.team[0], i)) {        
@@ -89,7 +90,6 @@ public:
                         for (int k = 0; k < moves.size(); k++) {
                             if (inside_board(current_board.team[2], k)) {
                                 if (in_different_positions(current_board.team, i, j, k)) {
-                                    double current_rank = -999999;
                                     for (int jugador = 0; jugador < 3; jugador++) {
                                         vector<int> player_moves { i, j, k };
                                         if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
