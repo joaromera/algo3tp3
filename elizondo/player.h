@@ -45,9 +45,14 @@ class Player{
     }
 
     void backwardMove(int &direction) {
+      int dir = direction;
+      std::string fileName = "logiboard.log";
+      
       this->old_position = make_tuple(this->i, this->j);
+      
       this->i -= get<0>(moves[direction]);
       this->j -= get<1>(moves[direction]);
+      
       moveBall();
     };
 
