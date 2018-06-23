@@ -270,7 +270,7 @@ private:
         double result = 0;
 
         // Mientras más cerca esté la pelota del arco contrario, mejor
-        result -= distance_ball_opponnent_goal(aftermove);
+        //result -= distance_ball_opponnent_goal(aftermove);
 
         if (who_has_the_ball(aftermove) == "GREEDY") {
             // Queremos que se acerquen al arco contrario y que se alejen de los oponentes
