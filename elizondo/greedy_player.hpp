@@ -91,19 +91,19 @@ public:
                                 if (in_different_positions(current_board.team, i, j, k)) {
                                     double current_rank = -999999;
                                     int best_max_steps = 0;
-                                    for (int jugador = 0; jugador < 3; ++jugador) {
-                                        vector<int> player_moves { i, j, k };
-                                        if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
-                                            int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
-                                            for (int steps = 1; steps <= max_steps; steps++) {
-                                                current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
-                                                if (current_rank > max_rank) {
-                                                    max_rank = current_rank;
-                                                    update_moves(made_moves, i, j, k, jugador, steps);
-                                                }
-                                            }
-                                        }
-                                    }
+                                    // for (int jugador = 0; jugador < 3; ++jugador) {
+                                    //     vector<int> player_moves { i, j, k };
+                                    //     if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
+                                    //         int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
+                                    //         for (int steps = 1; steps <= max_steps; steps++) {
+                                    //             current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
+                                    //             if (current_rank > max_rank) {
+                                    //                 max_rank = current_rank;
+                                    //                 update_moves(made_moves, i, j, k, jugador, steps);
+                                    //             }
+                                    //         }
+                                    //     }
+                                    // }
 
                                     //ahora verifico que los jugadores al realizar la combinacion
                                     //de movimientos de esta iteracion sean posiciones validas
@@ -209,9 +209,9 @@ private:
         //si algun jugador pateo, actualizo su step
         steps_players[player_with_ball] = steps;
 
-            update_move(0, made_moves[0], i, steps_players[0]);
-            update_move(1, made_moves[1], j, steps_players[1]);
-            update_move(2, made_moves[2], k, steps_players[2]);
+        update_move(0, made_moves[0], i, steps_players[0]);
+        update_move(1, made_moves[1], j, steps_players[1]);
+        update_move(2, made_moves[2], k, steps_players[2]);
     }
 
     void update_move(int id, player_move& current_move, int dir, int steps) {
