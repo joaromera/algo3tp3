@@ -17,8 +17,8 @@ class greedy_player {
     
     int columns, rows, steps;
     string team, side;
-    std::vector<std::pair <int, int> > own_goal;
-    std::vector<std::pair <int, int> > opponnent_goal;
+    vector<pair <int, int> > own_goal;
+    vector<pair <int, int> > opponnent_goal;
     vector<player> players;
     vector<player> opponnents;
 
@@ -55,8 +55,8 @@ public:
         }
 
         for (int i = -1; i < 2; i++) {
-            own_goal.push_back(std::make_pair(mid_row + i, column_own_goal));
-            opponnent_goal.push_back(std::make_pair(mid_row + i, column_opoent_goal));
+            own_goal.push_back(make_pair(mid_row + i, column_own_goal));
+            opponnent_goal.push_back(make_pair(mid_row + i, column_opoent_goal));
         }
 
     }
@@ -171,11 +171,11 @@ private:
         //o que con medio pase más entre (por que estaba a 1 casillero de distancia)
         int i_half_pass = i + moves[dir].first;
         int j_half_pass = j + moves[dir].second;
-        std::pair <int, int> pos_half_pass = make_pair(i_half_pass, j_half_pass);
+        pair <int, int> pos_half_pass = make_pair(i_half_pass, j_half_pass);
 
         int i_full_pass = i + moves[dir].first * 2;
         int j_full_pass = j + moves[dir].second * 2;
-        std::pair <int, int> pos_full_pass = make_pair(i_full_pass, j_full_pass);
+        pair <int, int> pos_full_pass = make_pair(i_full_pass, j_full_pass);
 
         //como los arcos tienen 3 posiciones, itero de [0, 3)
         for (int index = 0; index < 3; ++index) {
@@ -188,9 +188,9 @@ private:
         return false;
     }
 
-    void update_moves(const board_status& current_board, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
+    void update_moves(const board_status& current_board, vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
         //si nadie patea todos tienen step 0
-        std::vector<int> steps_players(3, 0);
+        vector<int> steps_players(3, 0);
         //si algun jugador pateo, actualizo su step
         steps_players[player_with_ball] = steps;
 
@@ -207,7 +207,7 @@ private:
         current_move.steps = steps;
     }
 
-    bool valid_positions(const std::vector<player_status>& team, int i, int j, int k) {
+    bool valid_positions(const vector<player_status>& team, int i, int j, int k) {
         //verifico que todos los jugaores esten dentro de la cancha y que ninguno comparta posicion
         return inside_board(team[0], i) && inside_board(team[1], j) && inside_board(team[2], k) && in_different_positions(team, i, j, k);
     }
@@ -231,8 +231,8 @@ private:
 
     bool in_same_position(const player_status& p1, int dir1, const player_status& p2, int dir2) {
         //le sumo a la posicion del jugador el movimiento que realiza
-        std::pair<int, int> new_p1_pos = make_pair(p1.i + moves[dir1].first, p1.j + moves[dir1].second);
-        std::pair<int, int> new_p2_pos = make_pair(p2.i + moves[dir2].first, p2.j + moves[dir2].second);
+        pair<int, int> new_p1_pos = make_pair(p1.i + moves[dir1].first, p1.j + moves[dir1].second);
+        pair<int, int> new_p2_pos = make_pair(p2.i + moves[dir2].first, p2.j + moves[dir2].second);
 
         return new_p1_pos == new_p2_pos;
     }
@@ -327,7 +327,7 @@ private:
         double di2 = distance(ball_i, ball_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
         double di3 = distance(ball_i, ball_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
     
-        return std::min(di1,std::min(di2,di3));
+        return min(di1,min(di2,di3));
     }
 
     // Si tenemos la pelota queremos que sea grande, si no la tenemos queremos que sea baja
@@ -344,7 +344,7 @@ private:
         double di2 = distance(player_i, player_j, current_board.oponent_team[1].i, current_board.oponent_team[1].j);
         double di3 = distance(player_i, player_j, current_board.oponent_team[2].i, current_board.oponent_team[2].j);
     
-        return std::min(di1,std::min(di2,di3));
+        return min(di1,min(di2,di3));
     }
 
     // Con la pelota queremos que sea bajo
@@ -361,7 +361,7 @@ private:
         double di2 = distance(player_i, player_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
         double di3 = distance(player_i, player_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
     
-        return std::min(di1,std::min(di2,di3));
+        return min(di1,min(di2,di3));
     }
 
     // Si no tenemos la pelota queremos que sea chico
@@ -378,10 +378,10 @@ private:
         int di2 = distance(player_i, player_j, current_board.ball.i, current_board.ball.j);
         int di3 = distance(player_i, player_j, current_board.ball.i, current_board.ball.j);
     
-        return std::min(di1,std::min(di2,di3));
+        return min(di1,min(di2,di3));
     }
 
-    std::string who_has_the_ball(const board_status& current_board) {
+    string who_has_the_ball(const board_status& current_board) {
         for (auto p : current_board.team) {
             if (p.in_posetion) {
                 return "GREEDY";
