@@ -88,21 +88,29 @@ public:
                     if (inside_board(current_board.team[1], j)) {
                         for (int k = 0; k < moves.size(); k++) {
                             if (inside_board(current_board.team[2], k)) {
-
-                                for (int jugador = 0; jugador < 3; ++jugador) {
-                                    vector<int> player_moves { i, j, k };
-                                    if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
-                                        int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
-                                        max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
-                                    }
-                                }
-
-                                //ahora verifico que los jugadores al realizar la combinacion
-                                //de movimientos de esta iteracion sean posiciones validas
                                 if (in_different_positions(current_board.team, i, j, k)) {
-                                    double current_rank = evaluate_board(current_board, i, j, k);
+                                    double current_rank = -999999;
+                                    int best_max_steps = 0;
+                                    for (int jugador = 0; jugador < 3; ++jugador) {
+                                        vector<int> player_moves { i, j, k };
+                                        if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
+                                            int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
+                                            for (int steps = 1; steps <= max_steps; steps++) {
+                                                current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
+                                                if (current_rank > max_rank) {
+                                                    max_rank = current_rank;
+                                                    update_moves(made_moves, i, j, k, jugador, steps);
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    //ahora verifico que los jugadores al realizar la combinacion
+                                    //de movimientos de esta iteracion sean posiciones validas
+                                    current_rank = evaluate_board(current_board, i, j, k);
                                     if (current_rank > max_rank) {
-                                        max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k);
+                                        max_rank = current_rank;
+                                        update_moves(made_moves, i, j, k);
                                     }
                                 }
                             }
@@ -195,48 +203,22 @@ private:
         return goal;
     };
 
-    double calculate_max_board_for_player_passes(const board_status& current_board, int max_steps, double max_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball) {
-        //me guardo en un vector los movimientos de los jugadores
-        std::vector<int> player_moves{ i, j, k };
-        //este metodo se llama solamente cuando se patea
-        //hago que el jugador que patee no se mueva
-        player_moves[player_with_ball] = 0;
-
-        //si el jugador que va a patear tiene la pelota y esta el equipo en posiciones validas
-        if (current_board.team[player_with_ball].in_posetion && valid_positions(current_board.team, player_moves[0], player_moves[1], player_moves[2])) {
-            //itero para todos los posibles valores de steps del jugador
-            for (int steps = 1; steps <= max_steps; ++steps) {
-                double current_rank = evaluate_board(current_board, i, j, k);
-            
-                max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k, player_with_ball, steps);
-            }
-        }
-
-        return max_rank;
-    }
-
-    double update_rank_and_moves(double max_rank, double current_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
+    void update_moves(std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
         //si nadie patea todos tienen step 0
         std::vector<int> steps_players(3, 0);
         //si algun jugador pateo, actualizo su step
         steps_players[player_with_ball] = steps;
 
-        //si consegui un mejor tablero, me guardo su valor y movimientos
-        if (current_rank > max_rank) {
             update_move(0, made_moves[0], i, steps_players[0]);
             update_move(1, made_moves[1], j, steps_players[1]);
             update_move(2, made_moves[2], k, steps_players[2]);
-
-            max_rank = current_rank;
-        }
-
-        return max_rank;
     }
 
     void update_move(int id, player_move& current_move, int dir, int steps) {
         current_move.player_id = id;
         current_move.move_type = steps == 0 ? MOVIMIENTO : PASE;
-        current_move.dir = _moves[dir].number;
+        // current_move.dir = _moves[dir].number;
+        current_move.dir = dir;
         current_move.steps = steps;
     }
 
@@ -270,7 +252,7 @@ private:
         return new_p1_pos == new_p2_pos;
     }
 
-    double evaluate_board(const board_status& current_board, int i, int j, int k) {
+    double evaluate_board(const board_status& current_board, int i, int j, int k, int jugador = 0, int steps = 0) {
         
         LogicalBoard* logical_board = new LogicalBoard(
             this->columns,
@@ -285,6 +267,11 @@ private:
             {1,"MOVIMIENTO",j},
             {2,"MOVIMIENTO",k}
         };
+
+        if (steps > 0) {
+            moves_A[jugador].move_type = "PASE";
+            moves_A[jugador].steps = steps;
+        }
 
         vector<player_move> moves_B = {
             {0,"MOVIMIENTO",0},
