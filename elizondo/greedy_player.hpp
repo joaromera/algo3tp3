@@ -11,6 +11,8 @@
 random_device rd;
 mt19937 generator(rd());
 
+using namespace std;
+
 class greedy_player {
     
     int columns, rows, steps;
@@ -74,27 +76,27 @@ public:
                     if (inside_board(current_board.team[1], j)) {
                         for (int k = 0; k < moves.size(); k++) {
                             if (inside_board(current_board.team[2], k)) {
-                                for(int jugador = 0; jugador < 3; ++jugador) {
-                                    std::vector<int> player_moves{ i, j, k };
-                                    //si el jugador que va a patear tiene direccion (0,0) no puede patear
-                                    if (player_moves[jugador] != 0) {
-                                        int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
-                                        max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
-                                    }
-                                }
+                                // for (int jugador = 0; jugador < 3; ++jugador) {
+                                    // vector<int> player_moves { i, j, k };
+                                    // if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
+                                    //     int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
+                                    //     max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
+                                    // }
+                                // }
+
                                 //ahora verifico que los jugadores al realizar la combinacion
                                 //de movimientos de esta iteracion sean posiciones validas
                                 if (in_different_positions(current_board.team, i, j, k)) {
                                     int current_rank = evaluate_board(current_board, i, j, k);
-                                    max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k);
+                                    if (current_rank > max_rank) {
+                                        max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k);
+                                    }
                                 }
                             }
                         }
                     }
-                    
                 }
             }
-            
         }
     }
 
