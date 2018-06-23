@@ -251,11 +251,13 @@ private:
             {current_board.team[2].id, "MOVIMIENTO", k}
         };
 
-        // if (steps > 0) {
-            // moves_A[jugador].move_type = "PASE";
-            // moves_A[jugador].steps = steps;
-        // }
-
+        for (auto pm : moves_A) {
+            if (pm.player_id == jugador) {
+                pm.move_type = "PASE";
+                pm.steps = steps;
+            }
+        }
+        
         vector<player_move> moves_B = {
             {0, "MOVIMIENTO", 0},
             {1, "MOVIMIENTO", 0},
