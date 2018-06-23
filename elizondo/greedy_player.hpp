@@ -81,7 +81,7 @@ public:
         made_moves.push_back(p_move);
         
         double max_rank = -9999999;
-        double current_rank = -999999;
+        double current_rank = -9999999;
         
         for (int i = 0; i < moves.size(); i++) {
             if (inside_board(current_board.team[0], i)) {        
@@ -201,8 +201,7 @@ private:
     void update_move(int id, player_move& current_move, int dir, int steps) {
         current_move.player_id = id;
         current_move.move_type = steps == 0 ? MOVIMIENTO : PASE;
-        // current_move.dir = _moves[dir].number;
-        current_move.dir = 0;
+        current_move.dir = dir;
         current_move.steps = steps;
     }
 
@@ -247,20 +246,20 @@ private:
         );
 
         vector<player_move> moves_A = {
-            {0,"MOVIMIENTO",i},
-            {1,"MOVIMIENTO",j},
-            {2,"MOVIMIENTO",k}
+            {current_board.team[0].id, "MOVIMIENTO", i},
+            {current_board.team[1].id, "MOVIMIENTO", j},
+            {current_board.team[2].id, "MOVIMIENTO", k}
         };
 
-        if (steps > 0) {
-            moves_A[jugador].move_type = "PASE";
-            moves_A[jugador].steps = steps;
-        }
+        // if (steps > 0) {
+            // moves_A[jugador].move_type = "PASE";
+            // moves_A[jugador].steps = steps;
+        // }
 
         vector<player_move> moves_B = {
-            {0,"MOVIMIENTO",0},
-            {1,"MOVIMIENTO",0},
-            {2,"MOVIMIENTO",0}
+            {0, "MOVIMIENTO", 0},
+            {1, "MOVIMIENTO", 0},
+            {2, "MOVIMIENTO", 0}
         };
 
         logical_board->makeMove(moves_A, moves_B);
