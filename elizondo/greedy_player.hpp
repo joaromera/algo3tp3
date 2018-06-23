@@ -55,8 +55,8 @@ public:
         }
 
         for (int i = -1; i < 2; i++) {
-            own_goal.push_back(std::make_pair(column_own_goal, i));
-            opponnent_goal.push_back(std::make_pair(column_opoent_goal, i));
+            own_goal.push_back(std::make_pair(mid_row + i, column_own_goal));
+            opponnent_goal.push_back(std::make_pair(mid_row + i, column_opoent_goal));
         }
 
     }
@@ -179,8 +179,8 @@ private:
 
         //me genero los 2 arcos de la cancha
         int middle_row = rows/2;
-        vector<std::pair <int, int> > goal_a = get_goal(0, middle_row);
-        vector<std::pair <int, int> > goal_b = get_goal(columns, middle_row);
+        vector<std::pair <int, int> > goal_a = get_goal(middle_row, -1);
+        vector<std::pair <int, int> > goal_b = get_goal(middle_row, columns);
 
         //como los arcos tienen 3 posiciones, itero de [0, 3)
         for (int index = 0; index < 3; ++index) {
@@ -196,9 +196,9 @@ private:
     vector<std::pair <int, int> > get_goal(int row, int col) {
         //obtengo el vector con las 3 posiciones del arco
         vector<std::pair <int, int> > goal;
-        goal.push_back(make_pair(col,row-1));
-        goal.push_back(make_pair(col,row));
-        goal.push_back(make_pair(col,row+1));
+        goal.push_back(make_pair(row-1,col));
+        goal.push_back(make_pair(row,col));
+        goal.push_back(make_pair(row+1,col));
 
         return goal;
     };
