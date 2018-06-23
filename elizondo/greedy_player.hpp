@@ -67,30 +67,34 @@ public:
         made_moves.push_back(p_move);
         
         int max_rank = 0;
-        //itero por todos los posibles mov del jugador 0
+        
         for (int i = 0; i < moves.size(); i++) {
-            //itero por todos los posibles mov del jugador 1
-            for (int j = 0; j < moves.size(); j++) {
-                //itero por todos los posibles mov del jugador 2
-                for (int k = 0; k < moves.size(); k++) {
-                    //por cada jugador evaluo la accion de patear
-                    for(int jugador = 0; jugador < 3; ++jugador) {
-                        std::vector<int> player_moves{ i, j, k };
-                        //si el jugador que va a patear tiene direccion (0,0) no puede patear
-                        if (player_moves[jugador] != 0) {
-                            int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
-                            max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
+            if (inside_board(current_board.team[0], i)) {        
+                for (int j = 0; j < moves.size(); j++) {
+                    if (inside_board(current_board.team[1], j)) {
+                        for (int k = 0; k < moves.size(); k++) {
+                            if (inside_board(current_board.team[2], k)) {
+                                for(int jugador = 0; jugador < 3; ++jugador) {
+                                    std::vector<int> player_moves{ i, j, k };
+                                    //si el jugador que va a patear tiene direccion (0,0) no puede patear
+                                    if (player_moves[jugador] != 0) {
+                                        int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
+                                        max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
+                                    }
+                                }
+                                //ahora verifico que los jugadores al realizar la combinacion
+                                //de movimientos de esta iteracion sean posiciones validas
+                                if (in_different_positions(current_board.team, i, j, k)) {
+                                    int current_rank = evaluate_board(current_board, i, j, k);
+                                    max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k);
+                                }
+                            }
                         }
                     }
-                    //ahora verifico que los jugadores al realizar la combinacion
-                    //de movimientos de esta iteracion sean posiciones validas
-                    if (valid_positions(current_board.team, i, j, k)) {
-                        int current_rank = evaluate_board(current_board, i, j, k);
-                        
-                        max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k);
-                    }
+                    
                 }
             }
+            
         }
     }
 
