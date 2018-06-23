@@ -80,7 +80,7 @@ public:
         made_moves.push_back(p_move);
         made_moves.push_back(p_move);
         
-        int max_rank = -9999999;
+        double max_rank = -9999999;
         
         for (int i = 0; i < moves.size(); i++) {
             if (inside_board(current_board.team[0], i)) {        
@@ -88,18 +88,19 @@ public:
                     if (inside_board(current_board.team[1], j)) {
                         for (int k = 0; k < moves.size(); k++) {
                             if (inside_board(current_board.team[2], k)) {
-                                // for (int jugador = 0; jugador < 3; ++jugador) {
-                                //     vector<int> player_moves { i, j, k };
-                                //     if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
-                                //         int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
-                                //         max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
-                                //     }
-                                // }
+
+                                for (int jugador = 0; jugador < 3; ++jugador) {
+                                    vector<int> player_moves { i, j, k };
+                                    if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
+                                        double max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador], rows, columns);
+                                        max_rank = calculate_max_board_for_player_passes(current_board, max_steps, max_rank, made_moves, i, j, k, jugador);
+                                    }
+                                }
 
                                 //ahora verifico que los jugadores al realizar la combinacion
                                 //de movimientos de esta iteracion sean posiciones validas
                                 if (in_different_positions(current_board.team, i, j, k)) {
-                                    int current_rank = evaluate_board(current_board, i, j, k);
+                                    double current_rank = evaluate_board(current_board, i, j, k);
                                     if (current_rank > max_rank) {
                                         max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k);
                                     }
@@ -194,7 +195,7 @@ private:
         return goal;
     };
 
-    int calculate_max_board_for_player_passes(const board_status& current_board, int max_steps, int max_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball) {
+    double calculate_max_board_for_player_passes(const board_status& current_board, int max_steps, double max_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball) {
         //me guardo en un vector los movimientos de los jugadores
         std::vector<int> player_moves{ i, j, k };
         //este metodo se llama solamente cuando se patea
@@ -205,7 +206,7 @@ private:
         if (current_board.team[player_with_ball].in_posetion && valid_positions(current_board.team, player_moves[0], player_moves[1], player_moves[2])) {
             //itero para todos los posibles valores de steps del jugador
             for (int steps = 1; steps <= max_steps; ++steps) {
-                int current_rank = evaluate_board(current_board, i, j, k);
+                double current_rank = evaluate_board(current_board, i, j, k);
             
                 max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k, player_with_ball, steps);
             }
@@ -214,15 +215,14 @@ private:
         return max_rank;
     }
 
-    int update_rank_and_moves(int max_rank, int current_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
+    double update_rank_and_moves(double max_rank, double current_rank, std::vector<player_move>& made_moves, int i, int j, int k, int player_with_ball = 0, int steps = 0) {
         //si nadie patea todos tienen step 0
         std::vector<int> steps_players(3, 0);
         //si algun jugador pateo, actualizo su step
         steps_players[player_with_ball] = steps;
 
         //si consegui un mejor tablero, me guardo su valor y movimientos
-        // if (current_rank > max_rank) {
-        if (true) {
+        if (current_rank > max_rank) {
             update_move(0, made_moves[0], i, steps_players[0]);
             update_move(1, made_moves[1], j, steps_players[1]);
             update_move(2, made_moves[2], k, steps_players[2]);
@@ -249,6 +249,12 @@ private:
         int i = player.i + moves[dir].first;
         int j = player.j + moves[dir].second;
 
+        if (player.in_posetion) {
+            for (auto g : this->opponnent_goal) {
+                if (g.first == i && g.second == j) return true;
+            }
+        }
+
         return i >= 0 && j >= 0 && i < rows && j < columns;
     }
 
@@ -264,7 +270,7 @@ private:
         return new_p1_pos == new_p2_pos;
     }
 
-    int evaluate_board(const board_status& current_board, int i, int j, int k) {
+    double evaluate_board(const board_status& current_board, int i, int j, int k) {
         
         LogicalBoard* logical_board = new LogicalBoard(
             this->columns,
@@ -289,7 +295,8 @@ private:
         logical_board->makeMove(moves_A, moves_B);
         board_status aftermove = logical_board->getNewState();
         
-        int result = 1;
+        double result = 0;
+
         // Mientras más cerca esté la pelota del arco contrario, mejor
         result -= distance_ball_opponnent_goal(aftermove);
 
@@ -322,7 +329,7 @@ private:
     }
 
     // Queremos que sea bajo
-    int distance_ball_opponnent_goal(const board_status& current_board) {
+    double distance_ball_opponnent_goal(const board_status& current_board) {
         int ball_i;
         int ball_j;
 
@@ -344,15 +351,15 @@ private:
             }
         }
 
-        int di1 = distance(ball_i, ball_j, this->opponnent_goal[0].first, this->opponnent_goal[0].second);
-        int di2 = distance(ball_i, ball_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
-        int di3 = distance(ball_i, ball_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
+        double di1 = distance(ball_i, ball_j, this->opponnent_goal[0].first, this->opponnent_goal[0].second);
+        double di2 = distance(ball_i, ball_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
+        double di3 = distance(ball_i, ball_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
     
         return std::min(di1,std::min(di2,di3));
     }
 
     // Si tenemos la pelota queremos que sea grande, si no la tenemos queremos que sea baja
-    int distance_player_closest_opponnent(const board_status& current_board, int player_id)  {
+    double distance_player_closest_opponnent(const board_status& current_board, int player_id)  {
         int player_i;
         int player_j;
         for (auto p : current_board.team) {
@@ -361,15 +368,15 @@ private:
                 player_j = p.j;
             }
         }
-        int di1 = distance(player_i, player_j, current_board.oponent_team[0].i, current_board.oponent_team[0].j);
-        int di2 = distance(player_i, player_j, current_board.oponent_team[1].i, current_board.oponent_team[1].j);
-        int di3 = distance(player_i, player_j, current_board.oponent_team[2].i, current_board.oponent_team[2].j);
+        double di1 = distance(player_i, player_j, current_board.oponent_team[0].i, current_board.oponent_team[0].j);
+        double di2 = distance(player_i, player_j, current_board.oponent_team[1].i, current_board.oponent_team[1].j);
+        double di3 = distance(player_i, player_j, current_board.oponent_team[2].i, current_board.oponent_team[2].j);
     
         return std::min(di1,std::min(di2,di3));
     }
 
     // Con la pelota queremos que sea bajo
-    int distance_player_opponnent_goal(const board_status& current_board, int player_id)  {
+    double distance_player_opponnent_goal(const board_status& current_board, int player_id)  {
         int player_i;
         int player_j;
         for (auto p : current_board.team) {
@@ -378,9 +385,9 @@ private:
                 player_j = p.j;
             }
         }
-        int di1 = distance(player_i, player_j, this->opponnent_goal[0].first, this->opponnent_goal[0].second);
-        int di2 = distance(player_i, player_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
-        int di3 = distance(player_i, player_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
+        double di1 = distance(player_i, player_j, this->opponnent_goal[0].first, this->opponnent_goal[0].second);
+        double di2 = distance(player_i, player_j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
+        double di3 = distance(player_i, player_j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
     
         return std::min(di1,std::min(di2,di3));
     }
