@@ -80,7 +80,7 @@ public:
         made_moves.push_back(p_move);
         made_moves.push_back(p_move);
         
-        int max_rank = 0;
+        int max_rank = -9999999;
         
         for (int i = 0; i < moves.size(); i++) {
             if (inside_board(current_board.team[0], i)) {        
@@ -100,8 +100,7 @@ public:
                                 //de movimientos de esta iteracion sean posiciones validas
                                 if (in_different_positions(current_board.team, i, j, k)) {
                                     int current_rank = evaluate_board(current_board, i, j, k);
-                                    // if (current_rank > max_rank) {
-                                        if (true) {
+                                    if (current_rank > max_rank) {
                                         max_rank = update_rank_and_moves(max_rank, current_rank, made_moves, i, j, k);
                                     }
                                 }
@@ -265,7 +264,7 @@ private:
         return new_p1_pos == new_p2_pos;
     }
 
-    int evaluate_board(const board_status& current_board, int i, int j, int k) {   //Si steps no es 0, entonces miro en player_with_ball cual tiene la pelota
+    int evaluate_board(const board_status& current_board, int i, int j, int k) {
         
         LogicalBoard* logical_board = new LogicalBoard(
             this->columns,
