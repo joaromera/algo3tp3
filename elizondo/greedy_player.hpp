@@ -238,6 +238,14 @@ private:
     double evaluate_board(const board_status& current_board, int i, int j, int k, int jugador = 0, int steps = 0) {
         
         board_status test = current_board;
+        // si nadie tenia la pelota
+        if (test.ball.is_free) {
+            // si venia moviendose actualizo su posicion
+            if (test.ball.steps > 0) {
+                test.ball.i += 2*moves[test.ball.dir].first;
+                test.ball.j += 2*moves[test.ball.dir].second;
+            }
+        }
 
         test.team[0].i += moves[i].first;
         test.team[0].j += moves[i].second;
@@ -256,35 +264,11 @@ private:
                 test.ball.i += moves[player_moves[jugador]].first;
                 test.ball.j += moves[player_moves[jugador]].second;
             }
+            if (test.ball.is_free && p.i == test.ball.i && p.j == test.ball.j) {
+                test.ball.is_free = false;
+                p.in_posetion = true;
+            }
         }
-
-        // LogicalBoard* logical_board = new LogicalBoard(
-        //     this->columns,
-        //     this->rows,
-        //     this->players,
-        //     this->opponnents,
-        //     current_board
-        // );
-        // vector<player_move> moves_A = {
-        //     {current_board.team[0].id, "MOVIMIENTO", i},
-        //     {current_board.team[1].id, "MOVIMIENTO", j},
-        //     {current_board.team[2].id, "MOVIMIENTO", k}
-        // };
-        // if (steps > 0) {
-        //     for (auto pm : moves_A) {
-        //         if (pm.player_id == jugador) {
-        //             pm.move_type = "PASE";
-        //             pm.steps = steps;
-        //         }
-        //     }
-        // }
-        // vector<player_move> moves_B = {
-        //     {0, "MOVIMIENTO", 0},
-        //     {1, "MOVIMIENTO", 0},
-        //     {2, "MOVIMIENTO", 0}
-        // };
-        // logical_board->makeMove(moves_A, moves_B);
-        // board_status aftermove = logical_board->getNewState();
         
         double result = 0;
 

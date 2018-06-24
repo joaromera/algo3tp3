@@ -1,1 +1,5 @@
 *.pyc
+static_player
+greedy_player
+.vscode/
+log/
