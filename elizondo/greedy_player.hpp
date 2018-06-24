@@ -91,19 +91,19 @@ public:
                         for (int k = 0; k < moves.size(); k++) {
                             if (inside_board(current_board.team[2], k)) {
                                 if (in_different_positions(current_board.team, i, j, k)) {
-                                    // for (int jugador = 0; jugador < 3; jugador++) {
-                                    //     vector<int> player_moves { i, j, k };
-                                    //     if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
-                                    //         int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
-                                    //         for (int steps = 1; steps <= max_steps; steps++) {
-                                    //             current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
-                                    //             if (current_rank > max_rank) {
-                                    //                 max_rank = current_rank;
-                                    //                 update_moves(current_board, made_moves, i, j, k, jugador, steps);
-                                    //             }
-                                    //         }
-                                    //     }
-                                    // }
+                                    for (int jugador = 0; jugador < 3; jugador++) {
+                                        vector<int> player_moves { i, j, k };
+                                        if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
+                                            int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
+                                            for (int steps = 1; steps <= max_steps; steps++) {
+                                                current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
+                                                if (current_rank > max_rank) {
+                                                    max_rank = current_rank;
+                                                    update_moves(current_board, made_moves, i, j, k, jugador, steps);
+                                                }
+                                            }
+                                        }
+                                    }
 
                                     //ahora verifico que los jugadores al realizar la combinacion
                                     //de movimientos de esta iteracion sean posiciones validas
@@ -132,19 +132,22 @@ private:
         int i = player.i;
         int j = player.j;
 
+        i += moves[dir].first * 2;
+        j += moves[dir].second * 2;
+        
         bool is_in_range = true;
         //mientras este en la cancha o algun arco, itero
         while (is_in_range) {
             //me fijo que si avanzo la pelota 1 vez siga en la cancha
-            if (position_is_in_board(i, j, dir)) {
+            if (position_is_in_board(i, j)) {
                 //actualizo la posicion y sumo uno a la cantidad maxima de steps
+                steps++;
                 i += moves[dir].first * 2;
                 j += moves[dir].second * 2;
-                ++steps;
             } else if (ball_is_in_any_goal(i, j, dir)) {
                 //si la pelota llego al arco con el proximo step, entonces
                 //sumo uno a la cantidad maxima de steps y salgo del ciclo
-                ++steps;
+                steps++;
                 is_in_range = false;
             } else {
                 //sino la pelota salio del ciclo
@@ -157,30 +160,29 @@ private:
         return steps < middle_row ? steps : middle_row;
     }
 
-    bool position_is_in_board(int i, int j, int dir) {
-        //como la pelota se mueve de a 2 posiciones, me creo la prox posicion
-        //y verifico que siga en la cancha
-        int new_i = i + moves[dir].first * 2;
-        int new_j = j + moves[dir].second * 2;
-
-        return  0 <= new_i && new_i < rows && 0 <= new_j && new_j < columns;
+    bool position_is_in_board(int i, int j) {
+        for (int index = 0; index < 3; index++) {
+            // verifico si la pelota llega a la posicion "index" de algun arco con 1 pase o medio
+            // if (pos_half_pass == this->opponnent_goal[index] || pos_full_pass == this->opponnent_goal[index]) return true;
+            if (i == this->opponnent_goal[index].first && j == this->opponnent_goal[index].second) return true;
+        }
+        return  0 <= i && i <= rows && 0 <= j && j <= columns;
     }
 
     bool ball_is_in_any_goal(int i, int j, int dir) {
         //hay 2 casos, en el que la pelota con un pase mas entre en el arco
         //o que con medio pase más entre (por que estaba a 1 casillero de distancia)
-        int i_half_pass = i + moves[dir].first;
-        int j_half_pass = j + moves[dir].second;
-        pair <int, int> pos_half_pass = make_pair(i_half_pass, j_half_pass);
+        // int i_half_pass = i - moves[dir].first;
+        // int j_half_pass = j - moves[dir].second;
+        // pair <int, int> pos_half_pass = make_pair(i_half_pass, j_half_pass);
 
-        int i_full_pass = i + moves[dir].first * 2;
-        int j_full_pass = j + moves[dir].second * 2;
-        pair <int, int> pos_full_pass = make_pair(i_full_pass, j_full_pass);
+        pair <int, int> pos_full_pass = make_pair(i, j);
 
         //como los arcos tienen 3 posiciones, itero de [0, 3)
-        for (int index = 0; index < 3; ++index) {
+        for (int index = 0; index < 3; index++) {
             // verifico si la pelota llega a la posicion "index" de algun arco con 1 pase o medio
-            if (pos_half_pass == this->opponnent_goal[index] || pos_full_pass == this->opponnent_goal[index]) return true;
+            // if (pos_half_pass == this->opponnent_goal[index] || pos_full_pass == this->opponnent_goal[index]) return true;
+            if (i == this->opponnent_goal[index].first && j == this->opponnent_goal[index].second) return true;
         }
 
         //si no cayo en el return del ciclo, entonces la pelota no entra al arco
@@ -283,24 +285,24 @@ private:
                 if (p.in_posetion) {
                     if (can_kick_to_goal(updated_board, p)) {
                         // hay que pensar bien el valor
-                        result += 1;
+                        //result += 1;
                     }
                 }
             }
-        }
-        
-        if (who_has_the_ball(updated_board) == "OPPONNENT") {
+        } else if (who_has_the_ball(updated_board) == "OPPONNENT") {
             // Queremos que se acerquen a los contrarios
             for (auto p : updated_board.team) {
                 result -= distance_player_closest_opponnent(updated_board, p);
             }
-        }
-
-        if (who_has_the_ball(updated_board) == "FREE") {
+        } else {
             // Queremos que se acerquen a la pelota porque está libre
             for (auto p : updated_board.team) {
                 result -= distance_player_ball(updated_board, p);
             }   
+        }
+
+        if (ball_is_in_any_goal(updated_board.ball.i, updated_board.ball.j, 0)) {
+            result += 1000;
         }
 
         return result;
@@ -385,7 +387,7 @@ private:
     }
 
     // Si tenemos la pelota queremos que sea grande, si no la tenemos queremos que sea baja
-    double distance_player_closest_opponnent(const board_status& current_board, player_status& player)  {
+    double distance_player_closest_opponnent(const board_status& current_board, player_status& player) {
         double di1 = distance(player.i, player.j, current_board.oponent_team[0].i, current_board.oponent_team[0].j);
         double di2 = distance(player.i, player.j, current_board.oponent_team[1].i, current_board.oponent_team[1].j);
         double di3 = distance(player.i, player.j, current_board.oponent_team[2].i, current_board.oponent_team[2].j);
@@ -394,7 +396,7 @@ private:
     }
 
     // Con la pelota queremos que sea bajo
-    double distance_player_opponnent_goal(player_status& player)  {
+    double distance_player_opponnent_goal(player_status& player) {
         double di1 = distance(player.i, player.j, this->opponnent_goal[0].first, this->opponnent_goal[0].second);
         double di2 = distance(player.i, player.j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
         double di3 = distance(player.i, player.j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
@@ -403,7 +405,7 @@ private:
     }
 
     // Si no tenemos la pelota queremos que sea chico
-    int distance_player_ball(const board_status& current_board, player_status& player)  {
+    int distance_player_ball(const board_status& current_board, player_status& player) {
         int di1 = distance(player.i, player.j, current_board.ball.i, current_board.ball.j);
         int di2 = distance(player.i, player.j, current_board.ball.i, current_board.ball.j);
         int di3 = distance(player.i, player.j, current_board.ball.i, current_board.ball.j);
