@@ -33,15 +33,15 @@ class LogicalBoard {
             this->scoreB = 0;
 
             vector < Player* > _teamA;
-            for(int i = 0; i < 3; i++) {
-                Player *aux = new Player(teamA[i]);
+            for(auto p : teamA) {
+                Player *aux = new Player(p);
                 _teamA.push_back(aux);
             }
             this->teamA = _teamA;
 
             vector < Player* > _teamB;
-            for(int i = 0; i < 3; i++) {
-                Player *aux = new Player(teamB[i]);
+            for(auto p : teamB) {
+                Player *aux = new Player(p);
                 _teamB.push_back(aux);
             }
             this->teamB = _teamB;
@@ -75,15 +75,15 @@ class LogicalBoard {
             this->new_state = nullptr;
 
             vector < Player* > _teamA;
-            for(int i = 0; i < 3; i++) {
-                Player *aux = new Player(teamA[i]);
+            for(auto p : teamA) {
+                Player *aux = new Player(p);
                 _teamA.push_back(aux);
             }
             this->teamA = _teamA;
 
             vector < Player* > _teamB;
-            for(int i = 0; i < 3; i++) {
-                Player *aux = new Player(teamB[i]);
+            for(auto p : teamB) {
+                Player *aux = new Player(p);
                 _teamB.push_back(aux);
             }
             this->teamB = _teamB;
@@ -120,18 +120,18 @@ class LogicalBoard {
         }
 
         void makeTeamMove(vector<Player*> *team, vector<player_move> &moves) {
-            for (int i = 0; i < 3; i++) {
-                Player* aPlayer = (*team)[i];
-                player_move aMove = moves[aPlayer->id];
-
-                if (aMove.move_type == "MOVIMIENTO") {
-                    aPlayer->move(aMove.dir);
-                }
-
-                if (aMove.move_type == "PASE") {
-                    this->free_ball = aPlayer->ball;
-                    this->free_ball->setMovement(aMove.dir, aMove.steps);
-                    aPlayer->ball = nullptr;
+            for (auto aPlayer : *team) {
+                for (auto aMove : moves) {
+                    if (aMove.player_id == aPlayer->id) {
+                        if (aMove.move_type == "MOVIMIENTO") {
+                            aPlayer->move(aMove.dir);
+                        }
+                        if (aMove.move_type == "PASE") {
+                            this->free_ball = aPlayer->ball;
+                            this->free_ball->setMovement(aMove.dir, aMove.steps);
+                            aPlayer->ball = nullptr;
+                        }
+                    }
                 }
             }
         };
@@ -172,18 +172,17 @@ class LogicalBoard {
 
             bool result = true;
             
-            player_status prevStatePlayer;
             vector<player_status> team;
-
             if (isOponent) {
                 team = this->last_state->oponent_team;
             } else {
                 team = this->last_state->team;
             }
 
-            for(int i; i < 3; i++) {
-                if (player->id == team[i].id) {
-                    prevStatePlayer = team[i];
+            player_status prevStatePlayer;
+            for (auto p : team) {
+                if (player->id == p.id) {
+                    prevStatePlayer = p;
                 }
             }
 
@@ -419,13 +418,13 @@ class LogicalBoard {
             this->free_ball = nullptr;
 
             // Coloco los jugadores en las posiciones correctas
-            for (int i = 0; i < 3;  i++) {
-                this->teamA[positionsA[i].id]->i = positionsA[i].i;
-                this->teamA[positionsA[i].id]->j = positionsA[i].j;
+            for (auto p: positionsA) {
+                this->teamA[p.id]->i = p.i;
+                this->teamA[p.id]->j = p.j;
             }
-            for (int i = 0; i < 3;  i++) {
-                this->teamB[positionsB[i].id]->i = positionsB[i].i;
-                this->teamB[positionsB[i].id]->j = positionsB[i].j;
+            for (auto p: positionsB) {
+                this->teamB[p.id]->i = p.i;
+                this->teamB[p.id]->j = p.j;
             }
 
             // Le doy la pelota al jugador que saca y lo pongo en el centro
@@ -530,16 +529,6 @@ class LogicalBoard {
 
         board_status getNewState() {
             return *(this->new_state);
-        }
-
-        vector < tuple < int, int > > getGoal(const string & team) {
-            vector < tuple < int, int > > goal;
-            if (team == "A") {
-                goal = goalA;
-            } else if (team == "B") {
-                goal = goalB;
-            }
-            return goal;
         }
 
         void print() {
