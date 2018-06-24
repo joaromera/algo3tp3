@@ -3,6 +3,7 @@
 #include <vector>
 #include <map>
 #include <iostream>
+#include <fstream>
 
 #include "board_status.hpp"
 #include "constants.hpp"
@@ -49,9 +50,9 @@ public:
         int mid_row = this->rows / 2;
         int column_own_goal = this->columns;
         int column_opoent_goal = -1;
-        if (this->side == IZQUIERDA) {
+        if (this->side == "IZQUIERDA") {
             column_own_goal = -1;
-            int column_opoent_goal = this->columns;
+            column_opoent_goal = this->columns;
         }
 
         for (int i = -1; i < 2; i++) {
@@ -82,7 +83,7 @@ public:
         
         double max_rank = -9999999;
         double current_rank = -9999999;
-        
+
         for (int i = 0; i < moves.size(); i++) {
             if (inside_board(current_board.team[0], i)) {        
                 for (int j = 0; j < moves.size(); j++) {
@@ -90,19 +91,19 @@ public:
                         for (int k = 0; k < moves.size(); k++) {
                             if (inside_board(current_board.team[2], k)) {
                                 if (in_different_positions(current_board.team, i, j, k)) {
-                                    for (int jugador = 0; jugador < 3; jugador++) {
-                                        vector<int> player_moves { i, j, k };
-                                        if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
-                                            int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
-                                            for (int steps = 1; steps <= max_steps; steps++) {
-                                                current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
-                                                if (current_rank > max_rank) {
-                                                    max_rank = current_rank;
-                                                    update_moves(current_board, made_moves, i, j, k, jugador, steps);
-                                                }
-                                            }
-                                        }
-                                    }
+                                    // for (int jugador = 0; jugador < 3; jugador++) {
+                                    //     vector<int> player_moves { i, j, k };
+                                    //     if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
+                                    //         int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
+                                    //         for (int steps = 1; steps <= max_steps; steps++) {
+                                    //             current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
+                                    //             if (current_rank > max_rank) {
+                                    //                 max_rank = current_rank;
+                                    //                 update_moves(current_board, made_moves, i, j, k, jugador, steps);
+                                    //             }
+                                    //         }
+                                    //     }
+                                    // }
 
                                     //ahora verifico que los jugadores al realizar la combinacion
                                     //de movimientos de esta iteracion sean posiciones validas
@@ -179,8 +180,7 @@ private:
         //como los arcos tienen 3 posiciones, itero de [0, 3)
         for (int index = 0; index < 3; ++index) {
             // verifico si la pelota llega a la posicion "index" de algun arco con 1 pase o medio
-            if (pos_half_pass == this->opponnent_goal[index] || pos_half_pass == this->own_goal[index]
-                || pos_full_pass == this->opponnent_goal[index] || pos_full_pass == this->own_goal[index]) return true;
+            if (pos_half_pass == this->opponnent_goal[index] || pos_full_pass == this->opponnent_goal[index]) return true;
         }
 
         //si no cayo en el return del ciclo, entonces la pelota no entra al arco
@@ -195,7 +195,7 @@ private:
 
         update_move(current_board.team[0].id, made_moves[0], i, steps_players[0]);
         update_move(current_board.team[1].id, made_moves[1], j, steps_players[1]);
-        update_move(current_board.team[2].id, made_moves[2], k, steps_players[2]);
+        update_move(current_board.team[2].id, made_moves[2], k, steps_players[2]);        
     }
 
     void update_move(int id, player_move& current_move, int dir, int steps) {
@@ -237,60 +237,79 @@ private:
 
     double evaluate_board(const board_status& current_board, int i, int j, int k, int jugador = 0, int steps = 0) {
         
-        LogicalBoard* logical_board = new LogicalBoard(
-            this->columns,
-            this->rows,
-            this->players,
-            this->opponnents,
-            current_board
-        );
+        board_status test = current_board;
 
-        vector<player_move> moves_A = {
-            {current_board.team[0].id, "MOVIMIENTO", i},
-            {current_board.team[1].id, "MOVIMIENTO", j},
-            {current_board.team[2].id, "MOVIMIENTO", k}
-        };
+        test.team[0].i += moves[i].first;
+        test.team[0].j += moves[i].second;
+        test.team[1].i += moves[j].first;
+        test.team[1].j += moves[j].second;
+        test.team[2].i += moves[k].first;
+        test.team[2].j += moves[k].second;
 
-        for (auto pm : moves_A) {
-            if (pm.player_id == jugador) {
-                pm.move_type = "PASE";
-                pm.steps = steps;
+        vector<int> player_moves { i, j, k };
+        for (auto p : test.team) {
+            if (p.id == jugador && steps > 0) {
+                p.in_posetion = false;
+                test.ball.is_free = true;
+                test.ball.steps = steps;
+                test.ball.dir = player_moves[jugador];
+                test.ball.i += moves[player_moves[jugador]].first;
+                test.ball.j += moves[player_moves[jugador]].second;
             }
         }
-        
-        vector<player_move> moves_B = {
-            {0, "MOVIMIENTO", 0},
-            {1, "MOVIMIENTO", 0},
-            {2, "MOVIMIENTO", 0}
-        };
 
-        logical_board->makeMove(moves_A, moves_B);
-        board_status aftermove = logical_board->getNewState();
+        // LogicalBoard* logical_board = new LogicalBoard(
+        //     this->columns,
+        //     this->rows,
+        //     this->players,
+        //     this->opponnents,
+        //     current_board
+        // );
+        // vector<player_move> moves_A = {
+        //     {current_board.team[0].id, "MOVIMIENTO", i},
+        //     {current_board.team[1].id, "MOVIMIENTO", j},
+        //     {current_board.team[2].id, "MOVIMIENTO", k}
+        // };
+        // if (steps > 0) {
+        //     for (auto pm : moves_A) {
+        //         if (pm.player_id == jugador) {
+        //             pm.move_type = "PASE";
+        //             pm.steps = steps;
+        //         }
+        //     }
+        // }
+        // vector<player_move> moves_B = {
+        //     {0, "MOVIMIENTO", 0},
+        //     {1, "MOVIMIENTO", 0},
+        //     {2, "MOVIMIENTO", 0}
+        // };
+        // logical_board->makeMove(moves_A, moves_B);
+        // board_status aftermove = logical_board->getNewState();
         
         double result = 0;
 
         // Mientras más cerca esté la pelota del arco contrario, mejor
         //result -= distance_ball_opponnent_goal(aftermove);
 
-        if (who_has_the_ball(aftermove) == "GREEDY") {
+        if (who_has_the_ball(test) == "GREEDY") {
             // Queremos que se acerquen al arco contrario y que se alejen de los oponentes
-            for (auto p : aftermove.team) {
-                result -= distance_player_opponnent_goal(aftermove, p.id);
-                //result += distance_player_closest_opponnent(aftermove, p.id);
+            for (auto p : test.team) {
+                result -= distance_player_opponnent_goal(test, p.id);
+                result += distance_player_closest_opponnent(test, p.id);
             }
         }
         
-        if (who_has_the_ball(aftermove) == "OPPONNENT") {
+        if (who_has_the_ball(test) == "OPPONNENT") {
             // Queremos que se acerquen a los contrarios
-            for (auto p : aftermove.team) {
-                result -= distance_player_closest_opponnent(aftermove, p.id);
+            for (auto p : test.team) {
+                result -= distance_player_closest_opponnent(test, p.id);
             }
         }
 
-        if (who_has_the_ball(aftermove) == "FREE") {
+        if (who_has_the_ball(test) == "FREE") {
             // Queremos que se acerquen a la pelota porque está libre
-            for (auto p : aftermove.team) {
-                result -= distance_player_ball(aftermove, p.id);
+            for (auto p : test.team) {
+                result -= distance_player_ball(test, p.id);
             }   
         }
 
