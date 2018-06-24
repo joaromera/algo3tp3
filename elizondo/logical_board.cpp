@@ -208,14 +208,14 @@ class LogicalBoard {
             if (this->free_ball != nullptr) {
                 
                 vector< Player* > intercepters;
-                for (int i = 0; i < 3; i++) {
-                    if (this->intercepted(this->teamA[i], false)) {
-                        intercepters.push_back(this->teamA[i]);
+                for (auto p : this->teamA) {
+                    if (this->intercepted(p, false)) {
+                        intercepters.push_back(p);
                     }
                 }
-                for (int i = 0; i < 3; i++) {
-                    if (this->intercepted(this->teamB[i], true)) {
-                        intercepters.push_back(this->teamB[i]);
+                for (auto p : this->teamB) {
+                    if (this->intercepted(p, false)) {
+                        intercepters.push_back(p);
                     }
                 }
                 
@@ -228,16 +228,14 @@ class LogicalBoard {
                     this->free_ball->move();
                     if (this->positionInBoard(this->free_ball->i, this->free_ball->j)) {
                         vector< Player* > playersToFight;
-                        for (int i = 0; i < 3; i++) {
-                            if (this->teamA[i]->i == this->free_ball->i 
-                                && this->teamA[i]->j == this->free_ball->j) {
-                                playersToFight.push_back(this->teamA[i]);
+                        for (auto p : this->teamA) {
+                            if (p->i == this->free_ball->i && p->j == this->free_ball->j) {
+                                playersToFight.push_back(p);
                             }
                         }
-                        for (int i = 0; i < 3; i++) {
-                            if (this->teamB[i]->i == this->free_ball->i 
-                                && this->teamB[i]->j == this->free_ball->j) {
-                                playersToFight.push_back(this->teamB[i]);
+                        for (auto p : this->teamB) {
+                            if (p->i == this->free_ball->i && p->j == this->free_ball->j) {
+                                playersToFight.push_back(p);
                             }
                         }
                         if (playersToFight.size() == 1) {
@@ -253,15 +251,14 @@ class LogicalBoard {
                 }
             } else {
                 bool alreadyFight = false;
-                for (int i = 0; i < 3; i++) {
+                for (auto playerA : this->teamA) {
                     if (alreadyFight) {
                         break;
                     }
-                    if (this->teamA[i]->ball != nullptr) {
-                        for (int j = 0; j < 3; j++) {
-                            if (this->teamA[i]->i == this->teamB[j]->i
-                                && this->teamA[i]->j == this->teamB[j]->j) {
-                                this->fightBall(*(this->teamA[i]), *(this->teamB[j]));
+                    if (playerA->ball != nullptr) {
+                        for (auto playerB : this->teamB) {
+                            if (playerA->i == playerB->i && playerA->j == playerB->j) {
+                                this->fightBall(*(playerA), *(playerB));
                                 alreadyFight = true;
                                 break;
                             }
@@ -269,15 +266,14 @@ class LogicalBoard {
                     }
                 }
                 if (!alreadyFight) {
-                    for (int i = 0; i < 3; i++) {
+                    for (auto playerB : this->teamB) {
                         if (alreadyFight) {
                             break;
                         }
-                        if (this->teamB[i]->ball != nullptr) {
-                            for (int j = 0; j < 3; j++) {
-                                if (this->teamB[i]->i == this->teamA[j]->i
-                                    && this->teamB[i]->j == this->teamA[j]->j) {
-                                    this->fightBall(*(this->teamB[i]), *(this->teamA[j]));
+                        if (playerB->ball != nullptr) {
+                            for (auto playerA : this->teamA) {
+                                if (playerB->i == playerA->i && playerB->j == playerA->j) {
+                                    this->fightBall(*(playerB), *(playerA));
                                     alreadyFight = true;
                                     break;
                                 }
@@ -286,6 +282,7 @@ class LogicalBoard {
                     }
                 }
             }
+            
             this->updateNewState();
             return this->updateScore();
         }
