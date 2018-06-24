@@ -41,9 +41,15 @@ public:
         this->side = side;
         this->team = team;
         this->players = players;
+        for(int i = 0; i < 3; i++) {
+            this->players[i].id = i;
+        }
         this->opponnents = opponnent_players;
+        for(int i = 0; i < 3; i++) {
+            this->opponnents[i].id = i;
+        }
+        
         this->get_goal_positions();
-
     }
 
     void get_goal_positions() {
