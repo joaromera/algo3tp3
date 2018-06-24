@@ -81,7 +81,7 @@ class LogicalBoard {
             }
             this->teamA = _teamA;
 
-            vector < Player* > _teamA;
+            vector < Player* > _teamB;
             for(int i = 0; i < 3; i++) {
                 Player *aux = new Player(i, teamB[i].probability);
                 _teamB.push_back(aux);
