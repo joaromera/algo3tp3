@@ -240,6 +240,7 @@ private:
     double evaluate_board(const board_status& current_board, int i, int j, int k, int jugador = 0, int steps = 0) {
         
         board_status test = current_board;
+        
         // si nadie tenia la pelota
         if (test.ball.is_free) {
             // si venia moviendose actualizo su posicion
@@ -255,11 +256,6 @@ private:
         test.team[1].j += moves[j].second;
         test.team[2].i += moves[k].first;
         test.team[2].j += moves[k].second;
-
-        if (current_board.ball.is_free) {
-            test.ball.i += moves[current_board.ball.dir].first * 2;
-            test.ball.j += moves[current_board.ball.dir].second * 2;
-        }
 
         vector<int> player_moves { i, j, k };
         for (auto p : test.team) {
