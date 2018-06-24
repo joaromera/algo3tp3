@@ -92,7 +92,7 @@ public:
                                 if (in_different_positions(current_board.team, i, j, k)) {
                                     for (int jugador = 0; jugador < 3; jugador++) {
                                         vector<int> player_moves { i, j, k };
-                                        if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0) {
+                                        if (current_board.team[jugador].in_posetion && player_moves[jugador] != 0 && kicking_different_positions(current_board.team, i, j, k, jugador)) {
                                             int max_steps = calculate_max_steps(current_board.team[jugador], player_moves[jugador]);
                                             for (int steps = 1; steps <= max_steps; steps++) {
                                                 current_rank = evaluate_board(current_board, i, j, k, jugador, steps);
@@ -222,6 +222,17 @@ private:
 
     bool in_different_positions(const vector<player_status>& team, int i, int j, int k) {
         return !(in_same_position(team[0], i, team[1], j) || in_same_position(team[0], i, team[2], k) || in_same_position(team[1], j, team[2], k));
+    }
+
+    bool kicking_different_positions(const vector<player_status>& team, int i, int j, int k, int jugador) {
+        if (team[jugador].in_posetion) {
+            switch(jugador) {
+                case 0: i = 0; break;
+                case 1: j = 0; break;
+                case 2: k = 0; break;
+                }        
+        }
+        return in_different_positions(team, i, j, k);
     }
 
     bool in_same_position(const player_status& p1, int dir1, const player_status& p2, int dir2) {
