@@ -237,35 +237,35 @@ private:
 
     double evaluate_board(const board_status& current_board, int i, int j, int k, int jugador = 0, int steps = 0) {
         
-        board_status test = current_board;
+        board_status updated_board = current_board;
         // si nadie tenia la pelota
-        if (test.ball.is_free) {
+        if (updated_board.ball.is_free) {
             // si venia moviendose actualizo su posicion
-            if (test.ball.steps > 0) {
-                test.ball.i += 2*moves[test.ball.dir].first;
-                test.ball.j += 2*moves[test.ball.dir].second;
+            if (updated_board.ball.steps > 0) {
+                updated_board.ball.i += 2*moves[updated_board.ball.dir].first;
+                updated_board.ball.j += 2*moves[updated_board.ball.dir].second;
             }
         }
 
-        test.team[0].i += moves[i].first;
-        test.team[0].j += moves[i].second;
-        test.team[1].i += moves[j].first;
-        test.team[1].j += moves[j].second;
-        test.team[2].i += moves[k].first;
-        test.team[2].j += moves[k].second;
+        updated_board.team[0].i += moves[i].first;
+        updated_board.team[0].j += moves[i].second;
+        updated_board.team[1].i += moves[j].first;
+        updated_board.team[1].j += moves[j].second;
+        updated_board.team[2].i += moves[k].first;
+        updated_board.team[2].j += moves[k].second;
 
         vector<int> player_moves { i, j, k };
-        for (auto p : test.team) {
+        for (auto p : updated_board.team) {
             if (p.id == jugador && steps > 0) {
                 p.in_posetion = false;
-                test.ball.is_free = true;
-                test.ball.steps = steps;
-                test.ball.dir = player_moves[jugador];
-                test.ball.i += moves[player_moves[jugador]].first;
-                test.ball.j += moves[player_moves[jugador]].second;
+                updated_board.ball.is_free = true;
+                updated_board.ball.steps = steps;
+                updated_board.ball.dir = player_moves[jugador];
+                updated_board.ball.i += moves[player_moves[jugador]].first;
+                updated_board.ball.j += moves[player_moves[jugador]].second;
             }
-            if (test.ball.is_free && p.i == test.ball.i && p.j == test.ball.j) {
-                test.ball.is_free = false;
+            if (updated_board.ball.is_free && p.i == updated_board.ball.i && p.j == updated_board.ball.j) {
+                updated_board.ball.is_free = false;
                 p.in_posetion = true;
             }
         }
@@ -275,29 +275,77 @@ private:
         // Mientras más cerca esté la pelota del arco contrario, mejor
         //result -= distance_ball_opponnent_goal(aftermove);
 
-        if (who_has_the_ball(test) == "GREEDY") {
+        if (who_has_the_ball(updated_board) == "GREEDY") {
             // Queremos que se acerquen al arco contrario y que se alejen de los oponentes
-            for (auto p : test.team) {
+            for (auto p : updated_board.team) {
                 result -= distance_player_opponnent_goal(p);
-                result += distance_player_closest_opponnent(test, p);
+                result += distance_player_closest_opponnent(updated_board, p);
+                if (p.in_posetion) {
+                    if (can_kick_to_goal(updated_board, p)) {
+                        // hay que pensar bien el valor
+                        result += 1;
+                    }
+                }
             }
         }
         
-        if (who_has_the_ball(test) == "OPPONNENT") {
+        if (who_has_the_ball(updated_board) == "OPPONNENT") {
             // Queremos que se acerquen a los contrarios
-            for (auto p : test.team) {
-                result -= distance_player_closest_opponnent(test, p);
+            for (auto p : updated_board.team) {
+                result -= distance_player_closest_opponnent(updated_board, p);
             }
         }
 
-        if (who_has_the_ball(test) == "FREE") {
+        if (who_has_the_ball(updated_board) == "FREE") {
             // Queremos que se acerquen a la pelota porque está libre
-            for (auto p : test.team) {
-                result -= distance_player_ball(test, p);
+            for (auto p : updated_board.team) {
+                result -= distance_player_ball(updated_board, p);
             }   
         }
 
         return result;
+    }
+
+    bool can_kick_to_goal(const board_status& current_board, player_status player) {
+        // me fijo si esta en linea recta al arco
+        bool is_goal_row = opponnent_goal[0].first == player.i || opponnent_goal[1].first == player.i || opponnent_goal[2].first == player.i;
+
+        bool can_kick = false;
+        for (int i = 0; i < 3; i++) {
+            // el jugador esta arriba del arco
+            if (player.i > opponnent_goal[i].first) {
+                // esta en diagonal al arco (pendiente negativa)
+                if (is_in_same_rect(player, i, -1)) {
+                    can_kick = !opponents_blocking_goal(current_board, player, i, -1);
+                }
+            } else {
+                // esta en diagonal al arco (pendiente positiva)
+                if (is_in_same_rect(player, i, 1)) {
+                    can_kick = !opponents_blocking_goal(current_board, player, i, 1);
+                }
+            }
+        }
+
+        return is_goal_row || can_kick;
+    }
+
+    bool is_in_same_rect(player_status player, int goal_row, int a) {
+        // y = a*x => y - a*x = 0
+        // a puede ser 1 o -1
+        return opponnent_goal[goal_row].second + a*opponnent_goal[goal_row].first == player.j + a*player.i;
+    }
+
+    bool closer_to_opponent_goal(int player_i, int opp_player_i) {
+        // dice si el jugador del equipo greedy esta entre el oponente y su arco
+        return abs(opponnent_goal[0].first - player_i) < abs(opponnent_goal[0].first - opp_player_i); 
+    }
+
+    bool opponents_blocking_goal(const board_status& current_board, player_status player, int goal_row, int a) {
+        bool is_in_between = false;
+        for (auto opp_p : current_board.oponent_team) {
+            is_in_between = is_in_between || is_in_same_rect(opp_p, goal_row, a) && !closer_to_opponent_goal(player.i, opp_p.i);
+        }
+        return is_in_between;
     }
 
     double distance(int from_i, int from_j, int to_i, int to_j) {
