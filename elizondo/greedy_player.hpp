@@ -48,15 +48,15 @@ public:
     void get_goal_positions() {
         int mid_row = this->rows / 2;
         int column_own_goal = this->columns;
-        int column_opoent_goal = -1;
+        int column_opponnent_goal = -1;
         if (this->side == IZQUIERDA) {
             column_own_goal = -1;
-            int column_opoent_goal = this->columns;
+            column_opponnent_goal = this->columns;
         }
 
         for (int i = -1; i < 2; i++) {
             own_goal.push_back(make_pair(mid_row + i, column_own_goal));
-            opponnent_goal.push_back(make_pair(mid_row + i, column_opoent_goal));
+            opponnent_goal.push_back(make_pair(mid_row + i, column_opponnent_goal));
         }
 
     }
