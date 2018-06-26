@@ -157,9 +157,9 @@ private:
 
     int calculate_max_steps(const player_status &player, int dir) {
         int middle_row = rows/2;
-        int steps = 1;
+        int steps = 0;
 
-        for (int k = 1; k <= middle_row; k++) {
+        for (int k = 0; k <= middle_row; k++) {
             if (is_valid_kick(player, dir, k)) {
                 steps = k;
             }
