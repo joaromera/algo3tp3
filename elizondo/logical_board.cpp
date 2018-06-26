@@ -214,7 +214,7 @@ class LogicalBoard {
                     }
                 }
                 for (auto p : this->teamB) {
-                    if (this->intercepted(p, false)) {
+                    if (this->intercepted(p, true)) {
                         intercepters.push_back(p);
                     }
                 }
