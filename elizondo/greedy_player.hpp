@@ -131,48 +131,41 @@ public:
     void finish(string result) { }
 
 private:
-
-    int calculate_max_steps(const player_status &player, int dir) {
-        //la pelota no puede avanzar mas que la mitad de filas de la cancha
-        int middle_row = rows/2;
-        int steps = 0;
-        int i = player.i;
-        int j = player.j;
+    
+    bool is_valid_kick(const player_status &player, int dir, int steps) {
+        bool isValid = false;
         
-        bool is_in_range = true;
-        //mientras este en la cancha o algun arco, itero
-        while (is_in_range) {
-            //me fijo que si avanzo la pelota 1 vez siga en la cancha
-            if (stays_in_board(i, j, dir)) {
-                //actualizo la posicion y sumo uno a la cantidad maxima de steps
-                steps++;
-                i += moves[dir].first * 2;
-                j += moves[dir].second * 2;
-            } else if (ball_goes_to_goal(i, j, dir)) {
-                //si la pelota llego al arco con el proximo step, entonces
-                //sumo uno a la cantidad maxima de steps y salgo del ciclo
-                steps++;
-                is_in_range = false;
-            } else {
-                //sino la pelota salio del ciclo
-                is_in_range = false;
-            }
+        int i = player.i + (moves[dir].first * 2) * steps;
+        int j = player.j + (moves[dir].second * 2) * steps;
+
+        if (position_is_in_board(i, j)) {
+            isValid = true;
         }
 
-        //si la cantidad maxima de steps es mayor a la mitad de filas
-        //retorno la mitad de las filas como maximo step
-        return steps < middle_row ? steps : middle_row;
-    }
-
-    bool stays_in_board(int i, int j, int dir) {
-        i += moves[dir].first * 2;
-        j += moves[dir].second * 2;
-
-        return position_is_in_board(i, j);
+        for (auto goal : this->opponnent_goal) {
+            if (make_pair(i, j) == goal || make_pair(i-moves[dir].first, j-moves[dir].second) == goal) {
+                isValid = true;
+            }
+        }
+        
+        return isValid;
     }
 
     bool position_is_in_board(int i, int j) {
         return  0 <= i && i < rows && 0 <= j && j < columns;
+    }
+
+    int calculate_max_steps(const player_status &player, int dir) {
+        int middle_row = rows/2;
+        int steps = 1;
+
+        for (int k = 1; k <= middle_row; k++) {
+            if (is_valid_kick(player, dir, k)) {
+                steps = k;
+            }
+        }
+        
+        return steps;
     }
 
     bool ball_goes_to_goal(int i, int j, int dir) {
@@ -283,7 +276,7 @@ private:
             // Queremos que se acerquen al arco contrario y que se alejen de los oponentes
             for (auto p : updated_board.team) {
                 result -= distance_player_opponnent_goal(p);
-                result += distance_player_closest_opponnent(updated_board, p) * 0.5;
+                //result += distance_player_closest_opponnent(updated_board, p) * 0.5;
                 if (p.in_posetion) {
                     if (can_kick_to_goal(updated_board, p)) {
                         // hay que pensar bien el valor
@@ -294,22 +287,22 @@ private:
         } else if (who_has_the_ball(updated_board) == "OPPONNENT") {
             // Queremos que se acerquen a los contrarios
             for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p);
-                result -= distance_player_closest_opponnent(updated_board, p) * 0.5;
+                result -= distance_player_ball(updated_board, p) * 0.5;
+                // result -= distance_player_closest_opponnent(updated_board, p) * 0.5;
             }
         } else {
             // Queremos que se acerquen a la pelota porque está libre
             if (has_kicked_to_goal(updated_board)) {
-                result -= distance_ball_to_opp_goal(updated_board.ball);
+                // result -= distance_ball_to_opp_goal(updated_board.ball);
             }
             for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p);
+                result -= distance_player_ball(updated_board, p) * 2;
             }   
         }
 
-        if (current_board.ball.is_free && ball_goes_to_goal(updated_board.ball.i, updated_board.ball.j, updated_board.ball.dir)) {
-            result += 1000;
-        }
+        // if (current_board.ball.is_free && ball_goes_to_goal(updated_board.ball.i, updated_board.ball.j, updated_board.ball.dir)) {
+            // result += 1000;
+        // }
 
         return result;
     }
