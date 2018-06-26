@@ -131,7 +131,7 @@ public:
     void finish(string result) { }
 
 private:
-    
+
     bool is_valid_kick(const player_status &player, int dir, int steps) {
         bool isValid = false;
         
@@ -276,7 +276,7 @@ private:
             // Queremos que se acerquen al arco contrario y que se alejen de los oponentes
             for (auto p : updated_board.team) {
                 result -= distance_player_opponnent_goal(p);
-                //result += distance_player_closest_opponnent(updated_board, p) * 0.5;
+                result += distance_player_closest_opponnent(updated_board, p) * 0.5;
                 if (p.in_posetion) {
                     if (can_kick_to_goal(updated_board, p)) {
                         // hay que pensar bien el valor
@@ -287,22 +287,22 @@ private:
         } else if (who_has_the_ball(updated_board) == "OPPONNENT") {
             // Queremos que se acerquen a los contrarios
             for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p) * 0.5;
-                // result -= distance_player_closest_opponnent(updated_board, p) * 0.5;
+                result -= distance_player_ball(updated_board, p);
+                result -= distance_player_closest_opponnent(updated_board, p) * 0.5;
             }
         } else {
             // Queremos que se acerquen a la pelota porque está libre
             if (has_kicked_to_goal(updated_board)) {
-                // result -= distance_ball_to_opp_goal(updated_board.ball);
+                result -= distance_ball_to_opp_goal(updated_board.ball);
             }
             for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p) * 2;
+                result -= distance_player_ball(updated_board, p);
             }   
         }
 
-        // if (current_board.ball.is_free && ball_goes_to_goal(updated_board.ball.i, updated_board.ball.j, updated_board.ball.dir)) {
-            // result += 1000;
-        // }
+        if (current_board.ball.is_free && ball_goes_to_goal(updated_board.ball.i, updated_board.ball.j, updated_board.ball.dir)) {
+            result += 1000;
+        }
 
         return result;
     }
