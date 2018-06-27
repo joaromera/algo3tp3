@@ -269,44 +269,65 @@ private:
         
         double result = 0;
 
-        // Mientras más cerca esté la pelota del arco contrario, mejor
-        //result -= distance_ball_opponnent_goal(aftermove);
-
-        if (who_has_the_ball(updated_board) == "GREEDY") {
-            // Queremos que se acerquen al arco contrario y que se alejen de los oponentes
-            for (auto p : updated_board.team) {
-                result -= distance_player_opponnent_goal(p);
-                result += distance_player_closest_opponnent(updated_board, p) * 0.5;
-                if (p.in_posetion) {
-                    if (can_kick_to_goal(updated_board, p)) {
-                        // hay que pensar bien el valor
-                        // result += 10;
-                    }
-                }
+        for (auto goal : this->opponnent_goal) {
+            if (get_ball_position(updated_board) == goal) {
+                result = 999999;
             }
-        } else if (who_has_the_ball(updated_board) == "OPPONNENT") {
-            // Queremos que se acerquen a los contrarios
-            for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p);
-                result -= distance_player_closest_opponnent(updated_board, p) * 0.5;
-            }
-        } else {
-            // Queremos que se acerquen a la pelota porque está libre
-            if (has_kicked_to_goal(updated_board)) {
-                result -= distance_ball_to_opp_goal(updated_board.ball);
-            }
-            for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p);
-            }   
         }
 
-        if (current_board.ball.is_free && ball_goes_to_goal(updated_board.ball.i, updated_board.ball.j, updated_board.ball.dir)) {
-            result += 1000;
+        if (who_has_the_ball(updated_board) == "GREEDY") {
+            for (auto p : updated_board.team) {
+                result -= distance_player_opponnent_goal(p); //distancia al arco contrario
+                result += distance_player_closest_opponnent(updated_board, p) * 0.8; //distancia al oponente mas cercano
+                result += dispersion(updated_board.team) * 0.05;
+            }
+        } 
+        
+        if (who_has_the_ball(updated_board) == "OPPONNENT") {
+            for (auto p : updated_board.team) {
+                result -= distance_player_ball(updated_board, p); //distancia a la pelota
+                result -= distance_player_closest_opponnent(updated_board, p) * 0.8; //distancia al oponente mas cercano
+                result += dispersion(updated_board.team) * 0.05;
+            }
+        }
+
+        if (who_has_the_ball(updated_board) == "FREE") {
+            for (auto p : updated_board.team) {
+                result -= distance_player_ball(updated_board, p) * 1; //distancia a la pelota
+                result -= distance_player_opponnent_goal(p) * 0.5; //distancia al arco contrario
+                result += dispersion(updated_board.team) * 0.05;
+            }
+            for (auto p : updated_board.oponent_team) {
+                result += distance_player_ball(updated_board, p) * 0.5; //distancia a la pelota del contrario
+            }
         }
 
         return result;
     }
 
+    pair<int, int> get_ball_position(const board_status& current_board) {
+        int ball_i;
+        int ball_j;
+        if (current_board.ball.is_free) {
+            ball_i = current_board.ball.i;
+            ball_j = current_board.ball.j;
+        } else {
+            for (auto p : current_board.team) {
+                if (p.in_posetion) {
+                    ball_i = p.i;
+                    ball_j = p.j;
+                }
+            }
+            for (auto p : current_board.oponent_team) {
+                if (p.in_posetion) {
+                    ball_i = p.i;
+                    ball_j = p.j;
+                }
+            }
+        }
+        return make_pair(ball_i, ball_j);
+    }
+    
     double distance_ball_to_opp_goal(ball_status& ball) {
         double di1 = distance(ball.i, ball.j, this->opponnent_goal[0].first, this->opponnent_goal[0].second);
         double di2 = distance(ball.i, ball.j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
@@ -329,8 +350,8 @@ private:
 
     bool moving_towards_goal(ball_status& ball, int a) {
         bool is_moving_ok = false;
-        if (opponnent_goal[0].second == 0) {
-            // arco rival en columna 0
+        if (opponnent_goal[0].second == -1) {
+            // arco rival en columna -1
             is_moving_ok = a == -1 && ball.dir == 1 || a == 0 && ball.dir == 8 || a == 1 && ball.dir == 7;
         } else {
             // arco rival en ultima columna
@@ -345,9 +366,9 @@ private:
             // esta en diagonal al arco
             can_kick = can_kick || is_in_same_rect(player.i, player.j, goal_row, -1) && !opponents_blocking_goal(current_board, player, goal_row, -1);
             // esta derecho al arco
-            can_kick = can_kick || is_in_same_rect(player.i, player.j, goal_row, 1) && !opponents_blocking_goal(current_board, player, goal_row, 1);
+            can_kick = can_kick || is_in_same_rect(player.i, player.j, goal_row, 0) && !opponents_blocking_goal(current_board, player, goal_row, 0);
             // esta en diagonal al arco
-            can_kick = can_kick || is_in_same_rect(player.i, player.j, goal_row, 0) && !opponents_blocking_goal(current_board, player, goal_row, 1);
+            can_kick = can_kick || is_in_same_rect(player.i, player.j, goal_row, 1) && !opponents_blocking_goal(current_board, player, goal_row, 1);
         }
 
         return can_kick;
@@ -410,23 +431,28 @@ private:
 
     // Si tenemos la pelota queremos que sea grande, si no la tenemos queremos que sea baja
     double distance_player_closest_opponnent(const board_status& current_board, player_status& player) {
-        double di1 = distance(player.i, player.j, current_board.oponent_team[0].i, current_board.oponent_team[0].j);
-        double di2 = distance(player.i, player.j, current_board.oponent_team[1].i, current_board.oponent_team[1].j);
-        double di3 = distance(player.i, player.j, current_board.oponent_team[2].i, current_board.oponent_team[2].j);
-    
-        return min(di1,min(di2,di3));
+        double min_distance = 999;
+        for (auto opponnent : current_board.oponent_team) {
+            double aux = distance(player.i, player.j, opponnent.i, opponnent.j);
+            if (aux < min_distance) {
+                min_distance = aux;
+            }
+        }
+        return min_distance;
     }
 
-    // Con la pelota queremos que sea bajo
     double distance_player_opponnent_goal(player_status& player) {
-        double di1 = distance(player.i, player.j, this->opponnent_goal[0].first, this->opponnent_goal[0].second);
-        double di2 = distance(player.i, player.j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
-        double di3 = distance(player.i, player.j, this->opponnent_goal[2].first, this->opponnent_goal[2].second);
-    
-        return min(di1,min(di2,di3));
+        // return distance(player.i, player.j, this->opponnent_goal[1].first, this->opponnent_goal[1].second);
+        double min_distance = 999;
+        for (auto goal : this->opponnent_goal) {
+            double aux = distance(player.i, player.j, goal.first, goal.second);
+            if (aux < min_distance) {
+                min_distance = aux;
+            }
+        }
+        return min_distance;
     }
 
-    // Si no tenemos la pelota queremos que sea chico
     int distance_player_ball(const board_status& current_board, player_status& player) {
         int ball_i;
         int ball_j;
@@ -447,9 +473,9 @@ private:
                 }
             }
         }
-        int di1 = distance(player.i, player.j, current_board.ball.i, current_board.ball.j);
-        int di2 = distance(player.i, player.j, current_board.ball.i, current_board.ball.j);
-        int di3 = distance(player.i, player.j, current_board.ball.i, current_board.ball.j);
+        int di1 = distance(player.i, player.j, ball_i, ball_j);
+        int di2 = distance(player.i, player.j, ball_i, ball_j);
+        int di3 = distance(player.i, player.j, ball_i, ball_j);
     
         return min(di1,min(di2,di3));
     }
@@ -466,6 +492,12 @@ private:
             }
         }
         return "FREE";
+    }
+
+    double dispersion(const vector<player_status>& team) {
+        return distance(team[0].i, team[0].j, team[1].i, team[1].j) + 
+                distance(team[0].i, team[0].j, team[2].i, team[2].j) +
+                distance(team[1].i, team[1].j, team[2].i, team[2].j);
     }
 
 };
