@@ -6,6 +6,7 @@
 
 #include "board_status.hpp"
 #include "constants.hpp"
+#include "logical_board.cpp"
 #include "auxiliars.hpp"
 
 using namespace std;
@@ -40,9 +41,14 @@ public:
         this->side = side;
         this->team = team;
         this->players = players;
+        for(int i = 0; i < 3; i++) {
+            this->players[i].id = i;
+        }
         this->opponnents = opponnent_players;
+        for(int i = 0; i < 3; i++) {
+            this->opponnents[i].id = i;
+        }
         this->get_goal_positions();
-
     }
 
     void get_goal_positions() {
@@ -92,19 +98,13 @@ private:
     vector<int> search_move(const board_status& current_board, const vector<double>& pesos) {
         double max_rank = -9999999;
         double current_rank = -9999999;
-        
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        int jugador = 0;
-        int steps = 0;
-        vector<int> result = {i,j,k,jugador,steps};
+        vector<int> result (5,0);
 
-        while (i < moves.size()) {
+        for (int i = 0; i < moves.size(); i++) {
             if (inside_board(current_board.team[0], i, this->opponnent_goal, this->rows, this->columns)) {        
-                while (j < moves.size()) {
+                for (int j = 0; j < moves.size(); j++) {
                     if (inside_board(current_board.team[1], j, this->opponnent_goal, this->rows, this->columns)) {
-                        while (k < moves.size()) {
+                        for (int k = 0; k < moves.size(); k++) {
                             if (inside_board(current_board.team[2], k, this->opponnent_goal, this->rows, this->columns)) {
                                 vector<int> player_moves { i, j, k };
                                 for (int jugador = 0; jugador < 3; jugador++) {
@@ -129,15 +129,10 @@ private:
                                     }
                                 }
                             }
-                            k++;    
                         }
-                        k = 0;
-                    }
-                    j++;    
+                    }   
                 }
-                j = 0;
             }
-            i++;
         }
         return result;
     }
@@ -160,7 +155,7 @@ private:
 
     double evaluate_board(const board_status& current_board, int i, int j, int k, const vector<double> &pesos, int jugador = 0, int steps = 0) {
         
-        board_status updated_board = update_board(current_board, i, j, k, jugador, steps);
+        board_status updated_board = update_board(current_board, i, j, k, jugador, steps, false);
 
         double result = 0;
 
@@ -200,59 +195,98 @@ private:
         return result;
     }
 
-    board_status update_board(const board_status& current_board, int i, int j, int k, int jugador = 0, int steps = 0) {
-        board_status updated_board = current_board;
-
-        // si nadie tenia la pelota
-        if (updated_board.ball.is_free) {
-            // si venia moviendose actualizo su posicion
-            if (updated_board.ball.steps > 0) {
-                updated_board.ball.i += 2*moves[updated_board.ball.dir].first;
-                updated_board.ball.j += 2*moves[updated_board.ball.dir].second;
-            }
-        }
-
-        updated_board.team[0].i += moves[i].first;
-        updated_board.team[0].j += moves[i].second;
-        updated_board.team[1].i += moves[j].first;
-        updated_board.team[1].j += moves[j].second;
-        updated_board.team[2].i += moves[k].first;
-        updated_board.team[2].j += moves[k].second;
-
-        vector<int> player_moves { i, j, k };
-        for (auto p : updated_board.team) {
-            if (p.id == jugador && steps > 0) {
-                p.in_posetion = false;
-                updated_board.ball.is_free = true;
-                updated_board.ball.steps = steps;
-                updated_board.ball.dir = player_moves[jugador];
-                updated_board.ball.i += 2*moves[player_moves[jugador]].first;
-                updated_board.ball.j += 2*moves[player_moves[jugador]].second;
-                p.i -= moves[player_moves[jugador]].first;
-                p.j -= moves[player_moves[jugador]].second;
-            }
-        }
+    board_status update_board(const board_status& current_board, int i, int j, int k, int jugador = 0, int steps = 0, bool logical = false) {
         
-        for (int h = 0; h < 3; h++) {
-            if (current_board.ball.is_free 
-                && updated_board.ball.is_free 
-                && updated_board.team[h].i == updated_board.ball.i 
-                && updated_board.team[h].j == updated_board.ball.j 
-                && player_moves[h] == 0) {
-                updated_board.ball.is_free = false;
-                updated_board.team[h].in_posetion = true;
+        board_status updated_board;
+
+        if (logical == false) {
+            updated_board = current_board;
+
+            // si nadie tenia la pelota
+            if (updated_board.ball.is_free) {
+                // si venia moviendose actualizo su posicion
+                if (updated_board.ball.steps > 0) {
+                    updated_board.ball.i += 2*moves[updated_board.ball.dir].first;
+                    updated_board.ball.j += 2*moves[updated_board.ball.dir].second;
+                }
+            }
+
+            updated_board.team[0].i += moves[i].first;
+            updated_board.team[0].j += moves[i].second;
+            updated_board.team[1].i += moves[j].first;
+            updated_board.team[1].j += moves[j].second;
+            updated_board.team[2].i += moves[k].first;
+            updated_board.team[2].j += moves[k].second;
+
+            vector<int> player_moves { i, j, k };
+            for (auto p : updated_board.team) {
+                if (p.id == jugador && steps > 0) {
+                    p.in_posetion = false;
+                    updated_board.ball.is_free = true;
+                    updated_board.ball.steps = steps;
+                    updated_board.ball.dir = player_moves[jugador];
+                    updated_board.ball.i += 2*moves[player_moves[jugador]].first;
+                    updated_board.ball.j += 2*moves[player_moves[jugador]].second;
+                    p.i -= moves[player_moves[jugador]].first;
+                    p.j -= moves[player_moves[jugador]].second;
+                }
+            }
+            
+            for (int h = 0; h < 3; h++) {
+                if (current_board.ball.is_free 
+                    && updated_board.ball.is_free 
+                    && updated_board.team[h].i == updated_board.ball.i 
+                    && updated_board.team[h].j == updated_board.ball.j 
+                    && player_moves[h] == 0) {
+                    updated_board.ball.is_free = false;
+                    updated_board.team[h].in_posetion = true;
+                }
+            }
+
+            for (int h = 0; h < 3; h++) {
+                if (current_board.ball.is_free 
+                    && updated_board.ball.is_free 
+                    && updated_board.oponent_team[h].i == updated_board.ball.i 
+                    && updated_board.oponent_team[h].j == updated_board.ball.j 
+                    && player_moves[h] == 0) {
+                    updated_board.ball.is_free = false;
+                    updated_board.oponent_team[h].in_posetion = true;
+                }
             }
         }
 
-        for (int h = 0; h < 3; h++) {
-            if (current_board.ball.is_free 
-                && updated_board.ball.is_free 
-                && updated_board.oponent_team[h].i == updated_board.ball.i 
-                && updated_board.oponent_team[h].j == updated_board.ball.j 
-                && player_moves[h] == 0) {
-                updated_board.ball.is_free = false;
-                updated_board.oponent_team[h].in_posetion = true;
+        if (logical) {
+            LogicalBoard* logical_board = new LogicalBoard(
+                this->columns,
+                this->rows,
+                this->players,
+                this->opponnents,
+                current_board
+            );
+
+            vector<player_move> moves_A = {
+                {current_board.team[0].id, "MOVIMIENTO", i},
+                {current_board.team[1].id, "MOVIMIENTO", j},
+                {current_board.team[2].id, "MOVIMIENTO", k}
+            };
+
+            if (steps > 0) {
+                for (auto pm : moves_A) {
+                    if (pm.player_id == jugador) {
+                        pm.move_type = "PASE";
+                        pm.steps = steps;
+                    }
+                }
             }
+
+            vector<player_move> moves_B = {
+                {current_board.oponent_team[0].id, "MOVIMIENTO", 0},
+                {current_board.oponent_team[1].id, "MOVIMIENTO", 0},
+                {current_board.oponent_team[2].id, "MOVIMIENTO", 0}
+            };
+
+            logical_board->makeMove(moves_A, moves_B);
+            updated_board = logical_board->getNewState();
         }
 
         return updated_board;
