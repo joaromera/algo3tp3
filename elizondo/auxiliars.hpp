@@ -18,7 +18,7 @@ double distance(int from_i, int from_j, int to_i, int to_j) {
 }
 
 double distance_player_opponnent_goal(player_status & player, vector < pair < int, int > > opponnent_goal) {
-    double min_distance = numeric_limits<double>::max();
+    double min_distance = 999999;
     for (auto goal: opponnent_goal) {
         double aux = distance(player.i, player.j, goal.first, goal.second);
         if (aux < min_distance) {
@@ -76,7 +76,7 @@ int distance_player_ball(const board_status & current_board, player_status & pla
 }
 
 double distance_player_closest_opponnent(const board_status & current_board, player_status & player) {
-    double min_distance = numeric_limits<double>::max();
+    double min_distance = 999999;
     for (auto opponnent: current_board.oponent_team) {
         double aux = distance(player.i, player.j, opponnent.i, opponnent.j);
         if (aux < min_distance) {

@@ -96,8 +96,8 @@ public:
 private:
 
     vector<int> search_move(const board_status& current_board, const vector<double>& pesos) {
-        double max_rank = numeric_limits<double>::min();
-        double current_rank = numeric_limits<double>::min();
+        double max_rank = -999999;
+        double current_rank;
         vector<int> result (5,0);
 
         for (int i = 0; i < moves.size(); i++) {
