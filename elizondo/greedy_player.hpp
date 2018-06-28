@@ -96,8 +96,8 @@ public:
 private:
         
     vector<int> search_move(const board_status& current_board) {
-        double max_rank = -9999999;
-        double current_rank = -9999999;
+        double max_rank = numeric_limits<double>::min();
+        double current_rank = numeric_limits<double>::min();
         vector<int> result (5,0);
 
         for (int i = 0; i < moves.size(); i++) {
@@ -199,7 +199,7 @@ private:
         
         board_status updated_board;
 
-        if (logical == false) {
+        if (!logical) {
             updated_board = current_board;
 
             // si nadie tenia la pelota
@@ -253,9 +253,7 @@ private:
                     updated_board.oponent_team[h].in_posetion = true;
                 }
             }
-        }
-
-        if (logical) {
+        } else {
             LogicalBoard* logical_board = new LogicalBoard(
                 this->columns,
                 this->rows,

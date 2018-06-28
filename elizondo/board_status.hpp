@@ -5,7 +5,7 @@ struct player {
     int id;
     double probability;
 
-    player(int id, double probability) : id(id), probability(probability) {}
+    player(int id, double probability): id(id), probability(probability) {}
 };
 
 struct move {
@@ -13,11 +13,13 @@ struct move {
     int i;
     int j;
 
-    move(std::initializer_list<int> params) {
+    move(std::initializer_list < int > params) {
         auto it = params.begin();
-        this->number = *it; ++it;
-        this->i = *it; ++it;
-        this->j = *it;
+        this -> number = * it;
+        ++it;
+        this -> i = * it;
+        ++it;
+        this -> j = * it;
     }
 };
 
@@ -28,8 +30,8 @@ struct player_status {
     bool in_posetion = false;
 
     player_status() {}
-    player_status(int id) : id(id) {}
-    player_status(int id, int i, int j, bool in_posetion) : id(id), i(i), j(j), in_posetion(in_posetion) {}
+    player_status(int id): id(id) {}
+    player_status(int id, int i, int j, bool in_posetion): id(id), i(i), j(j), in_posetion(in_posetion) {}
 };
 
 struct ball_status {
@@ -44,14 +46,12 @@ struct player_move {
     int player_id;
     std::string move_type;
     int dir;
-    // Solo sirve para cuando el tipo de movimiento es un pase e indica cuanta
-    // fuerza tiene el pase (i.e. cuan lejos llegará el balón si nadie lo intercepta)
-    int steps; 
+    int steps;
 };
 
 struct board_status {
-    std::vector<player_status> team;
-    std::vector<player_status> oponent_team;
+    std::vector < player_status > team;
+    std::vector < player_status > oponent_team;
     ball_status ball;
 
     void clear() {
@@ -61,13 +61,14 @@ struct board_status {
     }
 };
 
-bool is_neighbor(int &i, int &j, const std::vector < std::tuple < int, int > > &goal) {
-    for (auto c : goal) {
-        if (abs(i - std::get<0>(c)) < 2 && abs(j - std::get<1>(c)) < 2 && i != std::get<0>(c) && j != std::get<1>(c)) {
+bool is_neighbor(int & i, int & j,
+    const std::vector < std::tuple < int, int > > & goal) {
+    for (auto c: goal) {
+        if (abs(i - std::get < 0 > (c)) < 2 && abs(j - std::get < 1 > (c)) < 2 && i != std::get < 0 > (c) && j != std::get < 1 > (c)) {
             return true;
         }
     }
-    
+
     return false;
 }
 

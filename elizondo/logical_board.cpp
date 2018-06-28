@@ -552,10 +552,3 @@ class LogicalBoard {
         }
 
 };
-
-//// Para testear copypaste cambiar f <<
-// std::string fileName = "logiboard.log";
-// std::ofstream f;
-// f.open(fileName, std::fstream::out);
-// f <<  " chau " << player->i << " " << player->j << std::endl;
-// f.close(); 
