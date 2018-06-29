@@ -2,5 +2,6 @@
 static_player
 greedy_player
 gs_player
+logical_board
 .vscode/
 log/
