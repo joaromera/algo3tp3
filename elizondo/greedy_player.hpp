@@ -23,6 +23,7 @@ class greedy_player {
     vector<pair <int, int> > opponnent_goal;
     vector<player> players;
     vector<player> opponnents;
+    vector<double> pesos;
 
 public:
 
@@ -50,6 +51,33 @@ public:
             this->opponnents[i].id = i;
         }
         this->get_goal_positions();
+		this->pesos = {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5}; 
+    }
+
+    greedy_player(
+        int columns,
+        int rows,
+        int steps,
+        string side,
+        const vector<player>& players,
+        const vector<player>& opponnent_players,
+        vector<double>& pesos
+    ) {
+        this->columns = columns;
+        this->rows = rows;
+        this->steps = steps;
+        this->side = side;
+        this->team = team;
+        this->players = players;
+        for(int i = 0; i < 3; i++) {
+            this->players[i].id = i;
+        }
+        this->opponnents = opponnent_players;
+        for(int i = 0; i < 3; i++) {
+            this->opponnents[i].id = i;
+        }
+        this->get_goal_positions();
+		this->pesos = pesos;
     }
 
     void get_goal_positions() {
@@ -167,28 +195,28 @@ private:
 
         if (who_has_the_ball(updated_board) == "GREEDY") {
             for (auto p : updated_board.team) {
-                result -= distance_player_opponnent_goal(p, this->opponnent_goal); //distancia al arco contrario
-                result += distance_player_closest_opponnent(updated_board, p) * 0.8; //distancia al oponente mas cercano
-                result += dispersion(updated_board.team) * 0.05;
+                result -= distance_player_opponnent_goal(p, this->opponnent_goal) * pesos[0]; //distancia al arco contrario
+                result += distance_player_closest_opponnent(updated_board, p) * pesos[1]; //distancia al oponente mas cercano
+                result += dispersion(updated_board.team) * pesos[2];
             }
         } 
         
         if (who_has_the_ball(updated_board) == "OPPONNENT") {
             for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p); //distancia a la pelota
-                result -= distance_player_closest_opponnent(updated_board, p) * 0.8; //distancia al oponente mas cercano
-                result += dispersion(updated_board.team) * 0.05;
+                result -= distance_player_ball(updated_board, p) * pesos[3]; //distancia a la pelota
+                result -= distance_player_closest_opponnent(updated_board, p) * pesos[4]; //distancia al oponente mas cercano
+                result += dispersion(updated_board.team) * pesos[5];
             }
         }
 
         if (who_has_the_ball(updated_board) == "FREE") {
             for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p) * 1; //distancia a la pelota
-                result -= distance_player_opponnent_goal(p, this->opponnent_goal) * 0.5; //distancia al arco contrario
-                result += dispersion(updated_board.team) * 0.05;
+                result -= distance_player_ball(updated_board, p) * pesos[6]; //distancia a la pelota
+                result -= distance_player_opponnent_goal(p, this->opponnent_goal) * pesos[7]; //distancia al arco contrario
+                result += dispersion(updated_board.team) * pesos[8];
             }
             for (auto p : updated_board.oponent_team) {
-                result += distance_player_ball(updated_board, p) * 0.5; //distancia a la pelota del contrario
+                result += distance_player_ball(updated_board, p) * pesos[9]; //distancia a la pelota del contrario
             }
         }
 
