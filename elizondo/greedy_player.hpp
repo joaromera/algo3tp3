@@ -189,7 +189,7 @@ private:
 
         for (auto goal : this->opponnent_goal) {
             if (get_ball_position(updated_board) == goal) {
-                result = 999999;
+                return 999999;
             }
         }
 
