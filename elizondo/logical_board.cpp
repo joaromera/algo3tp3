@@ -1,3 +1,6 @@
+#ifndef LOGICAL_BOARD
+#define LOGICAL_BOARD
+
 #include <initializer_list>
 #include <string>
 #include <random>
@@ -552,3 +555,5 @@ class LogicalBoard {
         }
 
 };
+
+#endif //BOARD_STATUS
