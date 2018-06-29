@@ -223,7 +223,7 @@ private:
         return result;
     }
 
-    board_status update_board(const board_status& current_board, int i, int j, int k, int jugador = 0, int steps = 0, bool logical = false) {
+    board_status update_board(const board_status& current_board, int i, int j, int k, int jugador, int steps, bool logical) {
         
         board_status updated_board;
 
