@@ -203,7 +203,7 @@ class LogicalBoard {
             return result;
         }
 
-        vector < Player* > makeMove(vector< player_move > movesA, vector< player_move > movesB) {
+        string makeMove(vector< player_move > movesA, vector< player_move > movesB) {
             this->getState();
             this->makeTeamMove(&(this->teamA), movesA);
             this->makeTeamMove(&(this->teamB), movesB);
@@ -347,15 +347,15 @@ class LogicalBoard {
 
         string winner() {
             if (scoreA > scoreB) {
-                return "A";
+                return IZQUIERDA;
             } else if (scoreB > scoreA) {
-                return "B";
+                return DERECHA;
             } else {
-                return "EMPATARON";
+                return TIE;
             }
         }
 
-        vector < Player* > updateScore() {
+        string updateScore() {
             Ball * ball = this->free_ball;
 
             if (ball == nullptr) {
@@ -380,7 +380,7 @@ class LogicalBoard {
             for (auto g: this->goalA) {
                 if (get < 0 > (g) == ball->i && get < 0 > (g) == ball->j) {
                     this->scoreB++;
-                    return this->teamA;
+                    return IZQUIERDA;
                 }
             }
 
@@ -388,12 +388,11 @@ class LogicalBoard {
             for (auto g: this->goalB) {
                 if (get < 0 > (g) == ball->i && get < 0 > (g) == ball->j) {
                     this->scoreA++;
-                    return this->teamB;
+                    return DERECHA;
                 }
             }
             
-            vector < Player* > empty;
-            return empty;
+            return TIE;
         }
 
         bool positionInBoard(int i, int j) {
