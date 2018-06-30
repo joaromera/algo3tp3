@@ -2,6 +2,10 @@
 
 Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se quieren hacer cargo. Las dudas que vayan sumando agreguenlas al final para enviar un mail cuando haya varias.
 
+## Referí que haga jugar y devuelva ganador (referee.hpp) (Adrián)
+
+- [ ]  Do it. Code it. Test it.
+
 ## Greedy Player (greedy_player.hpp) (Cata)
 
 - [ ]  Normalizar puntajes. Por ejemplo, es posible que como están las cosas haya situaciones donde no tener la pelota sume más que tenerla simplemente porque hay más criterios.
