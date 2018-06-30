@@ -19,3 +19,5 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 ## Consultas para hacer
 
 - [ ] Qué combinación inicial usar para grid search? Para búsqueda local? Para grasp?
+- [ ] Hay que probar distintas posiciones iniciales para los equipos? O podemos definir una.
+- [ ] Idem para las probabilidades de quite
