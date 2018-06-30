@@ -1,3 +1,0 @@
-/home/brunomusso/Descargas/ALGO3TP3/elizondo/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/brunomusso/Descargas/ALGO3TP3/elizondo/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/brunomusso/Descargas/ALGO3TP3/elizondo/cmake-build-debug/CMakeFiles/elizondo.dir
