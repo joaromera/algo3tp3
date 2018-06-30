@@ -6,7 +6,7 @@ using namespace std;
 
 class Tournament {
     public:
-    vector < vector < double > > teams;
+    vector < vector < double > > combinations;
     vector < int > scores;
     vector < vector < bool > > already_played;
     int weights_amount = 10;
@@ -20,14 +20,14 @@ class Tournament {
         this->scores = sc;
     }
 
-    void generate_random_teams(int participants) {
-        this->teams.clear();
+    void generate_random_combinations(int participants) {
+        this->combinations.clear();
         for (int i = 0; i < participants; i++) {
             vector < double > team (this->weights_amount,0);
             for (int j = 0; j < team.size(); j++) {
                 team[j] = rand() % 101 / (double) 100;
             }
-            this->teams.push_back(team);
+            this->combinations.push_back(team);
         }
 
         vector < vector < bool > > ap (participants, vector < bool > (participants, false));
@@ -40,12 +40,12 @@ class Tournament {
     vector < double > get_leader() {
         auto it = max_element(this->scores.begin(), this->scores.end());
         auto index = it - this->scores.begin();
-        return this->teams[index];
+        return this->combinations[index];
     }
 
     void play_tournament() {
-        for (int i = 0; i < this->teams.size(); i++) {
-            for (int j = 0; j < this->teams.size(); j++) {
+        for (int i = 0; i < this->combinations.size(); i++) {
+            for (int j = 0; j < this->combinations.size(); j++) {
                 if (i != j && !already_played[i][j]) {
                     int wins_i = 0;
                     int wins_j = 0;
@@ -84,14 +84,14 @@ class Tournament {
             index++;    
             local_search_recursive(vec, index, distance);
             local_search_recursive(mod_vec, index, distance);
-            this->teams.push_back(mod_vec);
+            this->combinations.push_back(mod_vec);
         }
     }
 
     // overwrites this->teams
     void local_search(vector < double > vec, double distance) {
         
-        this->teams.clear();
+        this->combinations.clear();
         int size = pow(2,vec.size());
 
         vector < vector < bool > > ap (size, vector < bool > (size, false));
@@ -101,11 +101,11 @@ class Tournament {
         this->scores = sc;
 
         this->local_search_recursive(vec, 0, distance);
-        this->teams.push_back(vec);
+        this->combinations.push_back(vec);
     }
     
-    void print_teams() {
-        for (auto team : this->teams) {
+    void print_combinations() {
+        for (auto team : this->combinations) {
             for (int i = 0; i < team.size(); i++) {
                 cout << team[i] << " ";
             }
@@ -116,8 +116,8 @@ class Tournament {
     void print_leader() {
         auto it = max_element(this->scores.begin(), this->scores.end());
         auto index = it - this->scores.begin();
-        for (int i = 0; i < this->teams[0].size(); i++) {
-                cout << teams[index][i] << " ";
+        for (int i = 0; i < this->combinations[0].size(); i++) {
+                cout << combinations[index][i] << " ";
             }
         cout << endl;
     }
