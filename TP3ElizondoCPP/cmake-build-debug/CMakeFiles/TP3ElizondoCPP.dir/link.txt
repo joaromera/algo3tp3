@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/TP3ElizondoCPP.dir/elizondo.cpp.o  -o TP3ElizondoCPP 
