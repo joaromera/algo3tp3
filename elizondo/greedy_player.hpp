@@ -54,6 +54,32 @@ public:
 		this->loads = this->getLoads();
     }
 
+    greedy_player(
+        int columns,
+        int rows,
+        int steps,
+        string side,
+        const vector<player>& players,
+        const vector<player>& opponnent_players,
+        vector<double>& loads
+    ) {
+        this->columns = columns;
+        this->rows = rows;
+        this->steps = steps;
+        this->side = side;
+        this->team = team;
+        this->players = players;
+        for(int i = 0; i < 3; i++) {
+            this->players[i].id = i;
+        }
+        this->opponnents = opponnent_players;
+        for(int i = 0; i < 3; i++) {
+            this->opponnents[i].id = i;
+        }
+        this->get_goal_positions();
+        this->loads = loads;
+    }
+    
     vector<double> getLoads() {
         return {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5};
     }
