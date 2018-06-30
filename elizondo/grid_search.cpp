@@ -5,40 +5,42 @@
 using namespace std;
 
 class Tournament {
+    public:
     vector < vector < double > > teams;
     vector < int > scores;
     vector < vector < bool > > already_played;
+    int weights_amount = 10;
 
     Tournament (int participants) {
-        this->teams.reserve(participants);
-        this->scores.reserve(participants);
-        this->already_played.reserve(participants);
 
-        for (int i = 0; i < participants; i++) {
-            this->already_played[i].reserve(participants);
-        }
+        vector < vector < bool > > ap (participants, vector < bool > (participants, false));
+        this-> already_played = ap;
+
+        vector < int > sc (participants, 0);
+        this->scores = sc;
     }
 
     void generate_random_teams(int participants) {
         this->teams.clear();
         for (int i = 0; i < participants; i++) {
-            vector < double > team (10,0);
-            for (int j = 0; j < 10; j++) {
+            vector < double > team (this->weights_amount,0);
+            for (int j = 0; j < team.size(); j++) {
                 team[j] = rand() % 101 / (double) 100;
-                //cout << best[j] << endl;
             }
             this->teams.push_back(team);
         }
 
-        this->scores.reserve(participants);
-        this->already_played.reserve(participants);
-        for (int i = 0; i < participants; i++) {
-            this->already_played[i].reserve(participants);
-        }
+        vector < vector < bool > > ap (participants, vector < bool > (participants, false));
+        this->already_played = ap;
+
+        vector < int > sc (participants, 0);
+        this->scores = sc;
     }
 
     vector < double > get_leader() {
-        return this->teams[*max(scores.begin(), scores.end())];
+        auto it = max_element(this->scores.begin(), this->scores.end());
+        auto index = it - this->scores.begin();
+        return this->teams[index];
     }
 
     void play_tournament() {
@@ -48,7 +50,7 @@ class Tournament {
                     int wins_i = 0;
                     int wins_j = 0;
                     for (int k = 0; k < 5; k++) {
-
+                        wins_i++;
                         // JUEGAN
 
                         /**
@@ -75,57 +77,52 @@ class Tournament {
     }
 
     // modifies VECTORS with all neighbours of VEC
-    void local_search_recursive(vector < vector < double > > & vectors, vector < double > vec, int index, double distance) {
+    void local_search_recursive(vector < double > vec, int index, double distance) {        
         if (index < vec.size()) {
             vector <double> mod_vec = vec;
             mod_vec[index] += distance;
-
-            index++;
-            local_search_recursive(vectors, vec, index, distance);
-            local_search_recursive(vectors, mod_vec, index, distance);
+            index++;    
+            local_search_recursive(vec, index, distance);
+            local_search_recursive(mod_vec, index, distance);
+            this->teams.push_back(mod_vec);
         }
-        vectors.push_back(vec);
     }
 
     // overwrites this->teams
-    void local_search(const vector < double > & neighbourhood) {
+    void local_search(vector < double > vec, double distance) {
+        
         this->teams.clear();
-        for (double a = 0; a <= 0.5; a += 0.5) { // en vez de hacer 10 for anidados se puede hacer recursivamente pero que lo piense otro
-            for (double b = 0; b <= 0.5; b += 0.5) {
-                for (double c = 0; c <= 0.5; c += 0.5) {
-                    for (double d = 0; d <= 0.5; d += 0.5) {
-                        for (double e = 0; e <= 0.5; e += 0.5) {
-                            for (double f = 0; f <= 0.5; f += 0.5) {
-                                for (double g = 0; g <= 0.5; g += 0.5) {
-                                    for (double h = 0; h <= 0.5; h += 0.5) {
-                                        for (double i =0; i <= 0.5; i += 0.5) {
-                                            for (double j = 0; j <= 0.5; j += 0.5) {
-                                                vector < double > neighbour = {
-                                                    neighbourhood[0] + a,
-                                                    neighbourhood[1] + b,
-                                                    neighbourhood[2] + c,
-                                                    neighbourhood[3] + d,
-                                                    neighbourhood[4] + e,
-                                                    neighbourhood[5] + f,
-                                                    neighbourhood[6] + g,
-                                                    neighbourhood[7] + h,
-                                                    neighbourhood[8] + i,
-                                                    neighbourhood[9] + j
-                                                };
-                                                this->teams.push_back(neighbour);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        int size = pow(2,vec.size());
+
+        vector < vector < bool > > ap (size, vector < bool > (size, false));
+        this->already_played = ap;
+
+        vector < int > sc (size, 0);
+        this->scores = sc;
+
+        this->local_search_recursive(vec, 0, distance);
+        this->teams.push_back(vec);
+    }
+    
+    void print_teams() {
+        for (auto team : this->teams) {
+            for (int i = 0; i < team.size(); i++) {
+                cout << team[i] << " ";
             }
+            cout << endl;
         }
     }
 
+    void print_leader() {
+        auto it = max_element(this->scores.begin(), this->scores.end());
+        auto index = it - this->scores.begin();
+        for (int i = 0; i < this->teams[0].size(); i++) {
+                cout << teams[index][i] << " ";
+            }
+        cout << endl;
+    }
 };
 
 int main() {
+    return 0;
 }
