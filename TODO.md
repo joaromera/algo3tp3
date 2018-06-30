@@ -2,9 +2,9 @@
 
 Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se quieren hacer cargo. Las dudas que vayan sumando agreguenlas al final para enviar un mail cuando haya varias.
 
-## Greedy Player (greedy_player.hpp)
+## Greedy Player (greedy_player.hpp) (Cata)
 
-- [ ] Normalizar puntajes. Por ejemplo, es posible que como están las cosas haya situaciones donde no tener la pelota sume más que tenerla simplemente porque hay más criterios.
+- [ ]  Normalizar puntajes. Por ejemplo, es posible que como están las cosas haya situaciones donde no tener la pelota sume más que tenerla simplemente porque hay más criterios.
 
 - [ ] Averiguar máximos y mínimos para los puntajes. Si es todo en base a distancias los puntajes máximos para cada criterio es la distancia máxima del tablero, habría que calcularlo y usar eso.
 
