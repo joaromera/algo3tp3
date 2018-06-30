@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/src.dir/jugador.cpp.o CMakeFiles/src.dir/main.cpp.o CMakeFiles/src.dir/pelota.cpp.o CMakeFiles/src.dir/posicion.cpp.o CMakeFiles/src.dir/partido.cpp.o  -o src 

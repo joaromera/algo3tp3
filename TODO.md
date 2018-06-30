@@ -8,7 +8,7 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 - [ ] Averiguar máximos y mínimos para los puntajes. Si es todo en base a distancias los puntajes máximos para cada criterio es la distancia máxima del tablero, habría que calcularlo y usar eso.
 
-## Logical Board (logical_board.hpp)
+## Logical Board (logical_board.hpp)	Bruno
 
 - [ ] Testearlo y sus subclases, que realice bien los movimientos, las intercepciones de pelotas, el reinicio de partido al haber un gol, etc.
 
