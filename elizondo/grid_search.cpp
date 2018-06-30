@@ -11,38 +11,46 @@ class Tournament {
     vector < vector < bool > > already_played;
     int weights_amount = 10;
 
-    Tournament (int participants) {
+    Tournament (int candidates) {
 
-        vector < vector < bool > > ap (participants, vector < bool > (participants, false));
+        vector < vector < bool > > ap (candidates, vector < bool > (candidates, false));
         this-> already_played = ap;
 
-        vector < int > sc (participants, 0);
+        vector < int > sc (candidates, 0);
         this->scores = sc;
     }
 
-    void generate_random_combinations(int participants) {
+    // limpia los vectors combinations, scores y already_played e inicializa los 2 últimos en 0.
+    void reset(int candidates) {
         this->combinations.clear();
-        for (int i = 0; i < participants; i++) {
+
+        vector < vector < bool > > ap (candidates, vector < bool > (candidates, false));
+        this->already_played = ap;
+
+        vector < int > sc (candidates, 0);
+        this->scores = sc;
+    }
+
+    // llama a reset y llena this->combinations con vectores de pesos random, para hacer GRASP
+    void generate_random_combinations(int candidates) {
+        this->reset(candidates);
+        for (int i = 0; i < candidates; i++) {
             vector < double > combination (this->weights_amount,0);
             for (int j = 0; j < combination.size(); j++) {
                 combination[j] = rand() % 101 / (double) 100;
             }
             this->combinations.push_back(combination);
         }
-
-        vector < vector < bool > > ap (participants, vector < bool > (participants, false));
-        this->already_played = ap;
-
-        vector < int > sc (participants, 0);
-        this->scores = sc;
     }
 
+    // devuelve una copia del vector que más puntos hizo en scores
     vector < double > get_leader() {
         auto it = max_element(this->scores.begin(), this->scores.end());
         auto index = it - this->scores.begin();
         return this->combinations[index];
     }
 
+    // hace competir todas las combinaciones entre sí 5 veces
     void play_tournament() {
         for (int i = 0; i < this->combinations.size(); i++) {
             for (int j = 0; j < this->combinations.size(); j++) {
@@ -76,7 +84,7 @@ class Tournament {
         }
     }
 
-    // modifies VECTORS with all neighbours of VEC
+    // helper de local_search
     void local_search_recursive(vector < double > vec, int index, double distance) {        
         if (index < vec.size()) {
             vector <double> mod_vec = vec;
@@ -88,22 +96,16 @@ class Tournament {
         }
     }
 
-    // overwrites this->combinations
+    // llama a reset y sobrescribe this->combinations con los vecinos de vec
     void local_search(vector < double > vec, double distance) {
-        
-        this->combinations.clear();
         int size = pow(2,vec.size());
-
-        vector < vector < bool > > ap (size, vector < bool > (size, false));
-        this->already_played = ap;
-
-        vector < int > sc (size, 0);
-        this->scores = sc;
+        this->reset(size);
 
         this->local_search_recursive(vec, 0, distance);
         this->combinations.push_back(vec);
     }
     
+    // imprime todos los vectores en combinations
     void print_combinations() {
         for (auto combination : this->combinations) {
             for (int i = 0; i < combination.size(); i++) {
@@ -113,6 +115,7 @@ class Tournament {
         }
     }
 
+    // imprime el vector con más puntos según score
     void print_leader() {
         auto it = max_element(this->scores.begin(), this->scores.end());
         auto index = it - this->scores.begin();
