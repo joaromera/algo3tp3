@@ -18,6 +18,7 @@ using namespace std;
 class greedy_player {
     
     int columns, rows, steps;
+    double MAX_DIST;
     string team, side;
     vector<pair <int, int> > own_goal;
     vector<pair <int, int> > opponnent_goal;
@@ -52,6 +53,7 @@ public:
         }
         this->get_goal_positions();
 		this->loads = this->getLoads();
+        this->MAX_DIST = distance(0, 0, rows, columns);
     }
 
     greedy_player(
@@ -78,12 +80,13 @@ public:
         }
         this->get_goal_positions();
         this->loads = loads;
+        this->MAX_DIST = distance(0, 0, rows, columns);
     }
     
     vector<double> getLoads() {
         return {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5};
     }
-    
+
     void get_goal_positions() {
         int mid_row = this->rows / 2;
         int column_own_goal = this->columns;
@@ -199,28 +202,28 @@ private:
 
         if (who_has_the_ball(updated_board) == "GREEDY") {
             for (auto p : updated_board.team) {
-                result -= distance_player_opponnent_goal(p, this->opponnent_goal) * loads[0]; //distancia al arco contrario
-                result += distance_player_closest_opponnent(updated_board, p) * loads[1]; //distancia al oponente mas cercano
+                result += (this->MAX_DIST - distance_player_opponnent_goal(p, this->opponnent_goal)) * loads[0]; //distancia al arco contrario
+                result -= (this->MAX_DIST - distance_player_closest_opponnent(updated_board, p)) * loads[1]; //distancia al oponente mas cercano
                 result += dispersion(updated_board.team) * loads[2];
             }
         } 
         
         if (who_has_the_ball(updated_board) == "OPPONNENT") {
             for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p) * loads[3]; //distancia a la pelota
-                result -= distance_player_closest_opponnent(updated_board, p) * loads[4]; //distancia al oponente mas cercano
+                result += (this->MAX_DIST - distance_player_ball(updated_board, p)) * loads[3]; //distancia a la pelota
+                result += (this->MAX_DIST - distance_player_closest_opponnent(updated_board, p)) * loads[4]; //distancia al oponente mas cercano
                 result += dispersion(updated_board.team) * loads[5];
             }
         }
 
         if (who_has_the_ball(updated_board) == "FREE") {
             for (auto p : updated_board.team) {
-                result -= distance_player_ball(updated_board, p) * loads[6]; //distancia a la pelota
-                result -= distance_player_opponnent_goal(p, this->opponnent_goal) * loads[7]; //distancia al arco contrario
+                result += (this->MAX_DIST - distance_player_ball(updated_board, p)) * loads[6]; //distancia a la pelota
+                result += (this->MAX_DIST - distance_player_opponnent_goal(p, this->opponnent_goal)) * loads[7]; //distancia al arco contrario
                 result += dispersion(updated_board.team) * loads[8];
             }
-            for (auto p : updated_board.oponent_team) {
-                result += distance_player_ball(updated_board, p) * loads[9]; //distancia a la pelota del contrario
+            for (auto opp_p : updated_board.oponent_team) {
+                result -= (this->MAX_DIST - distance_player_ball(updated_board, opp_p)) * loads[9]; //distancia a la pelota del contrario
             }
         }
 
