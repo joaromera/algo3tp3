@@ -23,11 +23,11 @@ class Tournament {
     void generate_random_combinations(int participants) {
         this->combinations.clear();
         for (int i = 0; i < participants; i++) {
-            vector < double > team (this->weights_amount,0);
-            for (int j = 0; j < team.size(); j++) {
-                team[j] = rand() % 101 / (double) 100;
+            vector < double > combination (this->weights_amount,0);
+            for (int j = 0; j < combination.size(); j++) {
+                combination[j] = rand() % 101 / (double) 100;
             }
-            this->combinations.push_back(team);
+            this->combinations.push_back(combination);
         }
 
         vector < vector < bool > > ap (participants, vector < bool > (participants, false));
@@ -88,7 +88,7 @@ class Tournament {
         }
     }
 
-    // overwrites this->teams
+    // overwrites this->combinations
     void local_search(vector < double > vec, double distance) {
         
         this->combinations.clear();
@@ -105,9 +105,9 @@ class Tournament {
     }
     
     void print_combinations() {
-        for (auto team : this->combinations) {
-            for (int i = 0; i < team.size(); i++) {
-                cout << team[i] << " ";
+        for (auto combination : this->combinations) {
+            for (int i = 0; i < combination.size(); i++) {
+                cout << combination[i] << " ";
             }
             cout << endl;
         }
