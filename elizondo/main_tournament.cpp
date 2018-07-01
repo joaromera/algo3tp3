@@ -5,7 +5,7 @@
 
 #include "tournament.cpp"
 
-int main(int argc, char **argv ) {
+int main(int argc, char **argv) {
     new Tournament(10);
     return 0;
 }

@@ -1,7 +1,7 @@
 *.pyc
 static_player
 greedy_player
-gs_player
+tournament
 logical_board
 .vscode/
 log/
