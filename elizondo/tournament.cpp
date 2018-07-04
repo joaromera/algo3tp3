@@ -3,6 +3,12 @@
 #include <iostream>
 #include <algorithm>
 
+#include "board_status.hpp"
+#include "constants.hpp"
+#include "logical_board.cpp"
+#include "auxiliars.hpp"
+#include "referee.cpp"
+
 using namespace std;
 
 class Tournament {
