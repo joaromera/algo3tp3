@@ -53,20 +53,34 @@ void Test_team_movements() {
 
     board.makeMove(moves_A, moves_B);
     
-    board_status updated = board.getNewState();
+    board_status* updated = board.getCurrentState();
 
-    if (board.teamA[0]->i != 1 && board.teamA[0]->j != 0) cout << "jugador 0 del equipo A no esta en su posicion" << endl;
-    if (board.teamA[1]->i != 1 && board.teamA[1]->j != 1) cout << "jugador 1 del equipo A no esta en su posicion" << endl;
-    if (board.teamA[2]->i != 3 && board.teamA[2]->j != 1) cout << "jugador 2 del equipo A no esta en su posicion" << endl;    
-
-    if (board.teamB[0]->i != 0 && board.teamB[0]->j != m-1) cout << "jugador 0 del equipo B no esta en su posicion" << endl;
-    if (board.teamB[1]->i != 0 && board.teamB[1]->j != m-2) cout << "jugador 1 del equipo B no esta en su posicion" << endl;
-    if (board.teamB[2]->i != 2 && board.teamB[2]->j != m-2) cout << "jugador 2 del equipo B no esta en su posicion" << endl;
-
+    if (board.teamA[0]->i != 1 && board.teamA[0]->j != 0) {
+        cout << "jugador 0 del equipo A no esta en su posicion" << endl;
+    }
+    if (board.teamA[1]->i != 1 && board.teamA[1]->j != 1) {
+        cout << "jugador 1 del equipo A no esta en su posicion" << endl;
+    }
+    if (board.teamA[2]->i != 3 && board.teamA[2]->j != 1) {
+        cout << "jugador 2 del equipo A no esta en su posicion" << endl;
+    }    
+    if (board.teamB[0]->i != 0 && board.teamB[0]->j != m-1) {
+        cout << "jugador 0 del equipo B no esta en su posicion" << endl;
+    }
+    if (board.teamB[1]->i != 0 && board.teamB[1]->j != m-2) {
+        cout << "jugador 1 del equipo B no esta en su posicion" << endl;
+    }
+    if (board.teamB[2]->i != 2 && board.teamB[2]->j != m-2) {
+        cout << "jugador 2 del equipo B no esta en su posicion" << endl;
+    }
+    
     for (int i = 0; i < 3; ++i)
     {
-        if (board.teamA[i]->i != updated.team[i].i || board.teamA[i]->j != updated.team[i].j) cout << "el status board no refleja la posicion del jugador " << i << " de mi equipo" << endl;    
-        if (board.teamB[i]->i != updated.oponent_team[i].i || board.teamB[i]->j != updated.oponent_team[i].j) cout << "el status board no refleja la posicion del jugador " << i << " de mi equipo oponente" << endl;
+        if (board.teamA[i]->i != updated->team[i].i || board.teamA[i]->j != updated->team[i].j) {
+            cout << "el status board no refleja la posicion del jugador " << i << " de mi equipo" << endl;  
+        }            
+        if (board.teamB[i]->i != updated->oponent_team[i].i || board.teamB[i]->j != updated->oponent_team[i].j) {
+            cout << "el status board no refleja la posicion del jugador " << i << " de mi equipo oponente" << endl;
+        }
     }
-
 }

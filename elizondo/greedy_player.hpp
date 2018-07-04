@@ -288,41 +288,41 @@ private:
                     updated_board.oponent_team[h].in_posetion = true;
                 }
             }
-        } else {
-            LogicalBoard* logical_board = new LogicalBoard(
-                this->columns,
-                this->rows,
-                this->players,
-                this->opponnents,
-                current_board
-            );
-
-            vector<player_move> moves_A = {
-                {current_board.team[0].id, "MOVIMIENTO", i},
-                {current_board.team[1].id, "MOVIMIENTO", j},
-                {current_board.team[2].id, "MOVIMIENTO", k}
-            };
-
-            if (steps > 0) {
-                for (auto pm : moves_A) {
-                    if (pm.player_id == jugador) {
-                        pm.move_type = "PASE";
-                        pm.steps = steps;
-                    }
-                }
-            }
-
-            vector<player_move> moves_B = {
-                {current_board.oponent_team[0].id, "MOVIMIENTO", 0},
-                {current_board.oponent_team[1].id, "MOVIMIENTO", 0},
-                {current_board.oponent_team[2].id, "MOVIMIENTO", 0}
-            };
-
-            logical_board->makeMove(moves_A, moves_B);
-            updated_board = logical_board->getNewState();
+            
+            return updated_board;
         }
 
-        return updated_board;
+        LogicalBoard* logical_board = new LogicalBoard(
+            this->columns,
+            this->rows,
+            this->players,
+            this->opponnents,
+            current_board
+        );
+
+        vector<player_move> moves_A = {
+            {current_board.team[0].id, "MOVIMIENTO", i},
+            {current_board.team[1].id, "MOVIMIENTO", j},
+            {current_board.team[2].id, "MOVIMIENTO", k}
+        };
+
+        if (steps > 0) {
+            for (auto pm : moves_A) {
+                if (pm.player_id == jugador) {
+                    pm.move_type = "PASE";
+                    pm.steps = steps;
+                }
+            }
+        }
+
+        vector<player_move> moves_B = {
+            {current_board.oponent_team[0].id, "MOVIMIENTO", 0},
+            {current_board.oponent_team[1].id, "MOVIMIENTO", 0},
+            {current_board.oponent_team[2].id, "MOVIMIENTO", 0}
+        };
+
+        logical_board->makeMove(moves_A, moves_B);
+        return *(logical_board->getCurrentState());
     }
 
 };
