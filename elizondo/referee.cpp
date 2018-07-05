@@ -1,5 +1,5 @@
 #ifndef REFEREE
-#define REFERE
+#define REFEREE
 
 #include <initializer_list>
 #include <string>
@@ -25,8 +25,6 @@ class Referee {
         int steps;
         vector < player > teamA;
         vector < player > teamB;
-        vector < double > quitesA;
-        vector < double > quitesB;
         LogicalBoard* board;
 
         Referee(
@@ -34,30 +32,14 @@ class Referee {
             int rows,
             int steps,
             vector < player > teamA,
-            vector < player > teamB,
-            vector < double > quitesA,
-            vector < double > quitesB
+            vector < player > teamB
         ) {
             //Set variables
             this->columns = columns;
             this->rows = rows;
             this->steps = steps;
-
-            //Set players Team A quites
-            vector < player > _teamA;
-            for(auto p : teamA) {
-                player* aux = new player(p.id, quitesA[p.id]);
-                _teamA.push_back(*aux);
-            }
-            this->teamA = _teamA;
-
-            //Set players Team B with quites
-            vector < player > _teamB;
-            for(auto p : teamB) {
-                player* aux = new player(p.id, quitesB[p.id]);
-                _teamB.push_back(*aux);
-            }
-            this->teamB = _teamB;
+            this->teamA = teamA;
+            this->teamB = teamB;
 
             //Create logical board
             LogicalBoard* logical_board = new LogicalBoard(

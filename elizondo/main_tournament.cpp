@@ -6,6 +6,9 @@
 #include "tournament.cpp"
 
 int main(int argc, char **argv) {
-    new Tournament(10);
+    int candidates = 10;
+    Tournament* tournament = new Tournament(candidates);
+    tournament->generate_random_combinations(candidates);
+    tournament->play_tournament();
     return 0;
 }

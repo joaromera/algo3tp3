@@ -67,6 +67,17 @@ class Tournament {
                         for (int k = 0; k < 5; k++) {
                             wins_i++;
                             // JUEGAN
+                            vector <player> teamA;
+                            for (int l = 0; l < 3; l++) {
+                                player* aux = new player(l, 0.5);
+                                teamA.push_back(*aux);
+                            }
+                            vector <player> teamB;
+                            for (int l = 0; l < 3; l++) {
+                                player* aux = new player(l, 0.5);
+                                teamB.push_back(*aux);
+                            }
+                            Referee* referee = new Referee(10, 5, 250, teamA, teamB);
 
                             /**
                             if (gano i) {
