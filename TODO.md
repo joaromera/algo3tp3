@@ -14,6 +14,7 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Logical Board (logical_board.hpp)
 
+- [X] Uso de Asserts
 - [ ] Testearlo y sus subclases, que realice bien los movimientos, las intercepciones de pelotas, el reinicio de partido al haber un gol, etc.
 
 ## Grid Search (grid_search.cpp)
