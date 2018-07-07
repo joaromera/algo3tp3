@@ -29,7 +29,7 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Correcciones mail de Carolina
 
-- **Cata** [ ] El trabajo debe ser autocontenido. En ese sentido, no debe hacerse 
+- [ ]  **Cata** El trabajo debe ser autocontenido. En ese sentido, no debe hacerse 
 referencia al enunciado. Por lo tanto es necesaria la descripción del 
 juego y la definición de los términos utilizados (como "tablero").
 - [ ] En general, a lo largo del trabajo, es importante mantener una 
@@ -38,7 +38,7 @@ un "jugador goloso", y como el término "jugador" puede interpretarse
 como un integrante del equipo, quizás sea más apropiado hablar de 
 "equipo goloso". (Deben corregir también todos los demás errores de este 
 estilo que pueda haber.)
-- [ ] Los comentarios con respecto al código no corresponden al informe. Por 
+- [x] Los comentarios con respecto al código no corresponden al informe. Por 
 ejemplo, la sección 1.2. debería omitirse.
 - [ ] En las descripciones de los algoritmos y en los pseudocódigos, es 
 recomendable evitar la escritura al estilo de un lenguaje de 
