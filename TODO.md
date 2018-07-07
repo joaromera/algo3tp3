@@ -8,7 +8,7 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Greedy Player (greedy_player.hpp) (Cata)
 
-- [ ]  Normalizar puntajes. Por ejemplo, es posible que como están las cosas haya situaciones donde no tener la pelota sume más que tenerla simplemente porque hay más criterios.
+- [ ]  Normalizar puntajes. Por ejemplo, es posible que como están las cosas haya situaciones donde no tener la pelota sume más que tenerla simplemente porque hay más criterios. Hacerlo de forma tal que el puntaje mínimo sea 0. O sea que los criterios nunca resten a result.
 
 - [ ] Averiguar máximos y mínimos para los puntajes. Si es todo en base a distancias los puntajes máximos para cada criterio es la distancia máxima del tablero, habría que calcularlo y usar eso.
 
@@ -23,6 +23,6 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Consultas para hacer
 
-- [ ] Qué combinación inicial usar para grid search? Para búsqueda local? Para grasp?
-- [ ] Hay que probar distintas posiciones iniciales para los equipos? O podemos definir una.
-- [ ] Idem para las probabilidades de quite
+- [X] Qué combinación inicial usar para grid search? Para búsqueda local? Para grasp?
+- [X] Hay que probar distintas posiciones iniciales para los equipos? O podemos definir una.
+- [X] Idem para las probabilidades de quite
