@@ -51,33 +51,9 @@ class Referee {
             this->board = logical_board;
         }
 
-        // string runPlay(string startingTeam) {
-            // team_A.starting_positions = team_A.startGame(board->columns, board->rows, board->steps, IZQUIERDA, team_A.players, team_B.players);
-            // team_B.starting_positions = team_B.startGame(board->columns, board->rows, board->steps, DERECHA, team_B.players, team_A.players);
-
-            // board->reset(team_A.starting_positions, team_B.starting_positions, startingTeam);
-
-            // //Itero sobre todos los steps del partido
-            // for (int i = 0; i < steps; i++) {
-                // board_state_A = board->getState();
-                // board_state_B = board->getState();
-                // moves_A = team_A.move(board_state_A);
-                // moves_B = team_B.move(board_state_B);
-
-                // string starter = board->makeMove(moves_A, moves_B);
-
-                // //Si alguno hizo un gol
-                // if (starter != TIE) {
-                    // board->startingPositions(team_A.starting_positions, team_B.starting_positions, starter);
-                // }
-            // }
-
-            // string winner = board->winner();
-            // team_A.finished(winner)
-            // team_B.finished(winner)
-
-            // return winner
-        // }
+        string runPlay(string startingTeam) {
+            return IZQUIERDA;
+        }
     };
 
 #endif //REFEREE

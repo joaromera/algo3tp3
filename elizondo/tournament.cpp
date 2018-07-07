@@ -66,7 +66,6 @@ class Tournament {
                         int wins_j = 0;
                         for (int k = 0; k < 5; k++) {
                             wins_i++;
-                            // JUEGAN
                             vector <player> teamA;
                             for (int l = 0; l < 3; l++) {
                                 player* aux = new player(l, 0.5);
@@ -77,15 +76,15 @@ class Tournament {
                                 player* aux = new player(l, 0.5);
                                 teamB.push_back(*aux);
                             }
+                            //Make teams play
                             Referee* referee = new Referee(10, 5, 250, teamA, teamB);
+                            string winner = referee->runPlay(IZQUIERDA);
 
-                            /**
-                            if (gano i) {
+                            if (winner == IZQUIERDA) {
                                 wins_i++;
-                            } else if (gano j) {
+                            } else if (winner == DERECHA) {
                                 wins_j++;
                             }
-                            **/
                         }
                         if (wins_i > wins_j) {
                             this->scores[i] += 3;
