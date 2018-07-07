@@ -6,7 +6,7 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 - [ ]  Do it. Code it. Test it.
 
-## Greedy Player (greedy_player.hpp) (Cata)
+## Greedy Player (greedy_player.hpp)
 
 - [ ]  Normalizar puntajes. Por ejemplo, es posible que como están las cosas haya situaciones donde no tener la pelota sume más que tenerla simplemente porque hay más criterios. Hacerlo de forma tal que el puntaje mínimo sea 0. O sea que los criterios nunca resten a result.
 
@@ -29,7 +29,7 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Correcciones mail de Carolina
 
-- [ ] El trabajo debe ser autocontenido. En ese sentido, no debe hacerse 
+- **Cata** [ ] El trabajo debe ser autocontenido. En ese sentido, no debe hacerse 
 referencia al enunciado. Por lo tanto es necesaria la descripción del 
 juego y la definición de los términos utilizados (como "tablero").
 - [ ] En general, a lo largo del trabajo, es importante mantener una 
