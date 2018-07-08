@@ -8,11 +8,11 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Greedy Player (greedy_player.hpp)
 
-- [ ]  Normalizar puntajes. Por ejemplo, es posible que como están las cosas haya situaciones donde no tener la pelota sume más que tenerla simplemente porque hay más criterios. Hacerlo de forma tal que el puntaje mínimo sea 0. O sea que los criterios nunca resten a result.
+- [X]  Normalizar puntajes. Por ejemplo, es posible que como están las cosas haya situaciones donde no tener la pelota sume más que tenerla simplemente porque hay más criterios. Hacerlo de forma tal que el puntaje mínimo sea 0. O sea que los criterios nunca resten a result.
 
-- [ ] Averiguar máximos y mínimos para los puntajes. Si es todo en base a distancias los puntajes máximos para cada criterio es la distancia máxima del tablero, habría que calcularlo y usar eso.
+- [X] Averiguar máximos y mínimos para los puntajes. Si es todo en base a distancias los puntajes máximos para cada criterio es la distancia máxima del tablero, habría que calcularlo y usar eso.
 
-- [ ] Acotar la cantidad de jugadas analizadas (tableros posibles), de acuerdo a lo consultado a Carolina no podemos ver todos los movimientos posibles para cada jugador en cada instancia aun si fuera un movimiento válido porque es muy costoso.
+- [ ] Ver si es necesario acotar la cantidad de jugadas analizadas (tableros posibles), de acuerdo a lo consultado a Carolina no podemos ver todos los movimientos posibles para cada jugador en cada instancia aun si fuera un movimiento válido porque es muy costoso.
  Algunas restricciones posibles: si nuestro equipo tiene la pelota solo puntuamos tableros que con movimientos hacia adelante, si no tenemos la pelota solo vamos en direcciones que nos acerquen hacia ese lugar.
 - 
 ## Logical Board (logical_board.hpp)
@@ -22,7 +22,7 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Grid Search (grid_search.cpp)
 
-- [ ] Hacer generador de combinaciones que se dividan el espacio de soluciones. Por ejemplo, si tuviesemos solo dos pesos y el rango fuese [0,1]. Hacer una función que genere un punto de partida para el grid search con los siguientes vectores: {0,0}, {0.5, 0}, {1, 0}, {0, 0.5}, {0, 1}, {0.5, 1}, {0.5, 0.5}, {1, 0.5}, {1, 1} ... en este ejemplo puse de a 0.5, pero tal vez hay que hacer 0.33 0.66 0.99.
+- [X] Hacer generador de combinaciones que se dividan el espacio de soluciones. Por ejemplo, si tuviesemos solo dos pesos y el rango fuese [0,1]. Hacer una función que genere un punto de partida para el grid search con los siguientes vectores: {0,0}, {0.5, 0}, {1, 0}, {0, 0.5}, {0, 1}, {0.5, 1}, {0.5, 0.5}, {1, 0.5}, {1, 1} ... en este ejemplo puse de a 0.5, pero tal vez hay que hacer 0.33 0.66 0.99.
 
 ## Consultas para hacer
 
