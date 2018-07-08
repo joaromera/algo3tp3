@@ -448,7 +448,7 @@ class LogicalBoard {
                 this->last_state->ball.i = ball->i;
                 this->last_state->ball.j = ball->j;
                 this->last_state->ball.dir = get<0>(ball->movement);
-                this->last_state->ball.dir = get<1>(ball->movement);
+                this->last_state->ball.steps = get<1>(ball->movement);
             }
 
             for (auto p : this->teamA) {
