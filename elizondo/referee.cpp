@@ -33,7 +33,9 @@ class Referee {
             int rows,
             int steps,
             vector < player > teamA,
-            vector < player > teamB
+            vector < player > teamB,
+            vector < double > loadsA,
+            vector < double > loadsB
         ) {
             //Set variables
             this->columns = columns;
@@ -47,7 +49,8 @@ class Referee {
                 this->steps,
                 IZQUIERDA,
                 teamA,
-                teamB
+                teamB,
+                loadsA
             );
 
             //Create Greedy Team B
@@ -57,7 +60,8 @@ class Referee {
                 this->steps,
                 DERECHA,
                 teamB,
-                teamA
+                teamA,
+                loadsB
             );
 
             //Create logical board

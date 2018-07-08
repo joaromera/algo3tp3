@@ -77,7 +77,7 @@ class Tournament {
                                 teamB.push_back(*aux);
                             }
                             //Make teams play
-                            Referee* referee = new Referee(10, 5, 250, teamA, teamB);
+                            Referee* referee = new Referee(10, 5, 250, teamA, teamB, combinations[i], combinations[j]);
                             string winner = referee->runPlay(IZQUIERDA);
 
                             if (winner == IZQUIERDA) {
