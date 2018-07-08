@@ -395,13 +395,13 @@ class LogicalBoard {
             return 0 <= i && i < rows && 0 <= j && j < columns;
         }
 
-        void reset(vector< player_status > positionsA, vector< player_status > positionsB, bool isStartingA) {
-            this->startingPositions(positionsA, positionsB, isStartingA);
+        void reset(vector< player_status > positionsA, vector< player_status > positionsB, string starting) {
+            this->startingPositions(positionsA, positionsB, starting);
             this->scoreA = 0;
             this->scoreB = 0;
         }
 
-        void startingPositions(vector< player_status > positionsA, vector< player_status > positionsB, bool isStartingA) {
+        void startingPositions(vector< player_status > positionsA, vector< player_status > positionsB, string starting) {
             // Saco la pelota del juego
             for (auto p: this->teamA) {
                 p->ball = nullptr;
@@ -423,7 +423,7 @@ class LogicalBoard {
             }
 
             // Le doy la pelota al jugador que saca y lo pongo en el centro
-            if (isStartingA) {                
+            if (starting == IZQUIERDA) {
                 this->teamA[0]->i = int(this->rows / 2);
                 this->teamA[0]->j = (this->columns / 2) - 1;
                 this->teamA[0]->takeBall(new Ball());
