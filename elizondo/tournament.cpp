@@ -14,6 +14,7 @@ using namespace std;
 class Tournament {
     public:
         vector < vector < double > > combinations;
+        vector < double > current_winner;
         vector < int > scores;
         vector < vector < bool > > already_played;
         int weights_amount = 10;
@@ -51,7 +52,7 @@ class Tournament {
         }
 
         // devuelve una copia del vector que más puntos hizo en scores
-        vector < double > get_leader() {
+        vector < double > get_winner() {
             auto it = max_element(this->scores.begin(), this->scores.end());
             auto index = it - this->scores.begin();
             return this->combinations[index];
@@ -101,6 +102,25 @@ class Tournament {
             }
         }
 
+        // genera los vecinos del input, juega el torneo, guarda el ganador
+        // genera los vecinos del ganador, juega el torneo, si es mejor lo reemplaza
+        // si no es mejor que el ganador anterior, termina y devuelve el ganador anterior
+        vector < double > hill_climbing(vector < double > vec, double distance) {
+            this->local_search(vec, distance);
+            this->play_tournament();
+            vector < double > winner = this->get_winner();
+            vector < double > old_winner;
+
+            do {
+                old_winner = winner;
+                this->local_search(old_winner, distance);
+                this->play_tournament();
+                winner = this->get_winner();
+            } while (winner != old_winner);
+
+            return winner;
+        }
+
         // helper de local_search
         void local_search_recursive(vector < double > vec, int index, double distance) {
             if (index < vec.size()) {
@@ -137,7 +157,7 @@ class Tournament {
         }
 
         // imprime el vector con más puntos según score
-        void print_leader() {
+        void print_winner() {
             auto it = max_element(this->scores.begin(), this->scores.end());
             auto index = it - this->scores.begin();
             for (int i = 0; i < this->combinations[0].size(); i++) {
@@ -156,7 +176,6 @@ class Tournament {
                             cout << "IGUALES" << endl;
                         }
                     }
-
                 }
             }
         }
