@@ -122,8 +122,15 @@ public:
         made_moves.push_back(p_move);
         made_moves.push_back(p_move);
 
-        vector<int> found_move = search_move(current_board);
-        update_moves(current_board, made_moves, found_move[0], found_move[1], found_move[2], found_move[3], found_move[4]);
+        board_status board = current_board;
+
+        if (this->side == "DERECHA") {
+            board.team = current_board.oponent_team;
+            board.oponent_team = current_board.team;
+        }
+
+        vector<int> found_move = search_move(board);
+        update_moves(board, made_moves, found_move[0], found_move[1], found_move[2], found_move[3], found_move[4]);
     }
 
     void finish(string result) { }
