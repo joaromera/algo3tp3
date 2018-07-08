@@ -106,16 +106,20 @@ class Tournament {
             if (index < vec.size()) {
                 vector < double > mod_vec = vec;
                 mod_vec[index] += distance;
+                vector < double > mod_vec2 = vec;
+                mod_vec2[index] -= distance;
                 index++;
                 local_search_recursive(vec, index, distance);
                 local_search_recursive(mod_vec, index, distance);
+                local_search_recursive(mod_vec2, index, distance);
                 this->combinations.push_back(mod_vec);
+                this->combinations.push_back(mod_vec2);
             }
         }
 
         // llama a reset y sobrescribe this->combinations con los vecinos de vec
         void local_search(vector < double > vec, double distance) {
-            int size = pow(2, vec.size());
+            int size = pow(3, vec.size());
             this->reset(size);
 
             this->local_search_recursive(vec, 0, distance);
@@ -140,5 +144,20 @@ class Tournament {
                 cout << combinations[index][i] << " ";
             }
             cout << endl;
+        }
+
+        // estoy chequeando que todas las combinaciones sean distintas entre sí
+        void check_comb() {
+            cout << this->combinations.size() << endl;
+            for (int i = 0; i < this->combinations.size(); i++) {
+                for (int j = 0; j < this->combinations.size(); j++) {
+                    if (i != j) {
+                        if (this->combinations[i] == this->combinations[j]) {
+                            cout << "IGUALES" << endl;
+                        }
+                    }
+
+                }
+            }
         }
 };
