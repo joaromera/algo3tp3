@@ -100,7 +100,7 @@ bool closer_to_opponent_goal(int player_j, int opp_player_j, vector < pair < int
 bool opponents_blocking_goal(const board_status & current_board, player_status player, int goal_row, int a, vector < pair < int, int > > opponnent_goal) {
     bool is_in_between = false;
     for (auto opp_p: current_board.oponent_team) {
-        is_in_between = is_in_between || is_in_same_rect(opp_p.i, opp_p.j, goal_row, a, opponnent_goal) && !closer_to_opponent_goal(player.j, opp_p.j, opponnent_goal);
+        is_in_between = is_in_between || (is_in_same_rect(opp_p.i, opp_p.j, goal_row, a, opponnent_goal) && !closer_to_opponent_goal(player.j, opp_p.j, opponnent_goal));
     }
     return is_in_between;
 }
@@ -138,10 +138,10 @@ bool moving_towards_goal(ball_status & ball, int a, vector < pair < int, int > >
     bool is_moving_ok = false;
     if (opponnent_goal[0].second == -1) {
         // arco rival en columna -1
-        is_moving_ok = a == -1 && ball.dir == 1 || a == 0 && ball.dir == 8 || a == 1 && ball.dir == 7;
+        is_moving_ok = (a == -1 && ball.dir == 1) || (a == 0 && ball.dir == 8) || (a == 1 && ball.dir == 7);
     } else {
         // arco rival en ultima columna
-        is_moving_ok = a == -1 && ball.dir == 5 || a == 0 && ball.dir == 4 || a == 1 && ball.dir == 3;
+        is_moving_ok = (a == -1 && ball.dir == 5) || (a == 0 && ball.dir == 4) || (a == 1 && ball.dir == 3);
     }
     return is_moving_ok;
 }
@@ -151,9 +151,9 @@ bool has_kicked_to_goal(board_status & board, vector < pair < int, int > > oppon
     bool has_goal_direction = false;
 
     for (int goal_row = 0; goal_row < 3; goal_row++) {
-        has_goal_direction = has_goal_direction || is_in_same_rect(ball.i, ball.j, goal_row, -1, opponnent_goal) && moving_towards_goal(ball, -1, opponnent_goal);
-        has_goal_direction = has_goal_direction || is_in_same_rect(ball.i, ball.j, goal_row, 0, opponnent_goal) && moving_towards_goal(ball, 0, opponnent_goal);
-        has_goal_direction = has_goal_direction || is_in_same_rect(ball.i, ball.j, goal_row, 1, opponnent_goal) && moving_towards_goal(ball, 1, opponnent_goal);
+        has_goal_direction = has_goal_direction || (is_in_same_rect(ball.i, ball.j, goal_row, -1, opponnent_goal) && moving_towards_goal(ball, -1, opponnent_goal));
+        has_goal_direction = has_goal_direction || (is_in_same_rect(ball.i, ball.j, goal_row, 0, opponnent_goal) && moving_towards_goal(ball, 0, opponnent_goal));
+        has_goal_direction = has_goal_direction || (is_in_same_rect(ball.i, ball.j, goal_row, 1, opponnent_goal) && moving_towards_goal(ball, 1, opponnent_goal));
     }
     return has_goal_direction;
 }
@@ -162,11 +162,11 @@ bool can_kick_to_goal(const board_status & current_board, player_status player, 
     bool can_kick = false;
     for (int goal_row = 0; goal_row < 3; goal_row++) {
         // esta en diagonal al arco
-        can_kick = can_kick || is_in_same_rect(player.i, player.j, goal_row, -1, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, -1, opponnent_goal);
+        can_kick = can_kick || (is_in_same_rect(player.i, player.j, goal_row, -1, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, -1, opponnent_goal));
         // esta derecho al arco
-        can_kick = can_kick || is_in_same_rect(player.i, player.j, goal_row, 0, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, 0, opponnent_goal);
+        can_kick = can_kick || (is_in_same_rect(player.i, player.j, goal_row, 0, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, 0, opponnent_goal));
         // esta en diagonal al arco
-        can_kick = can_kick || is_in_same_rect(player.i, player.j, goal_row, 1, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, 1, opponnent_goal);
+        can_kick = can_kick || (is_in_same_rect(player.i, player.j, goal_row, 1, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, 1, opponnent_goal));
     }
 
     return can_kick;
