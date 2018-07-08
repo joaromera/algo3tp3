@@ -121,6 +121,34 @@ class Tournament {
             return winner;
         }
 
+        vector < double > grasp(double distance) {
+            this->generate_random_combinations(10);
+            this->play_tournament();
+
+            vector < double > random_solution = this->get_winner();
+            this->local_search(random_solution, distance);
+            this->play_tournament();
+
+            vector < double > winner = this->get_winner();
+            vector < double > old_winner;
+
+            do {
+                old_winner = winner;
+
+                this->generate_random_combinations(10);
+                this->play_tournament();
+                random_solution = this->get_winner();
+
+                this->local_search(random_solution, distance);
+                this->combinations.push_back(old_winner);
+                this->play_tournament();
+                winner = this->get_winner();
+                
+            } while (winner != old_winner);
+
+            return winner;
+        }
+
         // helper de local_search
         void local_search_recursive(vector < double > vec, int index, double distance) {
             if (index < vec.size()) {
