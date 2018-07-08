@@ -63,40 +63,30 @@ class Tournament {
             for (int i = 0; i < this->combinations.size(); i++) {
                 for (int j = 0; j < this->combinations.size(); j++) {
                     if (i != j && !already_played[i][j]) {
-                        int wins_i = 0;
-                        int wins_j = 0;
-                        for (int k = 0; k < 5; k++) {
-                            wins_i++;
-                            vector <player> teamA;
-                            for (int l = 0; l < 3; l++) {
-                                player* aux = new player(l, 0.5);
-                                teamA.push_back(*aux);
-                            }
-                            vector <player> teamB;
-                            for (int l = 0; l < 3; l++) {
-                                player* aux = new player(l, 0.5);
-                                teamB.push_back(*aux);
-                            }
-                            //Make teams play
-                            Referee* referee = new Referee(10, 5, 250, teamA, teamB, combinations[i], combinations[j]);
-                            string winner = referee->runPlay(IZQUIERDA);
-
-                            if (winner == IZQUIERDA) {
-                                wins_i++;
-                            } else if (winner == DERECHA) {
-                                wins_j++;
-                            }
+                        vector <player> teamA;
+                        for (int l = 0; l < 3; l++) {
+                            player* aux = new player(l, 0.5);
+                            teamA.push_back(*aux);
                         }
-                        if (wins_i > wins_j) {
+                        vector <player> teamB;
+                        for (int l = 0; l < 3; l++) {
+                            player* aux = new player(l, 0.5);
+                            teamB.push_back(*aux);
+                        }
+
+                        //Make teams play
+                        Referee* referee = new Referee(10, 5, 250, teamA, teamB, combinations[i], combinations[j]);
+                        string winner = referee->runPlay(IZQUIERDA);
+
+                        if (winner == IZQUIERDA) {
                             this->scores[i] += 3;
-                        } else if (wins_i < wins_j) {
+                        } else if (winner == DERECHA) {
                             this->scores[j] += 3;
                         } else {
                             this->scores[i] += 1;
                             this->scores[j] += 1;
                         }
                         this->already_played[i][j] = true;
-                        this->already_played[j][i] = true;
                     }
                 }
             }
