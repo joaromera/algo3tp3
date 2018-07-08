@@ -4,7 +4,7 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Referí que haga jugar y devuelva ganador (referee.hpp) (Adrián)
 
-- [ ]  Do it. Code it. Test it.
+- [X]  Do it. Code it. Test it.
 
 ## Greedy Player (greedy_player.hpp)
 
