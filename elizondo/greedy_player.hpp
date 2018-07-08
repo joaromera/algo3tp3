@@ -206,6 +206,7 @@ private:
                 result += distance_player_closest_opponnent(updated_board, p) * loads[1]; //distancia al oponente mas cercano
             }
             result += dispersion(updated_board.team) * loads[2];
+            result /= 7;
         } 
         
         if (who_has_the_ball(updated_board) == "OPPONNENT") {
@@ -214,6 +215,7 @@ private:
                 result += this->MAX_DIST - distance_player_closest_opponnent(updated_board, p) * loads[4]; //distancia al oponente mas cercano
             }
             result += dispersion(updated_board.team) * loads[5];
+            result /= 7;
         }
 
         if (who_has_the_ball(updated_board) == "FREE") {
@@ -221,10 +223,13 @@ private:
                 result += this->MAX_DIST - distance_player_ball(updated_board, p) * loads[6]; //distancia a la pelota
                 result += this->MAX_DIST - distance_player_opponnent_goal(p, this->opponnent_goal) * loads[7]; //distancia al arco contrario
             }
-            result += dispersion(updated_board.team) * loads[8];
+            
             for (auto opp_p : updated_board.oponent_team) {
                 result += distance_player_ball(updated_board, opp_p) * loads[9]; //distancia a la pelota del contrario
             }
+
+            result += dispersion(updated_board.team) * loads[8];
+            result /= 10;
         }
 
         return result;
