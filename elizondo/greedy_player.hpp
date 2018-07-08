@@ -200,6 +200,12 @@ private:
             }
         }
 
+        for (auto goal : this->own_goal) {
+            if (get_ball_position(updated_board) == goal) {
+                return 0;
+            }
+        }
+
         if (who_has_the_ball(updated_board) == "GREEDY") {
             for (auto p : updated_board.team) {
                 result += this->MAX_DIST - distance_player_opponnent_goal(p, this->opponnent_goal) * loads[0]; //distancia al arco contrario
@@ -225,10 +231,10 @@ private:
             }
             
             for (auto opp_p : updated_board.oponent_team) {
-                result += distance_player_ball(updated_board, opp_p) * loads[9]; //distancia a la pelota del contrario
+                result += distance_player_ball(updated_board, opp_p) * loads[8]; //distancia a la pelota del contrario
             }
 
-            result += dispersion(updated_board.team) * loads[8];
+            result += dispersion(updated_board.team) * loads[9];
             result /= 10;
         }
 
