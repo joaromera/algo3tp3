@@ -29,9 +29,9 @@ double distance_player_opponnent_goal(player_status & player, vector < pair < in
 }
 
 double dispersion(const vector < player_status > & team) {
-    return distance(team[0].i, team[0].j, team[1].i, team[1].j) +
+    return (distance(team[0].i, team[0].j, team[1].i, team[1].j) +
         distance(team[0].i, team[0].j, team[2].i, team[2].j) +
-        distance(team[1].i, team[1].j, team[2].i, team[2].j);
+        distance(team[1].i, team[1].j, team[2].i, team[2].j)) / 3;
 }
 
 string who_has_the_ball(const board_status & current_board) {
