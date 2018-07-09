@@ -119,8 +119,8 @@ class LogicalBoard {
             }
         }
 
-        void makeTeamMove(vector<Player*> *team, vector<player_move> &moves) {
-            for (auto aPlayer : *team) {
+        void makeTeamMove(vector<Player*> & team, const vector<player_move> & moves) {
+            for (auto aPlayer : team) {
                 for (auto aMove : moves) {
                     if (aMove.player_id == aPlayer->id) {
                         if (aMove.move_type == "MOVIMIENTO") {
@@ -189,7 +189,7 @@ class LogicalBoard {
             result = result 
                 && prevStatePlayer.i == player->i 
                 && prevStatePlayer.j == player->j;
-
+            
             player->backwardMove(get<0>(this->free_ball->movement));
 
             result = result 
@@ -200,10 +200,10 @@ class LogicalBoard {
             return result;
         }
 
-        string makeMove(vector< player_move > movesA, vector< player_move > movesB) {
+        string makeMove(const vector< player_move > & movesA, const vector< player_move > & movesB) {
             this->getState();
-            this->makeTeamMove(&(this->teamA), movesA);
-            this->makeTeamMove(&(this->teamB), movesB);
+            this->makeTeamMove(this->teamA, movesA);
+            this->makeTeamMove(this->teamB, movesB);
             
             if (this->free_ball != nullptr) {
                 
@@ -218,7 +218,7 @@ class LogicalBoard {
                         intercepters.push_back(p);
                     }
                 }
-                
+
                 if (intercepters.size() == 1) {
                     intercepters[0]->takeBall(this->free_ball);
                     this->free_ball = nullptr;
@@ -245,7 +245,7 @@ class LogicalBoard {
                             this->fairFightBall(*playersToFight[0], *playersToFight[1]);
                         }
                     } else if (is_neighbor(this->free_ball->i, this->free_ball->j, this->goalA)
-                                && is_neighbor(this->free_ball->i, this->free_ball->j, this->goalB)) {
+                                || is_neighbor(this->free_ball->i, this->free_ball->j, this->goalB)) {
                         this->free_ball->step_back_one();
                     }
                 }
@@ -358,23 +358,19 @@ class LogicalBoard {
                 for (auto p: this->teamA) {
                     if (p->ball != nullptr) {
                         ball = p->ball;
-                        p->ball = nullptr;
-                        this->free_ball = ball;
                     }
                 }
 
                 for (auto p: this->teamB) {
                     if (p->ball != nullptr) {
                         ball = p->ball;
-                        p->ball = nullptr;
-                        this->free_ball = ball;
                     }
                 }
             }
 
             // Si la pelota está en el arco de A, le suma un gol a B y devuelve "A"
             for (auto g: this->goalA) {
-                if (get < 0 > (g) == ball->i && get < 0 > (g) == ball->j) {
+                if (get < 0 > (g) == ball->i && get < 1 > (g) == ball->j) {
                     this->scoreB++;
                     return IZQUIERDA;
                 }
@@ -382,7 +378,7 @@ class LogicalBoard {
 
             // Si la pelota está en el arco de B, le suma un gol a A y devuelve "B"
             for (auto g: this->goalB) {
-                if (get < 0 > (g) == ball->i && get < 0 > (g) == ball->j) {
+                if (get < 0 > (g) == ball->i && get < 1 > (g) == ball->j) {
                     this->scoreA++;
                     return DERECHA;
                 }
