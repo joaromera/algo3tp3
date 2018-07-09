@@ -76,7 +76,7 @@ class Tournament {
 
                         //Make teams play
                         // vector < double > test = {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5}; //esta funcionaba en greedy
-                        Referee referee = Referee(10, 5, 250, teamA, teamB, combinations[i], combinations[j]);
+                        Referee referee = Referee(10, 5, 125, teamA, teamB, combinations[i], combinations[j]);
                         string winner = referee.runPlay(IZQUIERDA);
 
                         if (winner == IZQUIERDA) {
@@ -93,19 +93,70 @@ class Tournament {
             }
         }
 
+        void play_leg(vector < pair < vector < double >, int > > combs) {
+            cout << "NOW PLAYING LEG OF " << combs.size() << endl;
+            vector < pair < vector < double >, int > > winners;
+            for (int i = 0; i < combs.size(); i += 2) {
+                vector <player> teamA;
+                for (int l = 0; l < 3; l++) {
+                    player aux = player(l, 0.5);
+                    teamA.push_back(aux);
+                }
+                vector <player> teamB;
+                for (int l = 0; l < 3; l++) {
+                    player aux = player(l, 0.5);
+                    teamB.push_back(aux);
+                }
+
+                //Make teams play
+                // vector < double > test = {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5}; //esta funcionaba en greedy
+                Referee referee = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i+1].first);
+                string winner = referee.runPlay(IZQUIERDA);
+
+                if (winner == IZQUIERDA) {
+                    this->scores[combs[i].second] += 3;
+                    winners.push_back(combs[i]);
+                } else if (winner == DERECHA) {
+                    this->scores[combs[i + 1].second] += 3;
+                    winners.push_back(combs[i + 1]);
+                } else {
+                    this->scores[combs[i].second] += 1;
+                    this->scores[combs[i + 1].second] += 1;
+                    winners.push_back(combs[i]);
+                }                
+            }
+            if (winners.size() > 1) {
+                play_leg(winners);
+            }
+        }
+
+        void elimination_cup(vector < vector < double > > combs) {
+            vector < pair < vector < double >, int > > indexed_combs;
+            indexed_combs.reserve(combs.size());
+            for (int i = 0; i < combs.size(); i++) {
+                indexed_combs.push_back(make_pair(combs[i],i));
+            }
+
+            play_leg(indexed_combs);
+        }
+
         // genera los vecinos del input, juega el torneo, guarda el ganador
         // genera los vecinos del ganador, juega el torneo, si es mejor lo reemplaza
         // si no es mejor que el ganador anterior, termina y devuelve el ganador anterior
         vector < double > hill_climbing(vector < double > vec, double distance) {
             this->local_search(vec, distance);
-            this->play_tournament();
+            // this->play_tournament();
+            this->elimination_cup(this->combinations);
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
-
+            int index = 0;
             do {
+                cout << "Vecindario número: " << index << endl;
+                index++;
                 old_winner = winner;
                 this->local_search(old_winner, distance);
-                this->play_tournament();
+                // this->play_tournament();
+                this->elimination_cup(this->combinations);
                 winner = this->get_winner();
             } while (winner != old_winner);
 
@@ -148,23 +199,27 @@ class Tournament {
                 if (mod_vec[index] > 1) mod_vec[index] = 1;
                 if (mod_vec[index] < 0) mod_vec[index] = 0;
 
-                vector < double > mod_vec2 = vec;
-                mod_vec2[index] -= distance;
-                if (mod_vec2[index] > 1) mod_vec2[index] = 1;
-                if (mod_vec2[index] < 0) mod_vec2[index] = 0;
+                // reemplazar estas tres de abajo por las otras cuatro comentadas
+                vec[index] -= distance;
+                if (vec[index] > 1) vec[index] = 1;
+                if (vec[index] < 0) vec[index] = 0;
+                // vector < double > mod_vec2 = vec;
+                // mod_vec2[index] -= distance;
+                // if (mod_vec2[index] > 1) mod_vec2[index] = 1;
+                // if (mod_vec2[index] < 0) mod_vec2[index] = 0;
 
                 index++;
                 local_search_recursive(vec, index, distance);
                 local_search_recursive(mod_vec, index, distance);
-                local_search_recursive(mod_vec2, index, distance);
+                // local_search_recursive(mod_vec2, index, distance); // si se hizo lo de arriba, descomentar esta linea y la ultima
                 this->combinations.push_back(mod_vec);
-                this->combinations.push_back(mod_vec2);
+                // this->combinations.push_back(mod_vec2);
             }
         }
 
         // llama a reset y sobrescribe this->combinations con los vecinos de vec
         void local_search(vector < double > vec, double distance) {
-            int size = pow(3, vec.size());
+            int size = pow(2, vec.size());
             this->reset(size);
 
             this->local_search_recursive(vec, 0, distance);
