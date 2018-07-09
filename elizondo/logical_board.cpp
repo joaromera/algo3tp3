@@ -25,6 +25,24 @@ class LogicalBoard {
         Ball* free_ball;
         board_status* last_state;
 
+        ~LogicalBoard() {
+            for (auto p : teamA) {
+                if (p != nullptr) {
+                    // if (p->ball != nullptr) delete p->ball;
+                    delete p;
+                }
+            }
+            for (auto p : teamB) {
+                if (p != nullptr) {
+                    // if (p->ball != nullptr) delete p->ball;
+                    delete p;
+                }
+            }
+
+            if (free_ball != nullptr) delete free_ball;
+            if (last_state != nullptr) delete last_state;
+        }
+
         LogicalBoard(
             int columns,
             int rows,
@@ -399,14 +417,26 @@ class LogicalBoard {
 
         void startingPositions(vector< player_status > positionsA, vector< player_status > positionsB, string starting) {
             // Saco la pelota del juego
+            
+            Ball* ball = nullptr;
+
             for (auto p: this->teamA) {
-                p->ball = nullptr;
+                if (p->ball != nullptr) {
+                    ball = p->ball;
+                    p->ball = nullptr;
+                } 
             }
             for (auto p: this->teamB) {
-                p->ball = nullptr;
+                if (p->ball != nullptr) {
+                    ball = p->ball;
+                    p->ball = nullptr;
+                } 
             }
 
-            this->free_ball = nullptr;
+            if (this->free_ball != nullptr) {
+                ball = this->free_ball;
+                this->free_ball = nullptr;
+            }
 
             // Coloco los jugadores en las posiciones correctas
             for (auto p: positionsA) {
@@ -422,11 +452,11 @@ class LogicalBoard {
             if (starting == IZQUIERDA) {
                 this->teamA[0]->i = int(this->rows / 2);
                 this->teamA[0]->j = (this->columns / 2) - 1;
-                this->teamA[0]->takeBall(new Ball());
+                this->teamA[0]->takeBall(ball);
             } else {
                 this->teamB[0]->i = int(this->rows / 2);
                 this->teamB[0]->j = (this->columns / 2) - 1;
-                this->teamB[0]->takeBall(new Ball());
+                this->teamB[0]->takeBall(ball);
             }
         }
             

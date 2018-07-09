@@ -28,7 +28,11 @@ class Player{
       this->ball = nullptr;
     };
 
-    ~Player();
+    ~Player() {
+      if (this->ball != nullptr) {
+        delete ball;
+      }
+    };
 
     Player(int &player_id, double &p_quite) {
       this->id = player_id;
@@ -45,28 +49,23 @@ class Player{
     }
 
     void backwardMove(int &direction) {
-      int dir = direction;
-      std::string fileName = "logiboard.log";
-      
       this->old_position = make_tuple(this->i, this->j);
-      
       this->i -= get<0>(moves[direction]);
       this->j -= get<1>(moves[direction]);
-      
       moveBall();
     };
 
     void undoMove() {
-      if (get<0>(old_position) != -1 && get<1>(old_position) != -1) {
-        this->i = get<0>(old_position);
-        this->j = get<1>(old_position);
+      if (get<0>(this->old_position) != -1 && get<1>(this->old_position) != -1) {
+        this->i = get<0>(this->old_position);
+        this->j = get<1>(this->old_position);
         this->old_position = make_tuple(-1, -1);
         moveBall();
       }
     }
 
     void moveBall() {
-      if (ball != nullptr) {
+      if (this->ball != nullptr) {
         this->ball->i = this->i;
         this->ball->j = this->j;
       }

@@ -30,6 +30,8 @@ public:
 
     greedy_player() = default;
 
+    ~greedy_player() {};
+
     greedy_player(
         int columns,
         int rows,
@@ -340,7 +342,9 @@ private:
         };
 
         logical_board->makeMove(moves_A, moves_B);
-        return *(logical_board->getCurrentState());
+        board_status result = *(logical_board->getCurrentState());
+        delete logical_board;
+        return result;
     }
 
 };

@@ -58,25 +58,26 @@ class Tournament {
             return this->combinations[index];
         }
 
-        // hace competir todas las combinaciones entre sí 5 veces
+        // hace competir todas las combinaciones entre sí
         void play_tournament() {
             for (int i = 0; i < this->combinations.size(); i++) {
                 for (int j = 0; j < this->combinations.size(); j++) {
                     if (i != j && !already_played[i][j]) {
                         vector <player> teamA;
                         for (int l = 0; l < 3; l++) {
-                            player* aux = new player(l, 0.5);
-                            teamA.push_back(*aux);
+                            player aux = player(l, 0.5);
+                            teamA.push_back(aux);
                         }
                         vector <player> teamB;
                         for (int l = 0; l < 3; l++) {
-                            player* aux = new player(l, 0.5);
-                            teamB.push_back(*aux);
+                            player aux = player(l, 0.5);
+                            teamB.push_back(aux);
                         }
 
                         //Make teams play
-                        Referee* referee = new Referee(10, 5, 250, teamA, teamB, combinations[i], combinations[j]);
-                        string winner = referee->runPlay(IZQUIERDA);
+                        // vector < double > test = {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5}; //esta funcionaba en greedy
+                        Referee referee = Referee(10, 5, 250, teamA, teamB, combinations[i], combinations[j]);
+                        string winner = referee.runPlay(IZQUIERDA);
 
                         if (winner == IZQUIERDA) {
                             this->scores[i] += 3;
@@ -144,8 +145,14 @@ class Tournament {
             if (index < vec.size()) {
                 vector < double > mod_vec = vec;
                 mod_vec[index] += distance;
+                if (mod_vec[index] > 1) mod_vec[index] = 1;
+                if (mod_vec[index] < 0) mod_vec[index] = 0;
+
                 vector < double > mod_vec2 = vec;
                 mod_vec2[index] -= distance;
+                if (mod_vec2[index] > 1) mod_vec2[index] = 1;
+                if (mod_vec2[index] < 0) mod_vec2[index] = 0;
+
                 index++;
                 local_search_recursive(vec, index, distance);
                 local_search_recursive(mod_vec, index, distance);
@@ -171,6 +178,16 @@ class Tournament {
                     cout << combination[i] << " ";
                 }
                 cout << endl;
+            }
+        }
+
+        void print_score_table() {
+            for (int i = 0; i < this->combinations.size(); i++) {
+                cout << "COMBINATION: ";
+                for (int j = 0; j < combinations[i].size(); j++) {
+                    cout << combinations[i][j] << " ";
+                }
+                cout << "SCORE: " << this->scores[i] << endl;
             }
         }
 
