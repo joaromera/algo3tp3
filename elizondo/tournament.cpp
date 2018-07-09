@@ -2,6 +2,7 @@
 #include <random>
 #include <iostream>
 #include <algorithm>
+#include <queue>
 
 #include "board_status.hpp"
 #include "constants.hpp"
@@ -10,6 +11,15 @@
 #include "referee.cpp"
 
 using namespace std;
+
+class heavierThan {
+    public:
+        bool operator()(const pair < vector < double >, int > & a, const pair < vector < double >, int > & b) const {
+            return (a.second < b.second);
+        }
+};
+
+typedef std::priority_queue < pair < vector < double >, int >, vector < pair < vector < double >, int > >  , heavierThan > priorityQueue;
 
 class Tournament {
     public:
@@ -149,16 +159,16 @@ class Tournament {
             this->elimination_cup(this->combinations);
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
-            int index = 0;
+            int iterations = 0;
             do {
-                cout << "Vecindario número: " << index << endl;
-                index++;
+                cout << "Vecindario número: " << iterations << endl;
+                iterations++;
                 old_winner = winner;
                 this->local_search(old_winner, distance);
                 // this->play_tournament();
                 this->elimination_cup(this->combinations);
                 winner = this->get_winner();
-            } while (winner != old_winner);
+            } while (winner != old_winner && iterations < 5);
 
             return winner;
         }
@@ -267,6 +277,77 @@ class Tournament {
                         }
                     }
                 }
+            }
+        }
+
+        vector < double > crossover_half (const vector < double > & parent_A, const vector < double > & parent_B) {
+            vector < double > child;
+            for (int i = 0; i < parent_A.size() / 2; i ++) {
+                child.push_back(parent_A[i]);
+                if (rand() % 101 < 5) {
+                    child[i] = rand() % 101 / (double) 100;
+                }
+            }
+            for (int i = parent_B.size() / 2; i < parent_B.size(); i ++) {
+                child.push_back(parent_B[i]);
+                if (rand() % 101 < 5) {
+                    child[i] = rand() % 101 / (double) 100;
+                }
+            }
+            return child;
+        }
+
+        vector < double > crossover_random (const vector < double > & parent_A, const vector < double > & parent_B) {
+            vector < double > child;
+            for (int i = 0; i < parent_A.size(); i++) {
+                if (rand() % 101 < 50) {
+                    child.push_back(parent_A[i]);
+                } else {
+                    child.push_back(parent_B[i]);
+                }
+                if (rand() % 101 < 5) {
+                    child[i] = rand() % 101 / (double) 100;
+                }
+            }
+            return child;
+        }
+
+        void crossover() {
+            int size = this->combinations.size();
+            for (int i = 0; i < size - 1; i += 2) {
+                this->combinations.push_back(crossover_half(this->combinations[i], this->combinations[i + 1]));
+                this->combinations.push_back(crossover_half(this->combinations[i + 1], this->combinations[i]));
+                // this->combinations.push_back(crossover_random(this->combinations[i], this->combinations[i + 1]));
+                // this->combinations.push_back(crossover_random(this->combinations[i + 1], this->combinations[i]));
+            }
+        }
+
+        void selection() {
+            priorityQueue ranking;
+            for (int i = 0; i < this->combinations.size(); i++) {
+                ranking.push(make_pair(this->combinations[i], this->scores[i]));
+            }
+            int new_size = this->combinations.size() / 2;
+            this->reset(this->combinations.size());
+            for (int i = 0; i < new_size; i ++) {
+                this->combinations.push_back(ranking.top().first);
+                ranking.pop();
+            }
+        }
+
+        void genetic(int & population) {
+            cout << "IN GENETIC" << endl;
+            this->generate_random_combinations(population);
+            this->play_tournament();
+            
+            int iterations = 0;
+            while (iterations < 15) {
+                cout << "ITERATIONS: " << iterations << endl;
+                this->print_score_table();
+                this->selection();
+                this->crossover();
+                this->play_tournament();
+                iterations++;
             }
         }
 };
