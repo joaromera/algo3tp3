@@ -22,19 +22,9 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 ## Correcciones mail de Carolina
 
 
-- [X]  En las descripciones de los algoritmos y en los pseudocódigos, es 
-recomendable evitar la escritura al estilo de un lenguaje de 
-programación. Por ejemplo: "for player in updatedBoard.team do" podría 
-reemplazarse por "para todo jugador del equipo hacer"; expresiones como 
-"weight[i]" podrían escribirse como $w_x$, indicando qué significa este 
-término; los parámetros que recibe la función del pseudocódigo de la 
-página 3 se puede escribir de forma similar a "Entrada: un tablero 
-currentBoard y los pesos de los parámetros ($w_x$, donde x ...)".
-También evitar el llamado a funciones (o la referencia a variables) que 
-no están explicadas. Por ejemplo, "if weHaveTheBall() then" podría ser 
-"si el equipo tiene la pelota entonces".
+
 - [ ] **En progreso** Las secciones 2.3. y 3(completa) no se entienden con claridad.
-- [ ] En la sección 3, primer párrafo: ¿qué es una solución óptima en este 
+- [ ] **En progreso** En la sección 3, primer párrafo: ¿qué es una solución óptima en este 
 caso? ¿por qué esta técnica aseguraría obtenerla?
 - [ ] En la sección 4.1, segundo párrafo, dice que la población inicial se 
 elige aleatoriamente. Esto no es siempre así. Algunas aplicaciones 
