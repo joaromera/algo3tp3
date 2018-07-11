@@ -21,18 +21,8 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Correcciones mail de Carolina
 
-- [ ]  **Cata** El trabajo debe ser autocontenido. En ese sentido, no debe hacerse 
-referencia al enunciado. Por lo tanto es necesaria la descripción del 
-juego y la definición de los términos utilizados (como "tablero").
-- [ ] En general, a lo largo del trabajo, es importante mantener una 
-terminología consistente. Por ejemplo: en la introducción se menciona a 
-un "jugador goloso", y como el término "jugador" puede interpretarse 
-como un integrante del equipo, quizás sea más apropiado hablar de 
-"equipo goloso". (Deben corregir también todos los demás errores de este 
-estilo que pueda haber.)
-- [x] Los comentarios con respecto al código no corresponden al informe. Por 
-ejemplo, la sección 1.2. debería omitirse.
-- [ ] En las descripciones de los algoritmos y en los pseudocódigos, es 
+
+- [ ] **En progreso** En las descripciones de los algoritmos y en los pseudocódigos, es 
 recomendable evitar la escritura al estilo de un lenguaje de 
 programación. Por ejemplo: "for player in updatedBoard.team do" podría 
 reemplazarse por "para todo jugador del equipo hacer"; expresiones como 
@@ -59,7 +49,6 @@ access]. Por ejemplo: Global Health Observatory. "Violence against
 women", \textit{World Health Organization}. [Online]. Disponible en: 
 http://www.who.int/gho/women_and_health/violence. [Último acceso: 6 de 
 julio de 2018].
-- [ ] Evitar el uso de fuentes como Wikipedia
 - [ ] A lo largo de todo el trabajo se utiliza mucho lenguaje informal, hay 
 errores de tipeo y la redacción no es buena. Por ejemplo: la frase "es 
 muy caótico donde todo sube y baja", el segundo ítem de la página 7, 
