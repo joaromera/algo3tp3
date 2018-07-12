@@ -22,6 +22,11 @@ class Ball {
             get<1>(this->movement) = -1;
         }
 
+        Ball(int i, int j) {
+            this->i = i;
+            this->j = j;
+        }
+
         virtual ~Ball() {}
 
         void setMovement(int dir, int steps) {
