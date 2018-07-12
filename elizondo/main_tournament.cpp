@@ -7,9 +7,11 @@
 #include "tournament.cpp"
 
 int main(int argc, char **argv) {
-    int candidates = 10;
+    int candidates = 20;
     Tournament tournament = Tournament(candidates);
-    tournament.genetic(candidates);
+    vector < double > grasp_winner = tournament.grasp(0.20);
+    tournament.print_score_table();
+    // tournament.genetic(candidates);
     // tournament.print_combinations();
     // tournament.play_tournament();
     // cout << endl;

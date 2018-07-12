@@ -24,7 +24,6 @@ typedef std::priority_queue < pair < vector < double >, int >, vector < pair < v
 class Tournament {
     public:
         vector < vector < double > > combinations;
-        vector < double > current_winner;
         vector < int > scores;
         vector < vector < bool > > already_played;
         int weights_amount = 10;
@@ -49,7 +48,7 @@ class Tournament {
             this->scores = sc;
         }
 
-        // llama a reset y llena this->combinations con vectores de pesos random, para hacer GRASP
+        // llama a reset y llena this->combinations con vectores de pesos random, para hacer GRASP o para inicializar la población del GENETIC
         void generate_random_combinations(int candidates) {
             this->reset(candidates);
             for (int i = 0; i < candidates; i++) {
@@ -68,7 +67,7 @@ class Tournament {
             return this->combinations[index];
         }
 
-        // hace competir todas las combinaciones entre sí
+        // hace competir todas las combinaciones entre sí, actualiza el puntaje en SCORE y marca los equipos que jugaron en ALREADYPLAYED según índices de COMBINATIONS
         void play_tournament() {
             for (int i = 0; i < this->combinations.size(); i++) {
                 for (int j = 0; j < this->combinations.size(); j++) {
@@ -103,6 +102,7 @@ class Tournament {
             }
         }
 
+        // LIGA DE ELIMINACIÓN DIRECTA, se eliminan de a dos, por lo que en cada iteración se divide a la mitad la cantidad de equipos. también actualiza SCORES.
         void play_leg(vector < pair < vector < double >, int > > combs) {
             cout << "NOW PLAYING LEG OF " << combs.size() << endl;
             vector < pair < vector < double >, int > > winners;
@@ -140,13 +140,13 @@ class Tournament {
             }
         }
 
+        // Antes de usar PLAY LEG hay que guardar cada combinación con su índice en SCORES
         void elimination_cup(vector < vector < double > > combs) {
             vector < pair < vector < double >, int > > indexed_combs;
             indexed_combs.reserve(combs.size());
             for (int i = 0; i < combs.size(); i++) {
                 indexed_combs.push_back(make_pair(combs[i],i));
             }
-
             play_leg(indexed_combs);
         }
 
@@ -154,7 +154,8 @@ class Tournament {
         // genera los vecinos del ganador, juega el torneo, si es mejor lo reemplaza
         // si no es mejor que el ganador anterior, termina y devuelve el ganador anterior
         vector < double > hill_climbing(vector < double > vec, double distance) {
-            this->local_search(vec, distance);
+            // this->local_search(vec, distance);
+            this->fast_random_search(vec, distance);
             // this->play_tournament();
             this->elimination_cup(this->combinations);
             vector < double > winner = this->get_winner();
@@ -164,7 +165,8 @@ class Tournament {
                 cout << "Vecindario número: " << iterations << endl;
                 iterations++;
                 old_winner = winner;
-                this->local_search(old_winner, distance);
+                // this->local_search(old_winner, distance);
+                this->fast_random_search(vec, distance);
                 // this->play_tournament();
                 this->elimination_cup(this->combinations);
                 winner = this->get_winner();
@@ -173,30 +175,61 @@ class Tournament {
             return winner;
         }
 
-        vector < double > grasp(double distance) {
-            this->generate_random_combinations(10);
-            this->play_tournament();
+        vector < double > update_grasp_winner(const vector < double > & old, const vector < double > & current) {
+                vector <player> teamA;
+                for (int l = 0; l < 3; l++) {
+                    player aux = player(l, 0.5);
+                    teamA.push_back(aux);
+                }
+                vector <player> teamB;
+                for (int l = 0; l < 3; l++) {
+                    player aux = player(l, 0.5);
+                    teamB.push_back(aux);
+                }
 
-            vector < double > random_solution = this->get_winner();
-            this->local_search(random_solution, distance);
-            this->play_tournament();
+                Referee referee = Referee(10, 5, 125, teamA, teamB, old, current);
+                string winner = referee.runPlay(IZQUIERDA);
+
+                if (winner == IZQUIERDA) {
+                    return old;
+                } else {
+                    return current;
+                }          
+        }
+
+        vector < double > grasp(double distance) {
+            this->generate_random_combinations(1);
+            // this->play_tournament();
+
+            // vector < double > random_solution = this->get_winner();
+            // this->local_search(this->combinations[0], distance);
+            
+            // this->play_tournament();
+
+            this->fast_random_search(this->combinations[0], 0.1);
+            this->elimination_cup(this->combinations);
 
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
 
+            int iterations = 0;
+
             do {
                 old_winner = winner;
 
-                this->generate_random_combinations(10);
-                this->play_tournament();
-                random_solution = this->get_winner();
+                this->generate_random_combinations(1);
+                // this->play_tournament();
+                // random_solution = this->get_winner();
 
-                this->local_search(random_solution, distance);
-                this->combinations.push_back(old_winner);
-                this->play_tournament();
-                winner = this->get_winner();
+                // this->local_search(this->combinations[0], distance);
+                // this->play_tournament();
+
+                this->fast_random_search(this->combinations[0], 0.1);
+                this->elimination_cup(this->combinations);
+                winner = update_grasp_winner(old_winner, this->get_winner());
+                iterations++;
                 
-            } while (winner != old_winner);
+            } while (winner != old_winner && iterations < 5);
 
             return winner;
         }
@@ -227,13 +260,33 @@ class Tournament {
             }
         }
 
-        // llama a reset y sobrescribe this->combinations con los vecinos de vec
+        // genera vecindario recursivamente. llama a reset y sobrescribe this->combinations con los vecinos de vec. todas las combinaciones sumando y restando distance
         void local_search(vector < double > vec, double distance) {
             int size = pow(2, vec.size());
             this->reset(size);
 
             this->local_search_recursive(vec, 0, distance);
             this->combinations.push_back(vec);
+        }
+
+        // genera 64 vecinos a partir de un vector de entrada, suma o resta distance
+        void fast_random_search(vector < double > comb, double distance) {
+            this->reset(64);
+            this->combinations.push_back(comb);
+            for (int i = 0; i < 63; i++) {
+                vector < double > neighbour(10,0);
+                for (int j = 0; j < this->weights_amount; j++) {
+                    int chance = rand() % 101;
+                    if (chance < 50) {
+                        neighbour[j] = comb[j] + distance;
+                        if (neighbour[i] > 1) neighbour[j] = 1;
+                    } else {
+                        neighbour[j] = comb[j] - distance;
+                        if (neighbour[i] < 0) neighbour[j] = 0;
+                    }
+                }
+                this->combinations.push_back(neighbour);
+            }
         }
 
         // imprime todos los vectores en combinations
@@ -246,6 +299,7 @@ class Tournament {
             }
         }
 
+        // imprime la tabla con los puntos de cada combinacion
         void print_score_table() {
             for (int i = 0; i < this->combinations.size(); i++) {
                 cout << "COMBINATION: ";
