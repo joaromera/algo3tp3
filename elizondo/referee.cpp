@@ -10,7 +10,7 @@
 #include <fstream>
 
 #include "board_status.hpp"
-#include "greedy_player.hpp"
+#include "tournament_player.hpp"
 #include "constants.hpp"
 #include "logical_board.cpp"
 #include "player.h"
@@ -25,8 +25,8 @@ class Referee {
         int columns;
         int rows;
         int steps;
-        greedy_player* teamA;
-        greedy_player* teamB;
+        tournament_player* teamA;
+        tournament_player* teamB;
         LogicalBoard* board;
 
         ~Referee() {
@@ -50,7 +50,7 @@ class Referee {
             this->steps = steps;
 
             //Create Greedy Team A
-            this->teamA = new greedy_player(
+            this->teamA = new tournament_player(
                 this->columns,
                 this->rows,
                 this->steps,
@@ -61,7 +61,7 @@ class Referee {
             );
 
             //Create Greedy Team B
-            this->teamB = new greedy_player(
+            this->teamB = new tournament_player(
                 this->columns,
                 this->rows,
                 this->steps,

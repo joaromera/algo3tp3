@@ -15,7 +15,7 @@ mt19937 generator(rd());
 
 using namespace std;
 
-class greedy_player {
+class tournament_player {
     
     int columns, rows, steps;
     double MAX_DIST;
@@ -28,11 +28,11 @@ class greedy_player {
 
 public:
 
-    greedy_player() = default;
+    tournament_player() = default;
 
-    ~greedy_player() {};
+    ~tournament_player() {};
 
-    greedy_player(
+    tournament_player(
         int columns,
         int rows,
         int steps,
@@ -58,7 +58,7 @@ public:
         this->MAX_DIST = distance(0, 0, rows, columns);
     }
 
-    greedy_player(
+    tournament_player(
         int columns,
         int rows,
         int steps,
@@ -116,7 +116,6 @@ public:
         }
     }
 
-    // Aca se usa la función punteadora, greedy, genetica, etc
     void make_move(const board_status& current_board, vector<player_move>& made_moves) {
         made_moves.clear();
         player_move p_move;
@@ -126,6 +125,11 @@ public:
 
         board_status board = current_board;
 
+        if (this->side == "DERECHA") {
+            board.team = current_board.oponent_team;
+            board.oponent_team = current_board.team;
+        }
+        
         vector<int> found_move = search_move(board);
         update_moves(board, made_moves, found_move[0], found_move[1], found_move[2], found_move[3], found_move[4]);
     }
