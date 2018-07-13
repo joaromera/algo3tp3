@@ -193,7 +193,7 @@ class Tournament {
                     this->play_tournament();
                 }
                 winner = this->get_winner();
-            } while (winner != old_winner && iterations < 5);
+            } while (winner != old_winner && iterations < 1);
 
             return winner;
         }
@@ -293,9 +293,10 @@ class Tournament {
 
         // genera 64 vecinos a partir de un vector de entrada, suma o resta distance
         void fast_random_search(vector < double > comb, double distance) {
-            this->reset(64);
+            int amount = 20;
+            this->reset(amount);
             this->combinations.push_back(comb);
-            for (int i = 0; i < 63; i++) {
+            for (int i = 0; i < amount - 1; i++) {
                 vector < double > neighbour(10,0);
                 for (int j = 0; j < this->weights_amount; j++) {
                     int chance = rand() % 101;
@@ -424,7 +425,7 @@ class Tournament {
             }
         }
 
-        void genetic(int population, bool elimination, bool crossover_half, bool scores) {
+        void genetic(int population, bool elimination, bool crossover_half, bool scores, int generations) {
             cout << "IN GENETIC" << endl;
             this->generate_random_combinations(population);
             if (elimination) {
@@ -434,7 +435,7 @@ class Tournament {
             }
             
             int iterations = 0;
-            while (iterations < 15) {
+            while (iterations < generations) {
                 cout << "ITERATIONS: " << iterations << endl;
                 this->print_score_table();
                 this->selection(scores);
