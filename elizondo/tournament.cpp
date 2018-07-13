@@ -131,7 +131,7 @@ class Tournament {
                 string winner = referee.runPlay(IZQUIERDA);
 
                 this->goals[i] += referee.getScore(IZQUIERDA);
-                this->goals[j] += referee.getScore(DERECHA);
+                this->goals[i+1] += referee.getScore(DERECHA);
 
                 if (winner == IZQUIERDA) {
                     this->scores[combs[i].second] += 3;
