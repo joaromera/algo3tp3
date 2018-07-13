@@ -366,7 +366,7 @@ class Tournament {
             }
             for (int i = parent_B.size() / 2; i < parent_B.size(); i ++) {
                 child.push_back(parent_B[i]);
-                if (rand() % 101 < 5) {
+                if (rand() % 101 < 5) { // MUTACION
                     child[i] = rand() % 101 / (double) 100;
                 }
             }
@@ -381,7 +381,7 @@ class Tournament {
                 } else {
                     child.push_back(parent_B[i]);
                 }
-                if (rand() % 101 < 5) {
+                if (rand() % 101 < 5) { // MUTACION
                     child[i] = rand() % 101 / (double) 100;
                 }
             }
@@ -405,9 +405,9 @@ class Tournament {
             priorityQueue ranking;
             for (int i = 0; i < this->combinations.size(); i++) {
                 if (scores) {
-                    ranking.push(make_pair(this->combinations[i], this->scores[i]));
+                    ranking.push(make_pair(this->combinations[i], this->scores[i])); // FITNESS POR PUNTOS EN TABLA
                 } else {
-                    ranking.push(make_pair(this->combinations[i], this->goals[i]));
+                    ranking.push(make_pair(this->combinations[i], this->goals[i])); // FITNESS POR CANTIDAD DE GOLES
                 }
             }
             int new_size = this->combinations.size() / 2;
