@@ -159,7 +159,6 @@ class Tournament {
             } else {
                 this->local_search(vec, distance);    
             }
-
             if (elimination) {
                 this->elimination_cup();
             } else {
@@ -234,6 +233,7 @@ class Tournament {
                 old_winner = winner;
 
                 this->generate_random_combinations(1);
+
                 if (fast) {
                     this->fast_random_search(this->combinations[0], distance);    
                 } else {
@@ -244,6 +244,7 @@ class Tournament {
                 } else {
                     this->play_tournament();
                 }
+
                 winner = update_grasp_winner(old_winner, this->get_winner());
                 iterations++;
                 
@@ -377,13 +378,16 @@ class Tournament {
             return child;
         }
 
-        void crossover() {
+        void crossover(bool crossover_half) {
             int size = this->combinations.size();
             for (int i = 0; i < size - 1; i += 2) {
-                this->combinations.push_back(crossover_half(this->combinations[i], this->combinations[i + 1]));
-                this->combinations.push_back(crossover_half(this->combinations[i + 1], this->combinations[i]));
-                // this->combinations.push_back(crossover_random(this->combinations[i], this->combinations[i + 1]));
-                // this->combinations.push_back(crossover_random(this->combinations[i + 1], this->combinations[i]));
+                if (crossover_half) {
+                    this->combinations.push_back(this->crossover_half(this->combinations[i], this->combinations[i + 1]));
+                    this->combinations.push_back(this->crossover_half(this->combinations[i + 1], this->combinations[i]));
+                } else {
+                    this->combinations.push_back(this->crossover_random(this->combinations[i], this->combinations[i + 1]));
+                    this->combinations.push_back(this->crossover_random(this->combinations[i + 1], this->combinations[i]));
+                }
             }
         }
 
@@ -400,18 +404,26 @@ class Tournament {
             }
         }
 
-        void genetic(int & population) {
+        void genetic(int & population, bool elimination, bool crossover_half) {
             cout << "IN GENETIC" << endl;
             this->generate_random_combinations(population);
-            this->play_tournament();
+            if (elimination) {
+                this->elimination_cup();
+            } else {
+                this->play_tournament();
+            }
             
             int iterations = 0;
             while (iterations < 15) {
                 cout << "ITERATIONS: " << iterations << endl;
                 this->print_score_table();
                 this->selection();
-                this->crossover();
-                this->play_tournament();
+                this->crossover(crossover_half);
+                if (elimination) {
+                    this->elimination_cup();
+                } else {
+                    this->play_tournament();
+                }
                 iterations++;
             }
         }
