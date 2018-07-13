@@ -181,5 +181,7 @@ void test_ball_is_assigned() {
     // Jugador 2 del equipo B se movió a la posición (3,3)
     assert(updated->oponent_team[2].i == 3 && updated->oponent_team[2].j == 3);
     
-    //assert(updated->team[2]->ball != nullptr || updated->oponent_team[2]->ball != nullptr);    
+    // Algún jugador la tiene
+    assert(updated->team[2].in_posetion || updated->oponent_team[2].in_posetion);    
+    assert(!(updated->team[2].in_posetion && updated->oponent_team[2].in_posetion));    
 }
