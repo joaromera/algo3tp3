@@ -25,6 +25,7 @@ class Tournament {
     public:
         vector < vector < double > > combinations;
         vector < int > scores;
+        vector < int > goals;
         vector < vector < bool > > already_played;
         int weights_amount = 10;
 
@@ -46,6 +47,9 @@ class Tournament {
 
             vector < int > sc(candidates, 0);
             this->scores = sc;
+
+            vector < int > gs(candidates, 0);
+            this->goals = gs;
         }
 
         // llama a reset y llena this->combinations con vectores de pesos random, para hacer GRASP o para inicializar la población del GENETIC
@@ -88,6 +92,9 @@ class Tournament {
                         Referee referee = Referee(10, 5, 125, teamA, teamB, combinations[i], combinations[j]);
                         string winner = referee.runPlay(IZQUIERDA);
 
+                        this->goals[i] += referee.getScore(IZQUIERDA);
+                        this->goals[j] += referee.getScore(DERECHA);
+
                         if (winner == IZQUIERDA) {
                             this->scores[i] += 3;
                         } else if (winner == DERECHA) {
@@ -122,6 +129,9 @@ class Tournament {
                 // vector < double > test = {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5}; //esta funcionaba en greedy
                 Referee referee = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i+1].first);
                 string winner = referee.runPlay(IZQUIERDA);
+
+                this->goals[i] += referee.getScore(IZQUIERDA);
+                this->goals[j] += referee.getScore(DERECHA);
 
                 if (winner == IZQUIERDA) {
                     this->scores[combs[i].second] += 3;
@@ -391,10 +401,14 @@ class Tournament {
             }
         }
 
-        void selection() {
+        void selection(bool scores) {
             priorityQueue ranking;
             for (int i = 0; i < this->combinations.size(); i++) {
-                ranking.push(make_pair(this->combinations[i], this->scores[i]));
+                if (scores) {
+                    ranking.push(make_pair(this->combinations[i], this->scores[i]));
+                } else {
+                    ranking.push(make_pair(this->combinations[i], this->goals[i]));
+                }
             }
             int new_size = this->combinations.size() / 2;
             this->reset(this->combinations.size());
@@ -404,7 +418,7 @@ class Tournament {
             }
         }
 
-        void genetic(int & population, bool elimination, bool crossover_half) {
+        void genetic(int & population, bool elimination, bool crossover_half, bool scores) {
             cout << "IN GENETIC" << endl;
             this->generate_random_combinations(population);
             if (elimination) {
@@ -417,7 +431,7 @@ class Tournament {
             while (iterations < 15) {
                 cout << "ITERATIONS: " << iterations << endl;
                 this->print_score_table();
-                this->selection();
+                this->selection(scores);
                 this->crossover(crossover_half);
                 if (elimination) {
                     this->elimination_cup();
