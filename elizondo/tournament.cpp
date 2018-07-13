@@ -424,7 +424,7 @@ class Tournament {
             }
         }
 
-        void genetic(int & population, bool elimination, bool crossover_half, bool scores) {
+        void genetic(int population, bool elimination, bool crossover_half, bool scores) {
             cout << "IN GENETIC" << endl;
             this->generate_random_combinations(population);
             if (elimination) {

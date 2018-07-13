@@ -7,9 +7,8 @@
 #include "tournament.cpp"
 
 int main(int argc, char **argv) {
-    int candidates = 32;
-    Tournament tournament = Tournament(candidates);
-    tournament.genetic(candidates, true, true, true);
+    Tournament tournament = Tournament(64);
+    tournament.genetic(64, true, true, false);
     tournament.print_score_table();
     return 0;
 }
