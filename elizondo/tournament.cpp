@@ -358,15 +358,21 @@ class Tournament {
 
         vector < double > crossover_half (const vector < double > & parent_A, const vector < double > & parent_B) {
             vector < double > child;
-            for (int i = 0; i < parent_A.size() / 2; i ++) {
+            for (int i = 0; i < 3; i ++) {
                 child.push_back(parent_A[i]);
                 if (rand() % 101 < 5) {
                     child[i] = rand() % 101 / (double) 100;
                 }
             }
-            for (int i = parent_B.size() / 2; i < parent_B.size(); i ++) {
+            for (int i = 3; i < 6; i ++) {
                 child.push_back(parent_B[i]);
                 if (rand() % 101 < 5) { // MUTACION
+                    child[i] = rand() % 101 / (double) 100;
+                }
+            }
+            for (int i = 6; i < 10; i ++) {
+                child.push_back(parent_A[i]);
+                if (rand() % 101 < 5) {
                     child[i] = rand() % 101 / (double) 100;
                 }
             }
