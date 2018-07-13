@@ -81,6 +81,12 @@ class Referee {
             this->board = logical_board;
         }
 
+        int getScore(string team) {
+            if (team == IZQUIERDA)
+                return this->board->scoreA;
+            return this->board->scoreB;
+        }
+
         string runPlay(string startingTeam) {
             // string fileName = "REFEREE.log";
             // ofstream fs;
