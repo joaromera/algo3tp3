@@ -46,7 +46,7 @@ struct Solution {
 vector<string> fileNames;
 
 void findBestTeamsAndPlay();
-vector< double > translateSolutionToCombination(Solution solution);
+vector< double > extractLoads(Solution solution);
 void printAndPlayGraspTournament(int population, double distance, bool fast, bool elimination, int amount, int laps);
 void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps);
 
@@ -254,7 +254,7 @@ void findBestTeamsAndPlay() {
                 bestTeam = aux;
             }
         }
-        combinations.push_back(translateSolutionToCombination(bestTeam));
+        combinations.push_back(extractLoads(bestTeam));
     }
     
     Tournament tournament = Tournament(combinations.size());
@@ -265,7 +265,7 @@ void findBestTeamsAndPlay() {
     tournament.print_winner();
 }
 
-vector< double > translateSolutionToCombination(Solution solution) {
+vector< double > extractLoads(Solution solution) {
     return {
         solution.combination_1,
         solution.combination_2,
