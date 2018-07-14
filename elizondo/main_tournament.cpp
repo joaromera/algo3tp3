@@ -135,11 +135,11 @@ int main(int argc, char **argv) {
     bool fast = true;
     int amount = 32;
     //GRASP - distance 0.10 and amount 32 536k''
-    // printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
+    printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
 
     distance = 0.05;
     //GRASP - distance 0.05 and amount 32 536k''
-    // printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
+    printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
     
     findBestTeamsAndPlay();
     return 0;
