@@ -30,6 +30,8 @@ class Tournament {
         vector < int > goals;
         vector < vector < bool > > already_played;
         int weights_amount = 10;
+        int iterations_cap = 5;
+        int iterations_alive_cap = 5;
 
         Tournament(int candidates) {
             srand(time(NULL));
@@ -190,7 +192,7 @@ class Tournament {
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
             int iterations = 0;
-            int iterations_alive = 1;
+            int iterations_alive = 0;
             do {
                 cout << "Vecindario número: " << iterations << endl;
                 iterations++;
@@ -209,9 +211,9 @@ class Tournament {
                 if (winner == old_winner) {
                     iterations_alive++;
                 } else {
-                    iterations_alive = 1;
+                    iterations_alive = 0;
                 }
-            } while (iterations_alive < 5 && iterations < 5);
+            } while (iterations_alive < this->iterations_alive_cap && this->iterations_cap < 5);
 
             return winner;
         }
@@ -239,7 +241,7 @@ class Tournament {
         }
 
         vector < double > grasp(double distance, bool fast, bool elimination, int amount = 64) {
-
+            
             this->generate_random_combinations(1);
             this->local_search(this->combinations[0], distance, fast, elimination);
 
@@ -247,7 +249,7 @@ class Tournament {
             vector < double > old_winner;
 
             int iterations = 0;
-            int iterations_alive = 1;
+            int iterations_alive = 0;
             do {
                 old_winner = winner;
 
@@ -259,10 +261,10 @@ class Tournament {
                 if (winner == old_winner) {
                     iterations_alive++;
                 } else {
-                    iterations_alive = 1;
+                    iterations_alive = 0;
                 }
 
-            } while (iterations_alive < 5 && iterations < 5);
+            } while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap);
 
             return winner;
         }
@@ -471,9 +473,9 @@ class Tournament {
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
 
-            int iterations_alive = 1;
+            int iterations_alive = 0;
             int iterations = 0;
-            while (iterations < generations && iterations_alive < 5) {
+            while (iterations < generations && iterations_alive < this->iterations_alive_cap) {
                 old_winner = winner;
                 cout << "ITERATIONS: " << iterations << endl;
                 this->print_score_table();
@@ -488,7 +490,7 @@ class Tournament {
                 if (winner == old_winner) {
                     iterations_alive++;
                 } else {
-                    iterations_alive = 1;
+                    iterations_alive = 0;
                 }
                 iterations++;
             }
