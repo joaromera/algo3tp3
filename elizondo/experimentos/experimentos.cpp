@@ -239,7 +239,7 @@ void test_local_search_iterations() {
         }
         if (best_wins < current_wins) {
             cout << "NEW BEST" << endl;
-            best = winner;
+            best = current;
         } else {
             cout << "INVICTUS!" << endl;
         }
