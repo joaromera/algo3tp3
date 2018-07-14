@@ -15,14 +15,10 @@
 
 using namespace std;
 
+const string GENETIC = "genetic";
+const string GRASP = "grasp";
+
 struct Solution {
-    string algorithm;
-    int population;
-    int generations;
-    int deterministic;
-    int elimination;
-    int crossover;
-    int fitness;
     double combination_1;
     double combination_2;
     double combination_3;
@@ -35,12 +31,23 @@ struct Solution {
     double combination_10;
     int score;
     double duration;
+    string algorithm;
+    int population;
+    int generations;
+    int deterministic;
+    int elimination;
+    int crossover;
+    int fitness;
+    int distance;
+    bool fast;
+    int amount;
 };
 
 vector<string> fileNames;
 
 void findBestTeamsAndPlay();
 vector< double > translateSolutionToCombination(Solution solution);
+void printAndPlayGraspTournament(int population, double distance, bool fast, bool elimination, int amount, int laps);
 void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps);
 
 istream& operator>>(istream& is, Solution& solution) {
@@ -63,7 +70,11 @@ istream& operator>>(istream& is, Solution& solution) {
         >> solution.deterministic 
         >> solution.elimination 
         >> solution.crossover 
-        >> solution.fitness;
+        >> solution.fitness
+        >> solution.distance
+        >> solution.fast
+        >> solution.amount
+    ;
     return is;
 }
 
@@ -87,7 +98,11 @@ ostream& operator<<(ostream& os, Solution& solution) {
         << solution.deterministic << ' '
         << solution.elimination << ' '
         << solution.crossover << ' '
-        << solution.fitness;
+        << solution.fitness << ' '
+        << solution.distance << ' '
+        << solution.fast << ' '
+        << solution.amount << ' '
+    ;
     return os;
 }
 
@@ -97,7 +112,6 @@ int main(int argc, char **argv) {
 	cout.setf(ios::showpoint);
 	cout.precision(2);
     
-    //1 generation and 64 teams 24''
     int population = 64;
     bool deterministic = true;
     bool elimination = true;
@@ -105,24 +119,79 @@ int main(int argc, char **argv) {
     bool fitness = true;
     int generations = 0;
     int laps = 1;
-    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
 
-    //2 generation and 64 teams 49''
+    //GEN - 1 generation and 64 teams 25k''
+    // printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
+
     generations = 1;
-    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
+    //GEN - 2 generation and 64 teams 49k''
+    // printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
 
-    //2 generation and 64 teams 46''
     generations = 2;
-    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
+    //GEN - 3 generation and 64 teams 73k''
+    // printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
+
+    int distance = 0.10;
+    bool fast = true;
+    int amount = 32;
+    //GRASP - distance 0.10 and amount 32 536k''
+    printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
+
+    distance = 0.05;
+    //GRASP - distance 0.05 and amount 32 536k''
+    printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
     
     findBestTeamsAndPlay();
-    
     return 0;
+}
+
+void printAndPlayGraspTournament(int population, double distance, bool fast, bool elimination, int amount, int laps) {
+    Tournament tournament = Tournament(population);
+    string file = "results/" + GRASP
+        + "_" + to_string(population)
+        + "_" + to_string(distance*100)
+        + "_" + to_string(fast)
+        + "_" + to_string(elimination)
+        + "_" + to_string(amount)
+        + ".csv";
+    fileNames.push_back(file);
+
+    chrono::duration <double, milli> average = (chrono::duration <double, milli>)0;
+    ofstream results;
+    results.open(file, fstream::out);
+    for (int i = 1; i <= laps; i++) {
+        auto start = chrono::steady_clock::now();
+        tournament.grasp(distance, fast, elimination, amount);
+        auto end = chrono::steady_clock::now();
+        auto diff = end - start;
+        average += diff;
+    }
+
+    for (int i = 0; i < tournament.combinations.size(); i++) {
+        for (int j = 0; j < tournament.combinations[i].size(); j++) {
+            results << tournament.combinations[i][j] << ' ';
+        }
+        results << tournament.scores[i] << ' ';
+        results << chrono::duration <double, milli> (average/laps).count() << ' ';
+        results << GRASP << ' ';
+        results << 0.0 << ' ';
+        results << 0.0 << ' ';
+        results << 0.0 << ' ';
+        results << elimination << ' ';
+        results << 0.0 << ' ';
+        results << 0.0 << ' '; 
+        results << distance << ' '; 
+        results << fast << ' '; 
+        results << amount;
+        results << endl;
+    }
+    results.close();    
 }
 
 void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps) {
     Tournament tournament = Tournament(population);
-    string file = "results/genetic_" + to_string(population)
+    string file = "results/" + GENETIC
+        + "_" + to_string(population)
         + "_" + to_string(generations)
         + "_" + to_string(deterministic)
         + "_" + to_string(elimination)
@@ -148,13 +217,17 @@ void printAndPlayGeneticTournament(int population, bool deterministic, bool elim
         }
         results << tournament.scores[i] << ' ';
         results << chrono::duration <double, milli> (average/laps).count() << ' ';
-        results << "genetic" << ' ';
+        results << GENETIC << ' ';
         results << population << ' ';
         results << generations << ' ';
         results << deterministic << ' ';
         results << elimination << ' ';
         results << crossover << ' ';
-        results << fitness << endl;
+        results << fitness << ' '; 
+        results << 0.0 << ' '; 
+        results << 0.0 << ' '; 
+        results << 0.0;
+        results << endl;
     }
     results.close();    
 }
