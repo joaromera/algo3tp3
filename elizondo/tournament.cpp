@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <queue>
 #include <chrono>
+#include <assert.h>
 
 #include "board_status.hpp"
 #include "constants.hpp"
@@ -101,7 +102,6 @@ class Tournament {
                         }
 
                         //Make teams play
-                        // vector < double > test = {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5}; //esta funcionaba en greedy
                         Referee referee = Referee(10, 5, 125, teamA, teamB, combinations[i], combinations[j]);
                         string winner = referee.runPlay(IZQUIERDA);
 
@@ -139,7 +139,6 @@ class Tournament {
                 }
 
                 //Make teams play
-                // vector < double > test = {1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 1.0, 0.8, 0.05, 0.5}; //esta funcionaba en greedy
                 Referee referee = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i+1].first);
                 string winner = referee.runPlay(IZQUIERDA);
 
@@ -190,7 +189,7 @@ class Tournament {
             
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
-            int iterations = 1;
+            int iterations = 0;
             int iterations_alive = 1;
             do {
                 cout << "Vecindario número: " << iterations << endl;
@@ -247,7 +246,7 @@ class Tournament {
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
 
-            int iterations = 1;
+            int iterations = 0;
             int iterations_alive = 1;
             do {
                 old_winner = winner;
