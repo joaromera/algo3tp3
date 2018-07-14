@@ -18,28 +18,3 @@ Agreguen lo que haga falta o pongan su nombre al lado de la tarea de la que se q
 
 ## Consultas para hacer
 
-
-## Correcciones mail de Carolina
-
-
-
-- [ ] **En progreso** Las secciones 2.3. y 3(completa) no se entienden con claridad.
-- [ ] **En progreso** En la sección 3, primer párrafo: ¿qué es una solución óptima en este 
-caso? ¿por qué esta técnica aseguraría obtenerla?
-- [ ] En la sección 4.1, segundo párrafo, dice que la población inicial se 
-elige aleatoriamente. Esto no es siempre así. Algunas aplicaciones 
-buscan una población inicial que cumpla ciertas características.
-- [ ] A lo largo de toda la sección 4, faltan citas a artículos u otras 
-fuentes.
-- [ ] En 4.2, poner algún ejemplo más concreto sería enriquecedor.
-- [ ] Para las referencias, sugiero seguir un formato parecido al siguiente: 
-A. A. Author, "Document title", \textit{Webpage name}, Date of internet 
-publication. [Format]. Available: internet address. [Accessed: Date of 
-access]. Por ejemplo: Global Health Observatory. "Violence against 
-women", \textit{World Health Organization}. [Online]. Disponible en: 
-http://www.who.int/gho/women_and_health/violence. [Último acceso: 6 de 
-julio de 2018].
-- [ ] A lo largo de todo el trabajo se utiliza mucho lenguaje informal, hay 
-errores de tipeo y la redacción no es buena. Por ejemplo: la frase "es 
-muy caótico donde todo sube y baja", el segundo ítem de la página 7, 
-etc.
