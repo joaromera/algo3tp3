@@ -121,25 +121,25 @@ int main(int argc, char **argv) {
     int laps = 1;
 
     //GEN - 1 generation and 64 teams 25k''
-    // printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
+    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
 
     generations = 1;
     //GEN - 2 generation and 64 teams 49k''
-    // printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
+    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
 
     generations = 2;
     //GEN - 3 generation and 64 teams 73k''
-    // printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
+    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
 
     int distance = 0.10;
     bool fast = true;
     int amount = 32;
     //GRASP - distance 0.10 and amount 32 536k''
-    printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
+    // printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
 
     distance = 0.05;
     //GRASP - distance 0.05 and amount 32 536k''
-    printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
+    // printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
     
     findBestTeamsAndPlay();
     return 0;
@@ -234,6 +234,10 @@ void printAndPlayGeneticTournament(int population, bool deterministic, bool elim
 
 void findBestTeamsAndPlay() {
     vector < vector < double > > combinations;
+    string file = "results/winners.csv";
+    ofstream results;
+    results.open(file, fstream::out);
+
     for(auto fileName : fileNames) {
         vector<Solution> solutionTeams;
         ifstream ifs(fileName);
@@ -254,9 +258,37 @@ void findBestTeamsAndPlay() {
                 bestTeam = aux;
             }
         }
+
+        results << bestTeam.combination_1 << ' ';
+        results << bestTeam.combination_2 << ' ';
+        results << bestTeam.combination_3 << ' ';
+        results << bestTeam.combination_4 << ' ';
+        results << bestTeam.combination_5 << ' ';
+        results << bestTeam.combination_6 << ' ';
+        results << bestTeam.combination_7 << ' ';
+        results << bestTeam.combination_8 << ' ';
+        results << bestTeam.combination_9 << ' ';
+        results << bestTeam.combination_10 << ' ';
+        results << bestTeam.score << ' ';
+        results << bestTeam.duration << ' ';
+        results << bestTeam.algorithm << ' ';
+        results << bestTeam.population << ' ';
+        results << bestTeam.generations << ' ';
+        results << bestTeam.deterministic << ' ';
+        results << bestTeam.elimination << ' ';
+        results << bestTeam.crossover << ' ';
+        results << bestTeam.fitness << ' ';
+        results << bestTeam.distance << ' ';
+        results << bestTeam.fast << ' ';
+        results << bestTeam.amount << ' ';
+        results << endl;
+
         combinations.push_back(extractLoads(bestTeam));
     }
-    
+
+    results.close();    
+    fileNames.push_back(file);
+
     Tournament tournament = Tournament(combinations.size());
     tournament.reset(combinations.size());
     tournament.combinations = combinations;
