@@ -8,9 +8,9 @@ BINARIES = experimentos
 
 all: $(BINARIES)
 
-tournament:
+experimentos:
 	$(CXX) $(STDFLAGS) experimentos.cpp -o experimentos
 
 clean:
-	$(RM) tournament
+	$(RM) experimentos
 	$(RM) *.o *~

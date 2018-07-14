@@ -1,0 +1,10 @@
+quality_time;0;diff;all;
+quality_time;1;diff;elim;
+quality_time;2;diff;tie;
+quality_time;3;diff;tie;
+quality_time;4;diff;tie;
+quality_time;0;diff;tie;
+quality_time;1;diff;tie;
+quality_time;2;diff;elim;
+quality_time;3;diff;tie;
+quality_time;4;diff;tie;
