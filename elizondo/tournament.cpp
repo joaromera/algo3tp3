@@ -418,20 +418,37 @@ class Tournament {
             return child;
         }
 
-        void crossover(bool crossover_half) {
+        void crossover(int population, bool deterministic, bool crossover_half) {
             int size = this->combinations.size();
-            for (int i = 0; i < size - 1; i += 2) {
-                if (crossover_half) {
-                    this->combinations.push_back(this->crossover_half(this->combinations[i], this->combinations[i + 1]));
-                    this->combinations.push_back(this->crossover_half(this->combinations[i + 1], this->combinations[i]));
-                } else {
-                    this->combinations.push_back(this->crossover_random(this->combinations[i], this->combinations[i + 1]));
-                    this->combinations.push_back(this->crossover_random(this->combinations[i + 1], this->combinations[i]));
+            if (deterministic) {
+                for (int i = 0; i < size - 1; i += 2) {
+                    if (crossover_half) {
+                        this->combinations.push_back(this->crossover_half(this->combinations[i], this->combinations[i + 1]));
+                        this->combinations.push_back(this->crossover_half(this->combinations[i + 1], this->combinations[i]));
+                    } else {
+                        this->combinations.push_back(this->crossover_random(this->combinations[i], this->combinations[i + 1]));
+                        this->combinations.push_back(this->crossover_random(this->combinations[i + 1], this->combinations[i]));
+                    }
+                }
+            } else {
+                int parent_A = 0;
+                int parent_B = 1;
+                int parents = size;
+                while (size < population) {
+                    if (crossover_half) {
+                        this->combinations.push_back(this->crossover_half(this->combinations[parent_A], this->combinations[parent_B]));
+                        this->combinations.push_back(this->crossover_half(this->combinations[parent_B], this->combinations[parent_A]));
+                    } else {
+                        this->combinations.push_back(this->crossover_random(this->combinations[parent_A], this->combinations[parent_B]));
+                        this->combinations.push_back(this->crossover_random(this->combinations[parent_B], this->combinations[parent_A]));
+                    }
+                    parent_A = (parent_A + 1) % parents;
+                    parent_B = (parent_B + 1) % parents;
                 }
             }
         }
 
-        void selection(bool scores) {
+        void selection(bool deterministic, bool scores) {
             priorityQueue ranking;
             for (int i = 0; i < this->combinations.size(); i++) {
                 if (scores) {
@@ -440,15 +457,29 @@ class Tournament {
                     ranking.push(make_pair(this->combinations[i], this->goals[i])); // FITNESS POR CANTIDAD DE GOLES
                 }
             }
-            int new_size = this->combinations.size() / 2;
-            this->reset(this->combinations.size());
-            for (int i = 0; i < new_size; i ++) {
-                this->combinations.push_back(ranking.top().first);
-                ranking.pop();
+            if (deterministic) {
+                int new_size = this->combinations.size() / 2;
+                this->reset(this->combinations.size());
+                for (int i = 0; i < new_size; i ++) {
+                    this->combinations.push_back(ranking.top().first);
+                    ranking.pop();
+                }
+            } else {
+                double max_score = ranking.top().second;
+                if (scores) max_score *= 3;
+                int new_size = this->combinations.size() / 2;
+                this->reset(this->combinations.size());
+                while (this->combinations.size() < new_size || ranking.size() == 0) {
+                    double probability = ranking.top().second / max_score;
+                    if (rand() % 101 < probability) {
+                        this->combinations.push_back(ranking.top().first);
+                    }
+                    ranking.pop();
+                }
             }
         }
 
-        void genetic(int population, bool elimination, bool crossover_half, bool scores, int generations) {
+        void genetic(int population, bool deterministic, bool elimination, bool crossover_half, bool scores, int generations) {
             cout << "IN GENETIC" << endl;
             this->generate_random_combinations(population);
             if (elimination) {
@@ -466,8 +497,8 @@ class Tournament {
                 old_winner = winner;
                 cout << "ITERATIONS: " << iterations << endl;
                 this->print_score_table();
-                this->selection(scores);
-                this->crossover(crossover_half);
+                this->selection(deterministic, scores);
+                this->crossover(population, deterministic, crossover_half);
                 if (elimination) {
                     this->elimination_cup();
                 } else {

@@ -19,7 +19,8 @@ struct Solution {
     string algorithm;
     int population;
     int generations;
-    int selection;
+    int deterministic;
+    int elimination;
     int crossover;
     int fitness;
     double combination_1;
@@ -39,14 +40,15 @@ struct Solution {
 vector<string> fileNames;
 
 void findBestTeamsAndPlay();
-void printAndPlayGeneticTournament(int population, bool selection, bool crossover, bool fitness, int generations, int laps);
+void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps);
 
 istream& operator>>(istream& is, Solution& solution) {
     is 
         >> solution.algorithm 
         >> solution.population 
         >> solution.generations 
-        >> solution.selection 
+        >> solution.deterministic 
+        >> solution.elimination 
         >> solution.crossover 
         >> solution.fitness 
         >> solution.combination_1 
@@ -69,7 +71,8 @@ ostream& operator<<(ostream& os, Solution& solution) {
         << solution.algorithm << ' '
         << solution.population << ' '
         << solution.generations << ' '
-        << solution.selection << ' '
+        << solution.deterministic << ' '
+        << solution.elimination << ' '
         << solution.crossover << ' '
         << solution.fitness << ' '
         << solution.combination_1 << ' '
@@ -91,31 +94,33 @@ int main(int argc, char **argv) {
     
     //1 generation and 64 teams 24''
     int population = 64;
-    bool selection = true;
+    bool deterministic = true;
+    bool elimination = true;
     bool crossover = true;
     bool fitness = true;
     int generations = 0;
     int laps = 1;
-    printAndPlayGeneticTournament(population, selection, crossover, fitness, generations, laps);
+    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
 
     //2 generation and 64 teams 49''
     generations = 1;
-    printAndPlayGeneticTournament(population, selection, crossover, fitness, generations, laps);
+    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
 
     //2 generation and 64 teams 46''
     generations = 2;
-    printAndPlayGeneticTournament(population, selection, crossover, fitness, generations, laps);
+    printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
     
     findBestTeamsAndPlay();
     
     return 0;
 }
 
-void printAndPlayGeneticTournament(int population, bool selection, bool crossover, bool fitness, int generations, int laps) {
+void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps) {
     Tournament tournament = Tournament(population);
     string file = "genetic_" + to_string(population)
         + "_" + to_string(generations)
-        + "_" + to_string(selection)
+        + "_" + to_string(deterministic)
+        + "_" + to_string(elimination)
         + "_" + to_string(crossover)
         + "_" + to_string(fitness)
         + ".csv";
@@ -126,7 +131,7 @@ void printAndPlayGeneticTournament(int population, bool selection, bool crossove
     results.open(file, fstream::out);
     for (int i = 1; i <= laps; i++) {
         auto start = chrono::steady_clock::now();
-        tournament.genetic(population, selection, crossover, fitness, generations);
+        tournament.genetic(population, deterministic, elimination, crossover, fitness, generations);
         auto end = chrono::steady_clock::now();
         auto diff = end - start;
         average += diff;
@@ -136,7 +141,8 @@ void printAndPlayGeneticTournament(int population, bool selection, bool crossove
         results << "genetic" << ' ';
         results << population << ' ';
         results << generations << ' ';
-        results << selection << ' ';
+        results << deterministic << ' ';
+        results << elimination << ' ';
         results << crossover << ' ';
         results << fitness << ' ';
         for (int j = 0; j < tournament.combinations[i].size(); j++) {
@@ -171,6 +177,6 @@ void findBestTeamsAndPlay() {
             }
         }
         cout << bestTeam << endl;
-        teams.push_back(bestTeam);
+        // teams.push_back(bestTeam);
     }
 }
