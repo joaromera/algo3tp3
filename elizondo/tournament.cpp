@@ -213,7 +213,7 @@ class Tournament {
                 } else {
                     iterations_alive = 0;
                 }
-            } while (iterations_alive < this->iterations_alive_cap && this->iterations_cap < 5);
+            } while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap);
 
             return winner;
         }
