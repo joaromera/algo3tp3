@@ -95,11 +95,15 @@ int main(int argc, char **argv) {
     bool crossover = true;
     bool fitness = true;
     int generations = 0;
-    int laps = 2;
+    int laps = 1;
     printAndPlayGeneticTournament(population, selection, crossover, fitness, generations, laps);
 
     //2 generation and 64 teams 49''
     generations = 1;
+    printAndPlayGeneticTournament(population, selection, crossover, fitness, generations, laps);
+
+    //2 generation and 64 teams 46''
+    generations = 2;
     printAndPlayGeneticTournament(population, selection, crossover, fitness, generations, laps);
     
     findBestTeamsAndPlay();
@@ -159,8 +163,14 @@ void findBestTeamsAndPlay() {
             cerr << "File not found!" << endl;
         }
 
+        Solution bestTeam = team[0];
         for(auto solution : team) {
-            cout << solution << endl;
+            Solution aux = solution;
+            if (aux.score > bestTeam.score) {
+                bestTeam = aux;
+            }
         }
+        cout << bestTeam << endl;
+        teams.push_back(bestTeam);
     }
 }
