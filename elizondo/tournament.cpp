@@ -456,9 +456,14 @@ class Tournament {
             } else {
                 this->play_tournament();
             }
-            
-            int iterations = 0;
-            while (iterations < generations) {
+
+            vector < double > winner = this->get_winner();
+            vector < double > old_winner;
+
+            int iterations_alive = 1;
+            int iterations = 1;
+            while (iterations < generations && iterations_alive < 5) {
+                old_winner = winner;
                 cout << "ITERATIONS: " << iterations << endl;
                 this->print_score_table();
                 this->selection(scores);
@@ -467,6 +472,12 @@ class Tournament {
                     this->elimination_cup();
                 } else {
                     this->play_tournament();
+                }
+                winner = this->get_winner();
+                if (winner == old_winner) {
+                    iterations_alive++;
+                } else {
+                    iterations_alive = 1;
                 }
                 iterations++;
             }
