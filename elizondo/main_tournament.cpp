@@ -40,6 +40,7 @@ struct Solution {
 vector<string> fileNames;
 
 void findBestTeamsAndPlay();
+vector< double > translateSolutionToCombination(Solution solution);
 void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps);
 
 istream& operator>>(istream& is, Solution& solution) {
@@ -159,28 +160,49 @@ void printAndPlayGeneticTournament(int population, bool deterministic, bool elim
 }
 
 void findBestTeamsAndPlay() {
-    vector < vector < double > > teams;
+    vector < vector < double > > combinations;
     for(auto fileName : fileNames) {
-        vector<Solution> team;
+        vector<Solution> solutionTeams;
         ifstream ifs(fileName);
         if (ifs) {
             copy(
                 istream_iterator<Solution>(ifs),
                 istream_iterator<Solution>(),
-                back_inserter(team)
+                back_inserter(solutionTeams)
             );
         } else {
             cerr << "File not found!" << endl;
         }
 
-        Solution bestTeam = team[0];
-        for(auto solution : team) {
+        Solution bestTeam = solutionTeams[0];
+        for(auto solution : solutionTeams) {
             Solution aux = solution;
             if (aux.score > bestTeam.score) {
                 bestTeam = aux;
             }
         }
-        cout << bestTeam << endl;
-        // teams.push_back(bestTeam);
+        combinations.push_back(translateSolutionToCombination(bestTeam));
     }
+    
+    Tournament tournament = Tournament(combinations.size());
+    tournament.reset(combinations.size());
+    tournament.combinations = combinations;
+    tournament.play_tournament();
+    tournament.get_winner();
+    tournament.print_winner();
+}
+
+vector< double > translateSolutionToCombination(Solution solution) {
+    return {
+        solution.combination_1,
+        solution.combination_2,
+        solution.combination_3,
+        solution.combination_4,
+        solution.combination_5,
+        solution.combination_6,
+        solution.combination_7,
+        solution.combination_8,
+        solution.combination_9,
+        solution.combination_10
+    };
 }

@@ -491,7 +491,7 @@ class Tournament {
             vector < double > old_winner;
 
             int iterations_alive = 1;
-            int iterations = 1;
+            int iterations = 0;
             while (iterations < generations && iterations_alive < 5) {
                 old_winner = winner;
                 cout << "ITERATIONS: " << iterations << endl;
