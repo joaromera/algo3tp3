@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <queue>
+#include <chrono>
 
 #include "board_status.hpp"
 #include "constants.hpp"
@@ -30,7 +31,7 @@ class Tournament {
         int weights_amount = 10;
 
         Tournament(int candidates) {
-
+            srand(time(NULL));
             vector < vector < bool > > ap(candidates, vector < bool > (candidates, false));
             this->already_played = ap;
 
@@ -42,6 +43,18 @@ class Tournament {
         void reset(int candidates) {
             this->combinations.clear();
 
+            vector < vector < bool > > ap(candidates, vector < bool > (candidates, false));
+            this->already_played = ap;
+
+            vector < int > sc(candidates, 0);
+            this->scores = sc;
+
+            vector < int > gs(candidates, 0);
+            this->goals = gs;
+        }
+
+        void reset_scores() {
+            int candidates = this->combinations.size();
             vector < vector < bool > > ap(candidates, vector < bool > (candidates, false));
             this->already_played = ap;
 
@@ -198,7 +211,7 @@ class Tournament {
             return winner;
         }
 
-        vector < double > update_grasp_winner(const vector < double > & old, const vector < double > & current) {
+        vector < double > single_match(const vector < double > & izq, const vector < double > & der) {
                 vector <player> teamA;
                 for (int l = 0; l < 3; l++) {
                     player aux = player(l, 0.5);
@@ -210,13 +223,13 @@ class Tournament {
                     teamB.push_back(aux);
                 }
 
-                Referee referee = Referee(10, 5, 125, teamA, teamB, old, current);
+                Referee referee = Referee(10, 5, 125, teamA, teamB, izq, der);
                 string winner = referee.runPlay(IZQUIERDA);
 
                 if (winner == IZQUIERDA) {
-                    return old;
+                    return izq;
                 } else {
-                    return current;
+                    return der;
                 }          
         }
 
@@ -255,7 +268,7 @@ class Tournament {
                     this->play_tournament();
                 }
 
-                winner = update_grasp_winner(old_winner, this->get_winner());
+                winner = single_match(old_winner, this->get_winner());
                 iterations++;
                 
             } while (winner != old_winner && iterations < 5);
