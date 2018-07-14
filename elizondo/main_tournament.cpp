@@ -4,10 +4,86 @@
 #include <map>
 #include <chrono>
 #include <fstream>
+#include <iterator>
+
+#include <iostream>
+#include <algorithm>
+#include <cstdio>
+#include <cstdlib>
 
 #include "tournament.cpp"
 
+using namespace std;
+
+struct Solution {
+    string algorithm;
+    int population;
+    int generations;
+    int selection;
+    int crossover;
+    int fitness;
+    double combination_1;
+    double combination_2;
+    double combination_3;
+    double combination_4;
+    double combination_5;
+    double combination_6;
+    double combination_7;
+    double combination_8;
+    double combination_9;
+    double combination_10;
+    int score;
+    double duration;
+};
+
+void findBestTeamsAndPlay();
 void printAndPlayGeneticTournament(int population, bool selection, bool crossover, bool fitness, int generations, int laps);
+
+istream& operator>>(istream& is, Solution& solution) {
+    is 
+        >> solution.algorithm 
+        >> solution.population 
+        >> solution.generations 
+        >> solution.selection 
+        >> solution.crossover 
+        >> solution.fitness 
+        >> solution.combination_1 
+        >> solution.combination_2 
+        >> solution.combination_3 
+        >> solution.combination_4
+        >> solution.combination_5
+        >> solution.combination_6
+        >> solution.combination_7
+        >> solution.combination_8
+        >> solution.combination_9
+        >> solution.combination_10
+        >> solution.score
+        >> solution.duration;
+    return is;
+}
+
+ostream& operator<<(ostream& os, Solution& solution) {
+    os 
+        << solution.algorithm << ' '
+        << solution.population << ' '
+        << solution.generations << ' '
+        << solution.selection << ' '
+        << solution.crossover << ' '
+        << solution.fitness << ' '
+        << solution.combination_1 << ' '
+        << solution.combination_2 << ' '
+        << solution.combination_3 << ' '
+        << solution.combination_4 << ' '
+        << solution.combination_5 << ' '
+        << solution.combination_6 << ' '
+        << solution.combination_7 << ' '
+        << solution.combination_8 << ' '
+        << solution.combination_9 << ' '
+        << solution.combination_10 << ' '
+        << solution.score << ' '
+        << solution.duration;
+    return os;
+}
 
 int main(int argc, char **argv) {
     
@@ -23,6 +99,8 @@ int main(int argc, char **argv) {
     //2 generation and 64 teams 49''
     generations = 1;
     printAndPlayGeneticTournament(population, selection, crossover, fitness, generations, laps);
+    
+    findBestTeamsAndPlay();
     
     return 0;
 }
@@ -47,17 +125,37 @@ void printAndPlayGeneticTournament(int population, bool selection, bool crossove
     }
 
     for (int i = 0; i < tournament.combinations.size(); i++) {
-        results << "genetic" << ";";
-        results << population << ";";
-        results << generations << ";";
-        results << selection << ";";
-        results << crossover << ";";
-        results << fitness << ";";
+        results << "genetic" << ' ';
+        results << population << ' ';
+        results << generations << ' ';
+        results << selection << ' ';
+        results << crossover << ' ';
+        results << fitness << ' ';
         for (int j = 0; j < tournament.combinations[i].size(); j++) {
-            results << tournament.combinations[i][j] << ";";
+            results << tournament.combinations[i][j] << ' ';
         }
-        results << tournament.scores[i] << ";";
+        results << tournament.scores[i] << ' ';
         results << chrono::duration <double, milli> (average/laps).count() << endl;
     }
     results.close();    
+}
+
+void findBestTeamsAndPlay() {
+    vector < vector < double > > teams;
+    
+    vector<Solution> team;
+    ifstream ifs("genetic_64_1_1_1_1.csv");
+    if (ifs) {
+        copy(
+            istream_iterator<Solution>(ifs),
+            istream_iterator<Solution>(),
+            back_inserter(team)
+        );
+    } else {
+        cerr << "File not found!" << endl;
+    }
+
+    for(auto solution : team) {
+        cout << solution << endl;
+    }
 }
