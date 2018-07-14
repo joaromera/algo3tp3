@@ -36,6 +36,8 @@ struct Solution {
     double duration;
 };
 
+vector<string> fileNames;
+
 void findBestTeamsAndPlay();
 void printAndPlayGeneticTournament(int population, bool selection, bool crossover, bool fitness, int generations, int laps);
 
@@ -113,6 +115,8 @@ void printAndPlayGeneticTournament(int population, bool selection, bool crossove
         + "_" + to_string(crossover)
         + "_" + to_string(fitness)
         + ".csv";
+    fileNames.push_back(file);
+
     chrono::duration <double, milli> average = (chrono::duration <double, milli>)0;
     ofstream results;
     results.open(file, fstream::out);
@@ -142,20 +146,21 @@ void printAndPlayGeneticTournament(int population, bool selection, bool crossove
 
 void findBestTeamsAndPlay() {
     vector < vector < double > > teams;
-    
-    vector<Solution> team;
-    ifstream ifs("genetic_64_1_1_1_1.csv");
-    if (ifs) {
-        copy(
-            istream_iterator<Solution>(ifs),
-            istream_iterator<Solution>(),
-            back_inserter(team)
-        );
-    } else {
-        cerr << "File not found!" << endl;
-    }
+    for(auto fileName : fileNames) {
+        vector<Solution> team;
+        ifstream ifs(fileName);
+        if (ifs) {
+            copy(
+                istream_iterator<Solution>(ifs),
+                istream_iterator<Solution>(),
+                back_inserter(team)
+            );
+        } else {
+            cerr << "File not found!" << endl;
+        }
 
-    for(auto solution : team) {
-        cout << solution << endl;
+        for(auto solution : team) {
+            cout << solution << endl;
+        }
     }
 }
