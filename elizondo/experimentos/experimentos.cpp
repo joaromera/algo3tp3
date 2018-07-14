@@ -10,13 +10,16 @@ void time_allvsall();
 void time_elimination();
 void quality_allvsall_elimination_with_same_teams();
 void quality_allvsall_elimination_same_time();
+void test_local_search_iterations();
+
 
 int main(int argc, char **argv) {
     
-    // time_allvsall();
-    // time_elimination();
-    quality_allvsall_elimination_with_same_teams();
-    // quality_allvsall_elimination_same_time();
+    // time_allvsall(); // Listo
+    // time_elimination(); // Listo
+    // quality_allvsall_elimination_with_same_teams(); // Tal vez mas iteraciones
+    // quality_allvsall_elimination_same_time(); // Tal vez mas iteraciones
+    test_local_search_iterations();
 
     return 0;
 }
@@ -204,4 +207,43 @@ void quality_allvsall_elimination_same_time() {
             }
         }
     }
+}
+
+void test_local_search_iterations() {
+    string fileName = "test_local_search_iterations.txt";
+    ofstream results;
+    results.open(fileName, fstream::out);
+    Tournament tournament = Tournament(1);
+    tournament.generate_random_combinations(1);
+    vector < double > start_solution = tournament.combinations[0];
+    vector < double > best = start_solution;
+    for (int i = 0; i < 10; i++) {
+        cout << "ITERATION: " << i << endl;
+        tournament.iterations_cap = i;
+        tournament.iterations_alive_cap = i;
+        vector < double > current = tournament.local_search(start_solution, 0.1, true, true);
+        
+        int best_wins = 0;
+        int current_wins = 0;
+        vector < double > winner = tournament.single_match(best, current);
+        if (winner == best) {
+            best_wins++;
+        } else {
+            current_wins++;
+        }
+        winner = tournament.single_match(current, best);
+        if (winner == best) {
+            best_wins++;
+        } else {
+            current_wins++;
+        }
+        if (best_wins < current_wins) {
+            cout << "NEW BEST" << endl;
+            best = current;
+        } else {
+            cout << "INVICTUS!" << endl;
+        }
+    }
+
+    results.close();
 }
