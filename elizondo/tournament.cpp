@@ -176,9 +176,9 @@ class Tournament {
         // genera los vecinos del input, juega el torneo, guarda el ganador
         // genera los vecinos del ganador, juega el torneo, si es mejor lo reemplaza
         // si no es mejor que el ganador anterior, termina y devuelve el ganador anterior
-        vector < double > hill_climbing(vector < double > vec, double distance, bool fast, bool elimination) {
+        vector < double > hill_climbing(vector < double > vec, double distance, bool fast, bool elimination, int amount = 64) {
             if (fast) {
-                this->fast_random_search(vec, distance);    
+                this->fast_random_search(vec, distance, amount);    
             } else {
                 this->local_search(vec, distance);    
             }
@@ -197,7 +197,7 @@ class Tournament {
                 iterations++;
                 old_winner = winner;
                 if (fast) {
-                    this->fast_random_search(vec, distance);    
+                    this->fast_random_search(vec, distance, amount);    
                 } else {
                     this->local_search(vec, distance);    
                 }
@@ -239,11 +239,11 @@ class Tournament {
                 }          
         }
 
-        vector < double > grasp(double distance, bool fast, bool elimination) {
+        vector < double > grasp(double distance, bool fast, bool elimination, int amount = 64) {
             this->generate_random_combinations(1);
 
             if (fast) {
-                this->fast_random_search(this->combinations[0], distance);    
+                this->fast_random_search(this->combinations[0], distance, amount);    
             } else {
                 this->local_search(this->combinations[0], distance);    
             }
@@ -264,7 +264,7 @@ class Tournament {
                 this->generate_random_combinations(1);
 
                 if (fast) {
-                    this->fast_random_search(this->combinations[0], distance);    
+                    this->fast_random_search(this->combinations[0], distance, amount);    
                 } else {
                     this->local_search(this->combinations[0], distance);    
                 }
@@ -315,8 +315,7 @@ class Tournament {
         }
 
         // genera 64 vecinos a partir de un vector de entrada, suma o resta distance
-        void fast_random_search(vector < double > comb, double distance) {
-            int amount = 20;
+        void fast_random_search(vector < double > comb, double distance, int amount) {
             this->reset(amount);
             this->combinations.push_back(comb);
             for (int i = 0; i < amount - 1; i++) {
