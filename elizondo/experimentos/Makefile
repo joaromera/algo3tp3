@@ -4,12 +4,12 @@ STDFLAGS = -std=c++11
 
 RM=rm -f
 
-BINARIES = tournament
+BINARIES = experimentos
 
 all: $(BINARIES)
 
 tournament:
-	$(CXX) $(STDFLAGS) main_tournament.cpp -o tournament
+	$(CXX) $(STDFLAGS) experimentos.cpp -o experimentos
 
 clean:
 	$(RM) tournament

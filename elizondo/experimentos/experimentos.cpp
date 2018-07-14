@@ -9,12 +9,14 @@
 void test_time_allvsall();
 void test_time_elimination();
 void test_quality_allvsall_elimination_with_same_teams();
+void test_quality_allvsall_elimination_same_time();
 
 int main(int argc, char **argv) {
     
     // test_time_allvsall();
     // test_time_elimination();
-    test_quality_allvsall_elimination_with_same_teams();
+    // test_quality_allvsall_elimination_with_same_teams();
+    test_quality_allvsall_elimination_same_time();
 
     return 0;
 }
@@ -124,6 +126,75 @@ void test_quality_allvsall_elimination_with_same_teams() {
                 //     results << "quality;" << i << ";" << "diff;" << "tie;" << "elim;" << endl;
                 // } else {
                 //     results << "quality;" << i << ";" << "diff;" << "tie;" << "tie;" << endl;
+                // }
+            }
+        }
+    }
+}
+
+void test_quality_allvsall_elimination_same_time() {
+    string fileName = "test_quality_allvsall_elimination_same_time.txt";
+    ofstream results;
+    results.open(fileName, fstream::out);
+    for (int i = 0; i < 5; i++) {
+
+        Tournament tour = Tournament(24);
+        tour.generate_random_combinations(24);
+
+        tour.play_tournament();
+        cout << "Ganador todos contra todos" << endl;
+        tour.print_winner();
+        vector < double > all = tour.get_winner();
+        
+        tour.generate_random_combinations(512);
+        tour.elimination_cup();
+        cout << "Ganador eliminación directa" << endl;
+        tour.print_winner();
+        vector < double > elim = tour.get_winner();
+
+        if (all == elim) {
+            results << "quality_time;" << i << ";" << "same" << ";" << endl;
+        } else {
+            
+            int all_wins = 0;
+            int elim_wins = 0;
+            tour.reset_scores();
+            vector < double > winner = tour.single_match(all, elim);
+            if (winner == all) {
+                all_wins++;
+            } else {
+                elim_wins++;
+            }
+            winner = tour.single_match(elim, all);
+            if (winner == all) {
+                all_wins++;
+            } else {
+                elim_wins++;
+            }
+            if (all_wins > elim_wins) {
+                results << "quality_time;" << i << ";" << "diff;" << "all;" << endl;
+            } else if (elim_wins > all_wins) {
+                results << "quality_time;" << i << ";" << "diff;" << "elim;" << endl;
+            } else {
+                results << "quality_time;" << i << ";" << "diff;" << "tie;" << endl;
+
+                // Single match no actualiza scores :(
+                // int all_goals = 0;
+                // int elim_goals = 0;
+                // for (int j = 0; j < tour.combinations.size(); j++) {
+                //     if (all == tour.combinations[j]) {
+                //         all_goals += tour.goals[j];
+                //     }
+                //     if (elim == tour.combinations[j]) {
+                //         elim_goals += tour.goals[j];
+                //     }
+                // }
+                // if (all_goals > elim_goals) {
+                //     results << "quality_time;" << i << ";" << "diff;" << "tie;" << "all;" << endl;
+                // } else if (elim_goals > all_goals) {
+                //     results << "quality_time;" << i << ";" << "diff;" << "tie;" << "elim;" << endl;
+                // } else {
+                //     results << "quality_time;" << i << ";" << "diff;" << "tie;" << "tie;" << endl;
                 // }
             }
         }
