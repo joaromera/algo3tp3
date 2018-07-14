@@ -190,7 +190,8 @@ class Tournament {
             
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
-            int iterations = 0;
+            int iterations = 1;
+            int iterations_alive = 1;
             do {
                 cout << "Vecindario número: " << iterations << endl;
                 iterations++;
@@ -206,7 +207,12 @@ class Tournament {
                     this->play_tournament();
                 }
                 winner = this->get_winner();
-            } while (winner != old_winner && iterations < 1);
+                if (winner == old_winner) {
+                    iterations_alive++;
+                } else {
+                    iterations_alive = 1;
+                }
+            } while (iterations_alive < 5 && iterations < 5);
 
             return winner;
         }
@@ -250,8 +256,8 @@ class Tournament {
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
 
-            int iterations = 0;
-
+            int iterations = 1;
+            int iterations_alive = 1;
             do {
                 old_winner = winner;
 
@@ -270,8 +276,12 @@ class Tournament {
 
                 winner = single_match(old_winner, this->get_winner());
                 iterations++;
-                
-            } while (winner != old_winner && iterations < 5);
+                if (winner == old_winner) {
+                    iterations_alive++;
+                } else {
+                    iterations_alive = 1;
+                }
+            } while (iterations_alive < 5 && iterations < 5);
 
             return winner;
         }
