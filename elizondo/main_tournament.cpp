@@ -44,13 +44,6 @@ void printAndPlayGeneticTournament(int population, bool deterministic, bool elim
 
 istream& operator>>(istream& is, Solution& solution) {
     is 
-        >> solution.algorithm 
-        >> solution.population 
-        >> solution.generations 
-        >> solution.deterministic 
-        >> solution.elimination 
-        >> solution.crossover 
-        >> solution.fitness 
         >> solution.combination_1 
         >> solution.combination_2 
         >> solution.combination_3 
@@ -62,19 +55,19 @@ istream& operator>>(istream& is, Solution& solution) {
         >> solution.combination_9
         >> solution.combination_10
         >> solution.score
-        >> solution.duration;
+        >> solution.duration
+        >> solution.algorithm 
+        >> solution.population 
+        >> solution.generations 
+        >> solution.deterministic 
+        >> solution.elimination 
+        >> solution.crossover 
+        >> solution.fitness;
     return is;
 }
 
 ostream& operator<<(ostream& os, Solution& solution) {
     os 
-        << solution.algorithm << ' '
-        << solution.population << ' '
-        << solution.generations << ' '
-        << solution.deterministic << ' '
-        << solution.elimination << ' '
-        << solution.crossover << ' '
-        << solution.fitness << ' '
         << solution.combination_1 << ' '
         << solution.combination_2 << ' '
         << solution.combination_3 << ' '
@@ -86,11 +79,22 @@ ostream& operator<<(ostream& os, Solution& solution) {
         << solution.combination_9 << ' '
         << solution.combination_10 << ' '
         << solution.score << ' '
-        << solution.duration;
+        << solution.duration << ' '
+        << solution.algorithm << ' '
+        << solution.population << ' '
+        << solution.generations << ' '
+        << solution.deterministic << ' '
+        << solution.elimination << ' '
+        << solution.crossover << ' '
+        << solution.fitness;
     return os;
 }
 
 int main(int argc, char **argv) {
+
+    cout.setf(ios::fixed);
+	cout.setf(ios::showpoint);
+	cout.precision(2);
     
     //1 generation and 64 teams 24''
     int population = 64;
@@ -117,7 +121,7 @@ int main(int argc, char **argv) {
 
 void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps) {
     Tournament tournament = Tournament(population);
-    string file = "genetic_" + to_string(population)
+    string file = "results/genetic_" + to_string(population)
         + "_" + to_string(generations)
         + "_" + to_string(deterministic)
         + "_" + to_string(elimination)
@@ -138,18 +142,18 @@ void printAndPlayGeneticTournament(int population, bool deterministic, bool elim
     }
 
     for (int i = 0; i < tournament.combinations.size(); i++) {
+        for (int j = 0; j < tournament.combinations[i].size(); j++) {
+            results << tournament.combinations[i][j] << ' ';
+        }
+        results << tournament.scores[i] << ' ';
+        results << chrono::duration <double, milli> (average/laps).count() << ' ';
         results << "genetic" << ' ';
         results << population << ' ';
         results << generations << ' ';
         results << deterministic << ' ';
         results << elimination << ' ';
         results << crossover << ' ';
-        results << fitness << ' ';
-        for (int j = 0; j < tournament.combinations[i].size(); j++) {
-            results << tournament.combinations[i][j] << ' ';
-        }
-        results << tournament.scores[i] << ' ';
-        results << chrono::duration <double, milli> (average/laps).count() << endl;
+        results << fitness << endl;
     }
     results.close();    
 }
