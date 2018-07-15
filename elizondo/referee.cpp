@@ -108,7 +108,7 @@ class Referee {
 
             //Itero sobre todos los steps del partido
             for (int i = 0; i < steps; i++) {
-                board_status* board_state = board->getCurrentState();
+                board_status board_state = board->getCurrentState();
                 // for (int j = 0; j < 3; j++) {
                 //     fs << "index: "<< j << " id: " << board_state->team[j].id << " i: " << board_state->team[j].i << " j: " << board_state->team[j].j << " ball: " << board_state->team[j].in_posetion << endl;
                 // }
@@ -117,12 +117,12 @@ class Referee {
                 // }
 
                 vector<player_move> madeMovesA;
-                this->teamA->make_move(*(board_state), madeMovesA);
+                this->teamA->make_move(board_state, madeMovesA);
                 // for (auto i = madeMovesA.begin(); i != madeMovesA.end(); ++i)
                 //     fs << "A -> ID " << (*i).player_id << " TYPE " << (*i).move_type << " DIR " << (*i).dir << " STEPS " << (*i).steps << endl;
 
                 vector<player_move> madeMovesB;
-                this->teamB->make_move(*(board_state), madeMovesB);
+                this->teamB->make_move(board_state, madeMovesB);
                 // for (auto i = madeMovesB.begin(); i != madeMovesB.end(); ++i) {
                     // (*i).dir = 0;
                     // (*i).move_type = "MOVIMIENTO";

@@ -73,25 +73,25 @@ void test_basic_movements() {
     assert(board.teamB[2]->i == 2 && board.teamB[2]->j == 4);
     
     board.makeMove(moves_A, moves_B);
-    board_status* updated = board.getCurrentState();
+    board_status updated = board.getCurrentState();
     
     // Jugador 0 del equipo A se movió a la posición (1,0)
-    assert(updated->team[0].i == 1 && updated->team[0].j == 0);
+    assert(updated.team[0].i == 1 && updated.team[0].j == 0);
 
     // Jugador 1 del equipo A se movió a la posición (1,1)
-    assert(updated->team[1].i == 1 && updated->team[1].j == 1);
+    assert(updated.team[1].i == 1 && updated.team[1].j == 1);
 
     // Jugador 2 del equipo A se movió a la posición (3,1)
-    assert(updated->team[2].i == 3 && updated->team[2].j == 1);
+    assert(updated.team[2].i == 3 && updated.team[2].j == 1);
 
     // Jugador 0 del equipo B se movió a la posición (0,4)
-    assert(updated->oponent_team[0].i == 0 && updated->oponent_team[0].j == m-1);
+    assert(updated.oponent_team[0].i == 0 && updated.oponent_team[0].j == m-1);
 
     // Jugador 1 del equipo B se movió a la posición (2,3)
-    assert(updated->oponent_team[1].i == 2 && updated->oponent_team[1].j == m-2);
+    assert(updated.oponent_team[1].i == 2 && updated.oponent_team[1].j == m-2);
 
     // Jugador 2 del equipo B se movió a la posición (3,3)
-    assert(updated->oponent_team[2].i == 3 && updated->oponent_team[2].j == m-2);
+    assert(updated.oponent_team[2].i == 3 && updated.oponent_team[2].j == m-2);
 }
 
 void test_ball_is_assigned() {
@@ -161,27 +161,27 @@ void test_ball_is_assigned() {
     assert(board.teamB[2]->i == 3 && board.teamB[2]->j == 3);
     
     board.makeMove(moves_A, moves_B);
-    board_status* updated = board.getCurrentState();
+    board_status updated = board.getCurrentState();
     
     // Jugador 0 del equipo A se movió a la posición (0,0)
-    assert(updated->team[0].i == 0 && updated->team[0].j == 0);
+    assert(updated.team[0].i == 0 && updated.team[0].j == 0);
 
     // Jugador 1 del equipo A se movió a la posición (1,0)
-    assert(updated->team[1].i == 1 && updated->team[1].j == 0);
+    assert(updated.team[1].i == 1 && updated.team[1].j == 0);
 
     // Jugador 2 del equipo A se movió a la posición (3,3)
-    assert(updated->team[2].i == 3 && updated->team[2].j == 3);
+    assert(updated.team[2].i == 3 && updated.team[2].j == 3);
 
     // Jugador 0 del equipo B se movió a la posición (0,4)
-    assert(updated->oponent_team[0].i == 0 && updated->oponent_team[0].j == m-1);
+    assert(updated.oponent_team[0].i == 0 && updated.oponent_team[0].j == m-1);
 
     // Jugador 1 del equipo B se movió a la posición (1,4)
-    assert(updated->oponent_team[1].i == 1 && updated->oponent_team[1].j == m-1);
+    assert(updated.oponent_team[1].i == 1 && updated.oponent_team[1].j == m-1);
 
     // Jugador 2 del equipo B se movió a la posición (3,3)
-    assert(updated->oponent_team[2].i == 3 && updated->oponent_team[2].j == 3);
+    assert(updated.oponent_team[2].i == 3 && updated.oponent_team[2].j == 3);
     
     // Algún jugador la tiene
-    assert(updated->team[2].in_posetion || updated->oponent_team[2].in_posetion);    
-    assert(!(updated->team[2].in_posetion && updated->oponent_team[2].in_posetion));    
+    assert(updated.team[2].in_posetion || updated.oponent_team[2].in_posetion);    
+    assert(!(updated.team[2].in_posetion && updated.oponent_team[2].in_posetion));    
 }
