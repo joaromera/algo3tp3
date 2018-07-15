@@ -451,9 +451,10 @@ class Tournament {
                 if (scores) max_score *= 3;
                 int new_size = this->combinations.size() / 2;
                 this->reset(this->combinations.size());
-                while (this->combinations.size() < new_size || ranking.size() == 0) {
+                while (this->combinations.size() < new_size && ranking.size() > 0) {
                     double probability = ranking.top().second / max_score;
-                    if (rand() % 101 < probability) {
+                    double chance = rand() % 101 / (double) 100;
+                    if (chance < probability) {
                         this->combinations.push_back(ranking.top().first);
                     }
                     ranking.pop();
