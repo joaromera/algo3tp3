@@ -194,7 +194,8 @@ class Tournament {
             int iterations = 0;
             int iterations_alive = 0;
             do {
-                cout << "Vecindario número: " << iterations << endl;
+                if (this->iterations_cap == 0) break;
+                cout << "NEIGHBOURHOOD: " << iterations << endl;
                 iterations++;
                 old_winner = winner;
                 if (fast) {
@@ -210,7 +211,9 @@ class Tournament {
                 winner = this->get_winner();
                 if (winner == old_winner) {
                     iterations_alive++;
+                    cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
                 } else {
+                    cout << "NEW SOLUTION!!!" << iterations_alive << endl;
                     iterations_alive = 0;
                 }
             } while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap);
@@ -307,10 +310,10 @@ class Tournament {
                     int chance = rand() % 101;
                     if (chance < 50) {
                         neighbour[j] = comb[j] + distance;
-                        if (neighbour[i] > 1) neighbour[j] = 1;
+                        if (neighbour[j] > 1) neighbour[j] = 1;
                     } else {
                         neighbour[j] = comb[j] - distance;
-                        if (neighbour[i] < 0) neighbour[j] = 0;
+                        if (neighbour[j] < 0) neighbour[j] = 0;
                     }
                 }
                 this->combinations.push_back(neighbour);
