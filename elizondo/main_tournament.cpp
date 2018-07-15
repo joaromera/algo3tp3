@@ -49,6 +49,7 @@ void findBestTeamsAndPlay();
 vector< double > extractLoads(Solution solution);
 void printAndPlayGraspTournament(int population, double distance, bool fast, bool elimination, int amount, int laps);
 void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps);
+void testDiferentesGeneticosVariandoGeneracion(int population);
 
 istream& operator>>(istream& is, Solution& solution) {
     is 
@@ -111,6 +112,7 @@ int main(int argc, char **argv) {
     cout.setf(ios::fixed);
 	cout.setf(ios::showpoint);
 	cout.precision(2);
+    //testDiferentesGeneticosVariandoGeneracion(16);
     
     int population = 64;
     bool deterministic = true;
@@ -310,4 +312,66 @@ vector< double > extractLoads(Solution solution) {
         solution.combination_9,
         solution.combination_10
     };
+}
+
+void testDiferentesGeneticosVariandoGeneracion(int population) {
+    Tournament tournament = Tournament(population);
+    tournament.generate_random_combinations(population);
+    vector < vector < double > > init(tournament.combinations);
+    string file = "results/genetic_population_fija_generacion_variable_distintas_comb_booleanos.csv";
+    ofstream results;
+    results.open(file, fstream::out);
+    for (int i = 0; i < 10; ++i) {
+        int gen = i+1;
+        results << to_string(gen) << endl;
+        results << "deterministic crossover_half scores" << endl;
+        vector < double > winner_0 = tournament.genetic_with_inicial_population(init, population, true, true, true, true, i);
+        for (int j = 0; j < winner_0.size(); ++j) {
+            results << winner_0[j] << ' ';
+        }
+        results << endl;
+        results << "deterministic crossover_half goals" << endl;
+        vector < double > winner_1 = tournament.genetic_with_inicial_population(init, population, true, true, true, false, i);
+        for (int j = 0; j < winner_1.size(); ++j) {
+            results << winner_1[j] << ' ';
+        }
+        results << endl;
+        results << "deterministic crossover_random scores" << endl;
+        vector < double > winner_2 = tournament.genetic_with_inicial_population(init, population, true, true, false, true, i);
+        for (int j = 0; j < winner_2.size(); ++j) {
+            results << winner_2[j] << ' ';
+        }
+        results << endl;
+        results << "deterministic crossover_random goals" << endl;
+        vector < double > winner_3 = tournament.genetic_with_inicial_population(init, population, true, true, false, false, i);
+        for (int j = 0; j < winner_3.size(); ++j) {
+            results << winner_3[j] << ' ';
+        }
+        results << endl;
+        results << "no_deterministic crossover_half scores" << endl;/*
+        vector < double > winner_4 = tournament.genetic_with_inicial_population(init, population, true, false, true, true, i);
+        for (int j = 0; j < winner_4.size(); ++j) {
+            results << winner_4[j] << ' ';
+        }*/
+        results << endl;
+        results << "no_deterministic crossover_half goals" << endl;/*
+        vector < double > winner_5 = tournament.genetic_with_inicial_population(init, population, true, false, true, false, i);
+        for (int j = 0; j < winner_5.size(); ++j) {
+            results << winner_5[j] << ' ';
+        }*/
+        results << endl;
+        results << "no_deterministic crossover_random scores" << endl;/*
+        vector < double > winner_6 = tournament.genetic_with_inicial_population(init, population, true, false, false, true, i);
+        for (int j = 0; j < winner_6.size(); ++j) {
+            results << winner_6[j] << ' ';
+        }*/
+        results << endl;
+        results << "no_deterministic crossover_random goals" << endl;/*
+        vector < double > winner_7 = tournament.genetic_with_inicial_population(init, population, true, false, false, false, i);
+        for (int j = 0; j < winner_7.size(); ++j) {
+            results << winner_7[j] << ' ';
+        }*/
+    }
+    
+    results.close(); 
 }

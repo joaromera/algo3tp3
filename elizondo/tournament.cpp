@@ -494,5 +494,43 @@ class Tournament {
                 }
                 iterations++;
             }
+        }      
+
+        vector < double > genetic_with_inicial_population(vector < vector < double > > init, int population, bool elimination, bool deterministic, bool crossover_half, bool scores, int generations) {
+            cout << "IN GENETIC" << endl;
+            vector < vector < double > > temp(init);
+            this->combinations = temp;
+            if (elimination) {
+                this->elimination_cup();
+            } else {
+                this->play_tournament();
+            }
+
+            vector < double > winner = this->get_winner();
+            vector < double > old_winner;
+
+            int iterations_alive = 1;
+            int iterations = 0;
+            while (iterations < generations && iterations_alive < 5) {
+                old_winner = winner;
+                cout << "ITERATIONS: " << iterations << endl;
+                this->print_score_table();
+                this->selection(deterministic, scores);
+                this->crossover(population, deterministic, crossover_half);
+                if (elimination) {
+                    this->elimination_cup();
+                } else {
+                    this->play_tournament();
+                }
+                winner = this->get_winner();
+                if (winner == old_winner) {
+                    iterations_alive++;
+                } else {
+                    iterations_alive = 1;
+                }
+                iterations++;
+            }
+
+            return winner;
         }
 };
