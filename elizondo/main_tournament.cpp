@@ -321,7 +321,7 @@ void testDiferentesGeneticosVariandoGeneracion(int population) {
     string file = "results/genetic_population_fija_generacion_variable_distintas_comb_booleanos.csv";
     ofstream results;
     results.open(file, fstream::out);
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 20; ++i) {
         int gen = i+1;
         results << to_string(gen) << endl;
         results << "deterministic crossover_half scores" << endl;
@@ -348,29 +348,30 @@ void testDiferentesGeneticosVariandoGeneracion(int population) {
             results << winner_3[j] << ' ';
         }
         results << endl;
-        results << "no_deterministic crossover_half scores" << endl;/*
+        results << "no_deterministic crossover_half scores" << endl;
         vector < double > winner_4 = tournament.genetic_with_inicial_population(init, population, true, false, true, true, i);
         for (int j = 0; j < winner_4.size(); ++j) {
             results << winner_4[j] << ' ';
-        }*/
+        }
         results << endl;
-        results << "no_deterministic crossover_half goals" << endl;/*
+        results << "no_deterministic crossover_half goals" << endl;
         vector < double > winner_5 = tournament.genetic_with_inicial_population(init, population, true, false, true, false, i);
         for (int j = 0; j < winner_5.size(); ++j) {
             results << winner_5[j] << ' ';
-        }*/
+        }
         results << endl;
-        results << "no_deterministic crossover_random scores" << endl;/*
+        results << "no_deterministic crossover_random scores" << endl;
         vector < double > winner_6 = tournament.genetic_with_inicial_population(init, population, true, false, false, true, i);
         for (int j = 0; j < winner_6.size(); ++j) {
             results << winner_6[j] << ' ';
-        }*/
+        }
         results << endl;
-        results << "no_deterministic crossover_random goals" << endl;/*
+        results << "no_deterministic crossover_random goals" << endl;
         vector < double > winner_7 = tournament.genetic_with_inicial_population(init, population, true, false, false, false, i);
         for (int j = 0; j < winner_7.size(); ++j) {
             results << winner_7[j] << ' ';
-        }*/
+        }
+        results << endl;
     }
     
     results.close(); 
