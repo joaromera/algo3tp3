@@ -426,7 +426,9 @@ class Tournament {
                     }
                     parent_A = (parent_A + 1) % parents;
                     parent_B = (parent_B + 1) % parents;
+                    size += 2;
                 }
+                if (size > population) this->combinations.pop_back();
             }
         }
 
