@@ -504,18 +504,18 @@ class LogicalBoard {
             }
         }
 
-        board_status* getCurrentState() {
-            board_status* current_state = new board_status();
-            current_state->clear();
+        board_status getCurrentState() {
+            board_status current_state = board_status();
+            current_state.clear();
             Ball* ball = nullptr;
 
             if (this->free_ball != nullptr) {
                 ball = this->free_ball;
-                current_state->ball.is_free = true;
-                current_state->ball.i = ball->i;
-                current_state->ball.j = ball->j;
-                current_state->ball.dir = get<0>(ball->movement);
-                current_state->ball.steps = get<1>(ball->movement);
+                current_state.ball.is_free = true;
+                current_state.ball.i = ball->i;
+                current_state.ball.j = ball->j;
+                current_state.ball.dir = get<0>(ball->movement);
+                current_state.ball.steps = get<1>(ball->movement);
             }
 
             for (auto p : this->teamA) {
@@ -526,9 +526,9 @@ class LogicalBoard {
                 if (p->ball != nullptr) {
                     in_posetion = true;
                     ball = p->ball;
-                    current_state->ball.is_free = false;
+                    current_state.ball.is_free = false;
                 }
-                current_state->team.push_back(player_status(id,i,j,in_posetion));
+                current_state.team.push_back(player_status(id,i,j,in_posetion));
             }
 
             for (auto p : this->teamB) {
@@ -539,9 +539,9 @@ class LogicalBoard {
                 if (p->ball != nullptr) {
                     in_posetion = true;
                     ball = p->ball;
-                    current_state->ball.is_free = false;
+                    current_state.ball.is_free = false;
                 }
-                current_state->oponent_team.push_back(player_status(id,i,j,in_posetion));
+                current_state.oponent_team.push_back(player_status(id,i,j,in_posetion));
             }
             
             return current_state;
