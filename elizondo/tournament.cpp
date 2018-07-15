@@ -415,6 +415,7 @@ class Tournament {
             } else {
                 int parent_A = 0;
                 int parent_B = 1;
+                if (size == 1) parent_B = 0;
                 int parents = size;
                 while (size < population) {
                     if (crossover_half) {
@@ -450,7 +451,6 @@ class Tournament {
                 }
             } else {
                 double max_score = ranking.top().second;
-                if (scores) max_score *= 3;
                 int new_size = this->combinations.size() / 2;
                 this->reset(this->combinations.size());
                 while (this->combinations.size() < new_size && ranking.size() > 0) {
