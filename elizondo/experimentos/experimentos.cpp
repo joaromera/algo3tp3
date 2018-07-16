@@ -18,10 +18,10 @@ int main(int argc, char **argv) {
     
     // time_allvsall(); // Listo
     // time_elimination(); // Listo
-    // quality_allvsall_elimination_with_same_teams(); // Tal vez mas iteraciones
-    // quality_allvsall_elimination_same_time(); // Tal vez mas iteraciones
-    test_local_search_iterations_10fast_1slow();
-    // test_distance();
+    // quality_allvsall_elimination_with_same_teams(); // No hay diferencias notables, pero tal vez mas iteraciones
+    // quality_allvsall_elimination_same_time(); // No hay diferencias notables, pero tal vez mas iteraciones
+    // test_local_search_iterations_10fast_1slow(); // No hay diferencias notables, Listo
+    // test_distance(); // Ganó shrinking 3 de 5. Tiene sentido, pero probar más iteraciones
     // test_memory_leak();
     
     return 0;
@@ -213,41 +213,52 @@ void quality_allvsall_elimination_same_time() {
 }
 
 void test_distance() {
-    // string fileName = "test_distance.txt";
-    // ofstream results;
-    // results.open(fileName, fstream::out);
-    // Tournament tournament = Tournament(1);
-    // tournament.generate_random_combinations(1);
-    // vector < double > start_solution = {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
-    // for (int i = 0; i < 10; i++) {
-    //     cout << "ITERATION: " << i << endl;
-    //     tournament.iterations_cap = i;
-    //     tournament.iterations_alive_cap = i;
-    //     vector < double > current = tournament.local_search(start_solution, 0.5, false, true);
-        
-    //     int best_wins = 0;
-    //     int current_wins = 0;
-    //     vector < double > winner = tournament.single_match(best, current);
-    //     if (winner == best) {
-    //         best_wins++;
-    //     } else {
-    //         current_wins++;
-    //     }
-    //     winner = tournament.single_match(current, best);
-    //     if (winner == best) {
-    //         best_wins++;
-    //     } else {
-    //         current_wins++;
-    //     }
-    //     if (best_wins < current_wins) {
-    //         cout << "NEW BEST" << endl;
-    //         best = current;
-    //     } else {
-    //         cout << "INVICTUS!" << endl;
-    //     }
-    // }
+    string fileName = "test_distance.txt";
+    ofstream results;
+    results.open(fileName, fstream::out);
+    for (int i = 0; i < 5; i ++) {
+        Tournament tournament = Tournament(1);
+        tournament.generate_random_combinations(1);
+        vector < double > start_solution = tournament.combinations[0];
+        tournament.iterations_cap = 4;
+        tournament.iterations_alive_cap = 100;
 
-    // results.close();
+        auto fast_start = chrono::steady_clock::now();
+        vector < double > fast = tournament.shrinking_local_search(start_solution, 0.08, false, true, true);
+        auto fast_end = chrono::steady_clock::now();
+        auto fast_time = fast_end - fast_start;
+
+        tournament.iterations_cap = 0;
+        
+        auto slow_start = chrono::steady_clock::now();
+        vector < double > slow = tournament.shrinking_local_search(start_solution, 0.08, false, true, false);
+        auto slow_end = chrono::steady_clock::now();
+        auto slow_time = slow_end - slow_start;
+
+        int fast_wins = 0;
+        int slow_wins = 0;
+        vector < double > winner = tournament.single_match(fast, slow);
+        if (winner == fast) {
+            fast_wins++;
+        } else {
+            slow_wins++;
+        }
+        winner = tournament.single_match(slow, fast);
+        if (winner == fast) {
+            fast_wins++;
+        } else {
+            slow_wins++;
+        }
+        if (fast_wins < slow_wins) {
+            results << i << ";fixed;" << slow_time.count() << ";" << fast_time.count() << ";" <<  endl;
+        } else if (fast_wins > slow_wins) {
+            results << i << ";shrink;" << slow_time.count() << ";" << fast_time.count() << ";" <<  endl;
+        } else {
+            results << i << ";tie;" << slow_time.count() << ";" << fast_time.count() << ";" <<  endl;
+        }
+    }
+
+    results.close();
 }
 
 void test_local_search_iterations_10fast_1slow() {
