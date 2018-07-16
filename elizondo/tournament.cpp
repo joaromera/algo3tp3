@@ -29,6 +29,7 @@ class Tournament {
         vector < int > scores;
         vector < int > goals;
         vector < vector < bool > > already_played;
+        vector < vector < double > > generational_winners;
         int weights_amount = 10;
         int iterations_cap = 5;
         int iterations_alive_cap = 5;
@@ -394,6 +395,15 @@ class Tournament {
                 cout << endl;
             }
         }
+        
+        void print_gen_winners() {
+            for (auto combination: this->generational_winners) {
+                for (int i = 0; i < combination.size(); i++) {
+                    cout << combination[i] << " ";
+                }
+                cout << endl;
+            }
+        }
 
         // imprime la tabla con los puntos de cada combinacion
         void print_score_table() {
@@ -534,6 +544,7 @@ class Tournament {
 
         void genetic(int population, bool deterministic, bool elimination, bool crossover_half, bool scores, int generations) {
             cout << "IN GENETIC" << endl;
+            this->generational_winners.clear();
             this->generate_random_combinations(population);
             if (elimination) {
                 this->elimination_cup();
@@ -542,6 +553,7 @@ class Tournament {
             }
 
             vector < double > winner = this->get_winner();
+            this->generational_winners.push_back(winner);
             vector < double > old_winner;
 
             int iterations_alive = 0;
@@ -558,6 +570,7 @@ class Tournament {
                     this->play_tournament();
                 }
                 winner = this->get_winner();
+                this->generational_winners.push_back(winner);
                 if (winner == old_winner) {
                     iterations_alive++;
                 } else {
