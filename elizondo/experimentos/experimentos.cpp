@@ -216,7 +216,7 @@ void test_distance() {
     string fileName = "test_distance_fast.txt";
     ofstream results;
     results.open(fileName, fstream::out);
-    for (int i = 0; i < 5; i ++) {
+    for (int i = 0; i < 50; i ++) {
         Tournament tournament = Tournament(1);
         tournament.generate_random_combinations(1);
         vector < double > start_solution = tournament.combinations[0];
@@ -228,7 +228,7 @@ void test_distance() {
         auto fast_end = chrono::steady_clock::now();
         auto fast_time = fast_end - fast_start;
 
-        tournament.iterations_cap = 0;
+        tournament.iterations_cap = 4;
         
         auto slow_start = chrono::steady_clock::now();
         vector < double > slow = tournament.shrinking_local_search(start_solution, 0.16, true, true, false);
