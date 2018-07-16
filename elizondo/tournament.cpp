@@ -191,24 +191,30 @@ class Tournament {
             
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
-            int iterations = 0;
-            int iterations_alive = 0;
-            do {
-                if (this->iterations_cap == 0) break;
+
+            int iterations = 1;
+            int iterations_alive = 1;
+
+            while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap) {
+                
                 cout << "NEIGHBOURHOOD: " << iterations << endl;
+                
                 iterations++;
                 old_winner = winner;
+                
                 if (fast) {
-                    this->fast_neighbourhood(vec, distance, amount);    
+                    this->fast_neighbourhood(old_winner, distance, amount);    
                 } else {
-                    this->neighbourhood(vec, distance);    
+                    this->neighbourhood(old_winner, distance);    
                 }
                 if (elimination) {
                     this->elimination_cup();
                 } else {
                     this->play_tournament();
                 }
+
                 winner = this->get_winner();
+                
                 if (winner == old_winner) {
                     iterations_alive++;
                     cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
@@ -216,7 +222,60 @@ class Tournament {
                     cout << "NEW SOLUTION!!!" << iterations_alive << endl;
                     iterations_alive = 0;
                 }
-            } while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap);
+            }
+
+            return winner;
+        }
+
+        vector < double > shrinking_local_search(vector < double > vec, double distance, bool fast, bool elimination, bool shrink, int amount = 64) {
+            if (fast) {
+                this->fast_neighbourhood(vec, distance, amount);    
+            } else {
+                this->neighbourhood(vec, distance);    
+            }
+            if (elimination) {
+                this->elimination_cup();
+            } else {
+                this->play_tournament();
+            }
+
+            if (shrink) distance /= 2;
+            
+            vector < double > winner = this->get_winner();
+            vector < double > old_winner;
+            
+            int iterations = 1;
+            int iterations_alive = 1;
+            
+            while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap) {
+        
+                cout << "NEIGHBOURHOOD: " << iterations << endl;
+
+                iterations++;
+                old_winner = winner;
+
+                if (fast) {
+                    this->fast_neighbourhood(old_winner, distance, amount);    
+                } else {
+                    this->neighbourhood(old_winner, distance);    
+                }
+                if (elimination) {
+                    this->elimination_cup();
+                } else {
+                    this->play_tournament();
+                }
+
+                winner = this->get_winner();
+
+                if (winner == old_winner) {
+                    iterations_alive++;
+                    cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
+                } else {
+                    cout << "NEW SOLUTION!!!" << iterations_alive << endl;
+                    iterations_alive = 0;
+                }
+                if (shrink) distance /= 2;
+            }
 
             return winner;
         }
@@ -253,6 +312,7 @@ class Tournament {
 
             int iterations = 0;
             int iterations_alive = 0;
+            
             do {
                 old_winner = winner;
 
