@@ -11,7 +11,7 @@ void time_elimination();
 void quality_allvsall_elimination_with_same_teams();
 void quality_allvsall_elimination_same_time();
 void test_local_search_iterations_10fast_1slow();
-void test_distance();
+void test_distance_fast_neighbourhood();
 void test_memory_leak();
 
 int main(int argc, char **argv) {
@@ -22,6 +22,7 @@ int main(int argc, char **argv) {
     // quality_allvsall_elimination_same_time(); // No hay diferencias notables, pero tal vez mas iteraciones
     // test_local_search_iterations_10fast_1slow(); // No hay diferencias notables, Listo
     test_distance(); // Ganó shrinking 3 de 5. Tiene sentido, pero probar más iteraciones
+    // test_distance_fast_neighbourhood(); // 16/50 ganó fixed, 34/50 empataron, achicar el radio no ganó nunca 
     // test_memory_leak();
 
     return 0;
@@ -212,7 +213,7 @@ void quality_allvsall_elimination_same_time() {
     }
 }
 
-void test_distance() {
+void test_distance_fast_neighbourhood() {
     string fileName = "test_distance_fast.txt";
     ofstream results;
     results.open(fileName, fstream::out);

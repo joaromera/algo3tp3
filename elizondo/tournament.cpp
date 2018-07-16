@@ -192,8 +192,8 @@ class Tournament {
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
 
-            int iterations = 1;
-            int iterations_alive = 1;
+            int iterations = 0;
+            int iterations_alive = 0;
 
             while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap) {
                 
@@ -219,7 +219,7 @@ class Tournament {
                     iterations_alive++;
                     cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
                 } else {
-                    cout << "NEW SOLUTION!!!" << iterations_alive << endl;
+                    cout << "NEW SOLUTION!!!" << endl;
                     iterations_alive = 0;
                 }
             }
@@ -244,8 +244,8 @@ class Tournament {
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
             
-            int iterations = 1;
-            int iterations_alive = 1;
+            int iterations = 0;
+            int iterations_alive = 0;
             
             while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap) {
         
@@ -271,7 +271,7 @@ class Tournament {
                     iterations_alive++;
                     cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
                 } else {
-                    cout << "NEW SOLUTION!!!" << iterations_alive << endl;
+                    cout << "NEW SOLUTION!!!" << endl;
                     iterations_alive = 0;
                 }
                 if (shrink) distance /= 2;
