@@ -273,21 +273,24 @@ class Tournament {
         }
 
         // helper de neighbourhood
-        void neighbourhood_recursive(vector < double > vec, int index, double distance) {
-            if (index < vec.size()) {
-                vector < double > mod_vec = vec;
-                mod_vec[index] += distance;
-                if (mod_vec[index] > 1) mod_vec[index] = 1;
-                if (mod_vec[index] < 0) mod_vec[index] = 0;
-
-                vec[index] -= distance;
-                if (vec[index] > 1) vec[index] = 1;
-                if (vec[index] < 0) vec[index] = 0;
-
+        void neighbourhood_recursive(vector < double > vec1, vector < double > vec2, int index) {
+            if (index < vec1.size()) {
+                vector < double > new_vec = vec1;
+                new_vec[index] = vec2[index];
                 index++;
-                neighbourhood_recursive(vec, index, distance);
-                neighbourhood_recursive(mod_vec, index, distance);
-                this->combinations.push_back(mod_vec);
+
+                neighbourhood_recursive(vec1, vec2, index);
+                neighbourhood_recursive(new_vec, vec2, index);
+            } else if (index == vec1.size()) {
+                this->combinations.push_back(vec1);
+            }
+        }
+
+        void update_vector(vector < double >& vec, double distance) {
+            for(size_t i = 0; i < vec.size(); i++) {
+                vec[i] = vec[i] + distance;
+                if (vec[i] > 1) vec[i] = 1;
+                if (vec[i] < 0) vec[i] = 0;
             }
         }
 
@@ -295,9 +298,11 @@ class Tournament {
         void neighbourhood(vector < double > vec, double distance) {
             int size = pow(2, vec.size());
             this->reset(size);
-
-            this->neighbourhood_recursive(vec, 0, distance);
-            this->combinations.push_back(vec);
+            vector< double > lower_values = vec; 
+            vector< double > upper_values = vec;
+            update_vector(lower_values, -1.0 * distance);
+            update_vector(upper_values, distance);
+            this->neighbourhood_recursive(lower_values, upper_values, 0);
         }
 
         // genera 64 vecinos a partir de un vector de entrada, suma o resta distance
