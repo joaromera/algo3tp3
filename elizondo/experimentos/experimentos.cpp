@@ -24,13 +24,6 @@ int main(int argc, char **argv) {
     // test_distance(); // Ganó shrinking 3 de 5. Tiene sentido, pero probar más iteraciones
     // test_memory_leak();
 
-    Tournament tour = Tournament(1);
-    tour.reset(1);
-    tour.combinations.push_back({0.5,0.5,0.5});
-    tour.print_combinations();
-    tour.neighbourhood(tour.combinations[0], 0.1);
-    tour.print_combinations();
-    
     return 0;
 }
 
