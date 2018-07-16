@@ -11,6 +11,7 @@ void time_elimination();
 void quality_allvsall_elimination_with_same_teams();
 void quality_allvsall_elimination_same_time();
 void test_local_search_iterations_10fast_1slow();
+void test_distance();
 void test_distance_fast_neighbourhood();
 void test_memory_leak();
 
