@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     // quality_allvsall_elimination_with_same_teams(); // No hay diferencias notables, pero tal vez mas iteraciones
     // quality_allvsall_elimination_same_time(); // No hay diferencias notables, pero tal vez mas iteraciones
     // test_local_search_iterations_10fast_1slow(); // No hay diferencias notables, Listo
-    // test_distance(); // Ganó shrinking 3 de 5. Tiene sentido, pero probar más iteraciones
+    test_distance(); // Ganó shrinking 3 de 5. Tiene sentido, pero probar más iteraciones
     // test_memory_leak();
 
     return 0;
@@ -213,7 +213,7 @@ void quality_allvsall_elimination_same_time() {
 }
 
 void test_distance() {
-    string fileName = "test_distance.txt";
+    string fileName = "test_distance_fast.txt";
     ofstream results;
     results.open(fileName, fstream::out);
     for (int i = 0; i < 5; i ++) {
@@ -224,14 +224,14 @@ void test_distance() {
         tournament.iterations_alive_cap = 100;
 
         auto fast_start = chrono::steady_clock::now();
-        vector < double > fast = tournament.shrinking_local_search(start_solution, 0.08, false, true, true);
+        vector < double > fast = tournament.shrinking_local_search(start_solution, 0.16, true, true, true);
         auto fast_end = chrono::steady_clock::now();
         auto fast_time = fast_end - fast_start;
 
         tournament.iterations_cap = 0;
         
         auto slow_start = chrono::steady_clock::now();
-        vector < double > slow = tournament.shrinking_local_search(start_solution, 0.08, false, true, false);
+        vector < double > slow = tournament.shrinking_local_search(start_solution, 0.16, true, true, false);
         auto slow_end = chrono::steady_clock::now();
         auto slow_time = slow_end - slow_start;
 
