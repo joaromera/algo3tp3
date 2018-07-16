@@ -262,6 +262,55 @@ void test_distance_fast_neighbourhood() {
     results.close();
 }
 
+void test_distance() {
+    string fileName = "test_distance_slow.txt";
+    ofstream results;
+    results.open(fileName, fstream::out);
+    for (int i = 0; i < 50; i ++) {
+        Tournament tournament = Tournament(1);
+        tournament.generate_random_combinations(1);
+        vector < double > start_solution = tournament.combinations[0];
+        tournament.iterations_cap = 4;
+        tournament.iterations_alive_cap = 100;
+
+        auto fast_start = chrono::steady_clock::now();
+        vector < double > fast = tournament.shrinking_local_search(start_solution, 0.16, false, true, true);
+        auto fast_end = chrono::steady_clock::now();
+        auto fast_time = fast_end - fast_start;
+
+        tournament.iterations_cap = 4;
+        
+        auto slow_start = chrono::steady_clock::now();
+        vector < double > slow = tournament.shrinking_local_search(start_solution, 0.16, false, true, false);
+        auto slow_end = chrono::steady_clock::now();
+        auto slow_time = slow_end - slow_start;
+
+        int fast_wins = 0;
+        int slow_wins = 0;
+        vector < double > winner = tournament.single_match(fast, slow);
+        if (winner == fast) {
+            fast_wins++;
+        } else {
+            slow_wins++;
+        }
+        winner = tournament.single_match(slow, fast);
+        if (winner == fast) {
+            fast_wins++;
+        } else {
+            slow_wins++;
+        }
+        if (fast_wins < slow_wins) {
+            results << i << ";fixed;" << slow_time.count() << ";" << fast_time.count() << ";" <<  endl;
+        } else if (fast_wins > slow_wins) {
+            results << i << ";shrink;" << slow_time.count() << ";" << fast_time.count() << ";" <<  endl;
+        } else {
+            results << i << ";tie;" << slow_time.count() << ";" << fast_time.count() << ";" <<  endl;
+        }
+    }
+
+    results.close();
+}
+
 void test_local_search_iterations_10fast_1slow() {
     string fileName = "test_local_search_iterations.txt";
     ofstream results;
