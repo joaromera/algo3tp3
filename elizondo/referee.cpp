@@ -102,7 +102,7 @@ class Referee {
             // for (auto i = positionsB.begin(); i != positionsB.end(); ++i)
             //     fs << "B -> ID " << (*i).id << " (" << (*i).i << ',' << (*i).j << ')' << endl;
             
-            board->reset(positionsA, positionsB, IZQUIERDA);
+            board->reset(positionsA, positionsB, startingTeam);
 
             // fs << "STARTING MATCH" << endl;
 
