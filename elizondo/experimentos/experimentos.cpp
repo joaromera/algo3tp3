@@ -22,9 +22,13 @@ int main(int argc, char **argv) {
     // quality_allvsall_elimination_with_same_teams(); // No hay diferencias notables, pero tal vez mas iteraciones
     // quality_allvsall_elimination_same_time(); // No hay diferencias notables, pero tal vez mas iteraciones
     // test_local_search_iterations_10fast_1slow(); // No hay diferencias notables, Listo
-    test_distance(); // Ganó shrinking 3 de 5. Tiene sentido, pero probar más iteraciones
+    // test_distance(); // Ganó shrinking 3 de 5. Tiene sentido, pero probar más iteraciones
     // test_distance_fast_neighbourhood(); // 16/50 ganó fixed, 34/50 empataron, achicar el radio no ganó nunca 
     // test_memory_leak();
+
+    Tournament tour = Tournament(1);
+    tour.neighbourhood({0.5,0.5,0.5,0.5},0.1);
+    tour.print_combinations();
 
     return 0;
 }

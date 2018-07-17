@@ -334,14 +334,16 @@ class Tournament {
         }
 
         // helper de neighbourhood
-        void neighbourhood_recursive(vector < double > vec1, vector < double > vec2, int index) {
+        void neighbourhood_recursive(vector < double > vec1, int index, double distance) {
             if (index < vec1.size()) {
                 vector < double > new_vec = vec1;
-                new_vec[index] = vec2[index];
+                new_vec[index] += distance;
+                if (new_vec[index] > 1) new_vec[index] = 1;
+                if (new_vec[index] < 0) new_vec[index] = 0;
                 index++;
 
-                neighbourhood_recursive(vec1, vec2, index);
-                neighbourhood_recursive(new_vec, vec2, index);
+                neighbourhood_recursive(vec1, index, distance);
+                neighbourhood_recursive(new_vec, index, distance);
             } else if (index == vec1.size()) {
                 this->combinations.push_back(vec1);
             }
@@ -350,8 +352,6 @@ class Tournament {
         void update_vector(vector < double >& vec, double distance) {
             for(size_t i = 0; i < vec.size(); i++) {
                 vec[i] = vec[i] + distance;
-                if (vec[i] > 1) vec[i] = 1;
-                if (vec[i] < 0) vec[i] = 0;
             }
         }
 
@@ -360,10 +360,8 @@ class Tournament {
             int size = pow(2, vec.size());
             this->reset(size);
             vector< double > lower_values = vec; 
-            vector< double > upper_values = vec;
             update_vector(lower_values, -1.0 * distance);
-            update_vector(upper_values, distance);
-            this->neighbourhood_recursive(lower_values, upper_values, 0);
+            this->neighbourhood_recursive(lower_values, 0, distance * 2);
         }
 
         // genera 64 vecinos a partir de un vector de entrada, suma o resta distance
