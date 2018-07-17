@@ -607,7 +607,12 @@ class Tournament {
             }
         }      
 
-        vector < double > genetic_with_inicial_population(vector < vector < double > > init, int population, bool elimination, bool deterministic, bool crossover_half, bool scores, int generations) {
+        vector < double > genetic_with_inicial_population(string name, vector < vector < double > > init, int population, bool elimination, bool deterministic, bool crossover_half, bool scores, int generations) {
+            
+            string file = "results/" + name + ".csv";
+            ofstream results;
+            results.open(file, fstream::out);
+            
             cout << "IN GENETIC" << endl;
             vector < vector < double > > temp(init);
             this->combinations = temp;
@@ -618,6 +623,12 @@ class Tournament {
             }
 
             vector < double > winner = this->get_winner();
+
+            for (int j = 0; j < winner.size(); ++j) {
+                results << winner[j] << ';';
+            }
+            results << endl;
+
             vector < double > old_winner;
 
             int iterations_alive = 1;
@@ -640,7 +651,13 @@ class Tournament {
                     iterations_alive = 1;
                 }
                 iterations++;
+
+                for (int j = 0; j < winner.size(); ++j) {
+                    results << winner[j] << ';';
+                }
+                results << endl;
             }
+            results.close();
 
             return winner;
         }
