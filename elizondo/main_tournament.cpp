@@ -112,8 +112,8 @@ int main(int argc, char **argv) {
     cout.setf(ios::fixed);
 	cout.setf(ios::showpoint);
 	cout.precision(2);
-    //testDiferentesGeneticosVariandoGeneracion(16);
-    
+    testDiferentesGeneticosVariandoGeneracion(64);
+    /*
     int population = 64;
     bool deterministic = true;
     bool elimination = true;
@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
     generations = 2;
     //GEN - 3 generation and 64 teams 73k''
     printAndPlayGeneticTournament(population, deterministic, elimination, crossover, fitness, generations, laps);
-/*
+
     int distance = 0.10;
     bool fast = true;
     int amount = 32;
@@ -141,9 +141,9 @@ int main(int argc, char **argv) {
 
     distance = 0.05;
     //GRASP - distance 0.05 and amount 32 536k''
-    printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);*/
+    printAndPlayGraspTournament(population, distance, fast, elimination, amount, laps);
     
-    findBestTeamsAndPlay();
+    findBestTeamsAndPlay();*/
     return 0;
 }
 
@@ -317,23 +317,77 @@ vector< double > extractLoads(Solution solution) {
 
 void testDiferentesGeneticosVariandoGeneracion(int population) {
     Tournament tournament = Tournament(population);
-    tournament.generate_random_combinations(population);
-    vector < vector < double > > init(tournament.combinations);
-    vector < double > winner_0 = tournament.genetic_with_inicial_population("deterministic crossover_half scores", init, population, true, true, true, true, 50);
-    vector < double > winner_1 = tournament.genetic_with_inicial_population("deterministic crossover_half goals", init, population, true, true, true, false, 50);
-    vector < double > winner_2 = tournament.genetic_with_inicial_population("deterministic crossover_random scores", init, population, true, true, false, true, 50);
-    vector < double > winner_3 = tournament.genetic_with_inicial_population("deterministic crossover_random goals", init, population, true, true, false, false, 50);
-    vector < double > winner_4 = tournament.genetic_with_inicial_population("no_deterministic crossover_half scores", init, population, true, false, true, true, 50);
-    vector < double > winner_5 = tournament.genetic_with_inicial_population("no_deterministic crossover_half goals", init, population, true, false, true, false, 50);
-    vector < double > winner_6 = tournament.genetic_with_inicial_population("no_deterministic crossover_random scores", init, population, true, false, false, true, 50);
-    vector < double > winner_7 = tournament.genetic_with_inicial_population("no_deterministic crossover_random goals", init, population, true, false, false, false, 50);
+
+    vector < double > winner_0 = tournament.genetic_test("deterministic crossover_half scores", population, true, true, true, true, 50);
+
+    Tournament tournament_generacional = Tournament(tournament.generational_winners.size());
+    tournament_generacional.combinations = tournament.generational_winners;
+    tournament_generacional.reset_scores();
+    tournament_generacional.play_tournament();
+    tournament_generacional.save_score_table("deterministic crossover_half scores");
+
+    vector < double > winner_1 = tournament.genetic_test("deterministic crossover_half goals", population, true, true, true, false, 50);
+
+    tournament_generacional = Tournament(tournament.generational_winners.size());
+    tournament_generacional.combinations = tournament.generational_winners;
+    tournament_generacional.reset_scores();
+    tournament_generacional.play_tournament();
+    tournament_generacional.save_score_table("deterministic crossover_half goals");
+
+    vector < double > winner_2 = tournament.genetic_test("deterministic crossover_random scores", population, true, true, false, true, 50);
+
+    tournament_generacional = Tournament(tournament.generational_winners.size());
+    tournament_generacional.combinations = tournament.generational_winners;
+    tournament_generacional.reset_scores();
+    tournament_generacional.play_tournament();
+    tournament_generacional.save_score_table("deterministic crossover_random scores");
+
+    vector < double > winner_3 = tournament.genetic_test("deterministic crossover_random goals", population, true, true, false, false, 50);
+
+    tournament_generacional = Tournament(tournament.generational_winners.size());
+    tournament_generacional.combinations = tournament.generational_winners;
+    tournament_generacional.reset_scores();
+    tournament_generacional.play_tournament();
+    tournament_generacional.save_score_table("deterministic crossover_random goals");
+
+    vector < double > winner_4 = tournament.genetic_test("no_deterministic crossover_half scores", population, true, false, true, true, 50);
+
+    tournament_generacional = Tournament(tournament.generational_winners.size());
+    tournament_generacional.combinations = tournament.generational_winners;
+    tournament_generacional.reset_scores();
+    tournament_generacional.play_tournament();
+    tournament_generacional.save_score_table("no_deterministic crossover_half scores");
+
+    vector < double > winner_5 = tournament.genetic_test("no_deterministic crossover_half goals", population, true, false, true, false, 50);
+
+    tournament_generacional = Tournament(tournament.generational_winners.size());
+    tournament_generacional.combinations = tournament.generational_winners;
+    tournament_generacional.reset_scores();
+    tournament_generacional.play_tournament();
+    tournament_generacional.save_score_table("no_deterministic crossover_half goals");
+
+    vector < double > winner_6 = tournament.genetic_test("no_deterministic crossover_random scores", population, true, false, false, true, 50);
+
+    tournament_generacional = Tournament(tournament.generational_winners.size());
+    tournament_generacional.combinations = tournament.generational_winners;
+    tournament_generacional.reset_scores();
+    tournament_generacional.play_tournament();
+    tournament_generacional.save_score_table("no_deterministic crossover_random scores");
+
+    vector < double > winner_7 = tournament.genetic_test("no_deterministic crossover_random goals", population, true, false, false, false, 50);
+
+    tournament_generacional = Tournament(tournament.generational_winners.size());
+    tournament_generacional.combinations = tournament.generational_winners;
+    tournament_generacional.reset_scores();
+    tournament_generacional.play_tournament();
+    tournament_generacional.save_score_table("no_deterministic crossover_random goals");
 
     vector<int> cantVictorias(8,0);
 
     for(int i = 0; i < 20; ++i) {
-        tournament.generate_random_combinations(population);
         vector < vector < double > > winners{winner_0, winner_1, winner_2, winner_3, winner_4, winner_5, winner_6, winner_7};
         tournament.combinations = winners;
+        tournament.reset_scores();
         tournament.elimination_cup();
         auto it = max_element(tournament.scores.begin(), tournament.scores.end());
         auto index = it - tournament.scores.begin();

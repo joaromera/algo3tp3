@@ -443,6 +443,25 @@ class Tournament {
             }
         }
 
+        void save_score_table(string name) {
+
+            string file = "results/" + name + "_ranking.csv";
+            ofstream results;
+            results.open(file, fstream::out);
+
+            results << "iteration;score;goals;p0;p1;p2;p3;p4;p5;p6;p7;p8;p9" << endl;
+
+            for (int i = 0; i < this->combinations.size(); i++) {
+                results << i << ";" << this->scores[i] << ";" << this->goals[i] << ";"; 
+                for (int j = 0; j < combinations[i].size(); j++) {
+                    results << combinations[i][j] << ";";
+                }
+                results << endl;
+            }
+            
+            results.close();
+        }
+
         // imprime el vector con más puntos según score
         void print_winner() {
             auto it = max_element(this->scores.begin(), this->scores.end());
@@ -607,15 +626,17 @@ class Tournament {
             }
         }      
 
-        vector < double > genetic_with_inicial_population(string name, vector < vector < double > > init, int population, bool elimination, bool deterministic, bool crossover_half, bool scores, int generations) {
+        vector < double > genetic_test(string name, int population, bool elimination, bool deterministic, bool crossover_half, bool scores, int generations) {
             
             string file = "results/" + name + ".csv";
             ofstream results;
             results.open(file, fstream::out);
             
             cout << "IN GENETIC" << endl;
-            vector < vector < double > > temp(init);
-            this->combinations = temp;
+
+            this->generational_winners.clear();
+            this->generate_random_combinations(population);
+
             if (elimination) {
                 this->elimination_cup();
             } else {
@@ -645,6 +666,7 @@ class Tournament {
                     this->play_tournament();
                 }
                 winner = this->get_winner();
+                this->generational_winners.push_back(winner);
                 if (winner == old_winner) {
                     iterations_alive++;
                 } else {
@@ -657,6 +679,7 @@ class Tournament {
                 }
                 results << endl;
             }
+            
             results.close();
 
             return winner;
