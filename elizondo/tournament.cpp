@@ -141,24 +141,53 @@ class Tournament {
                     teamB.push_back(aux);
                 }
 
-                //Make teams play
+                int wins_i = 0;
+                int wins_d = 0;                
+
+                //Make teams play first match
                 Referee referee = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i+1].first);
                 string winner = referee.runPlay(IZQUIERDA);
+                // cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee.getScore(DERECHA) << endl;
+                this->goals[combs[i].second] += referee.getScore(IZQUIERDA);
+                this->goals[combs[i+1].second] += referee.getScore(DERECHA);
+                int goals_i = referee.getScore(IZQUIERDA);
+                int goals_d = referee.getScore(DERECHA) * 2;
 
-                this->goals[i] += referee.getScore(IZQUIERDA);
-                this->goals[i+1] += referee.getScore(DERECHA);
+                if (winner == IZQUIERDA) wins_i++;
+                if (winner == DERECHA) wins_d++;
 
-                if (winner == IZQUIERDA) {
+                //Make teams play second match
+                Referee referee_2 = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i+1].first);
+                winner = referee_2.runPlay(DERECHA);
+                // cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee_2.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee_2.getScore(DERECHA) << endl;
+                this->goals[combs[i].second] += referee_2.getScore(IZQUIERDA);
+                this->goals[combs[i+1].second] += referee_2.getScore(DERECHA);
+                goals_i += referee_2.getScore(IZQUIERDA) * 2;
+                goals_d += referee_2.getScore(DERECHA);
+            
+                if (winner == IZQUIERDA) wins_i++;
+                if (winner == DERECHA) wins_d++;
+
+                // Who passes to next round?
+                if (wins_i > wins_d) {
                     this->scores[combs[i].second] += 3;
                     winners.push_back(combs[i]);
-                } else if (winner == DERECHA) {
+                } else if (wins_i < wins_d) {
                     this->scores[combs[i + 1].second] += 3;
                     winners.push_back(combs[i + 1]);
                 } else {
-                    this->scores[combs[i].second] += 1;
-                    this->scores[combs[i + 1].second] += 1;
-                    winners.push_back(combs[i]);
-                }                
+                    if (goals_i > goals_d) {
+                        this->scores[combs[i].second] += 3;
+                        winners.push_back(combs[i]);
+                    } else if (goals_i < goals_d) {
+                        this->scores[combs[i + 1].second] += 3;
+                        winners.push_back(combs[i + 1]);
+                    } else {
+                        this->scores[combs[i].second] += 1;
+                        this->scores[combs[i + 1].second] += 1;
+                        winners.push_back(combs[i]);
+                    }
+                }
             }
             if (winners.size() > 1) {
                 play_leg(winners);
@@ -410,7 +439,7 @@ class Tournament {
                 for (int j = 0; j < combinations[i].size(); j++) {
                     cout << combinations[i][j] << " ";
                 }
-                cout << "SCORE: " << this->scores[i] << endl;
+                cout << "SCORE: " << this->scores[i] << " GOALS: " << this->goals[i] << endl;
             }
         }
 
