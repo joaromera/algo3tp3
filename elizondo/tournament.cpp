@@ -310,6 +310,7 @@ class Tournament {
             return winner;
         }
 
+        // Unico partido devuelve el ganador, o el izq si empatan
         vector < double > single_match(const vector < double > & izq, const vector < double > & der) {
                 vector <player> teamA;
                 for (int l = 0; l < 3; l++) {
@@ -332,10 +333,56 @@ class Tournament {
                 }          
         }
 
+        // Juegan ida y vuelta. Si hay empatan devuelve el que mas goles hizo
+        // si hay empate de goles el que mas hizo empezando sin la pelota
+        // si aun asi hay empate, devuelve izq
+        vector < double > home_away_match(const vector < double > & izq, const vector < double > & der) {
+                vector <player> teamA;
+                for (int l = 0; l < 3; l++) {
+                    player aux = player(l, 0.5);
+                    teamA.push_back(aux);
+                }
+                vector <player> teamB;
+                for (int l = 0; l < 3; l++) {
+                    player aux = player(l, 0.5);
+                    teamB.push_back(aux);
+                }
+
+                int izq_w = 0;
+                int der_w = 0;
+                int izq_g = 0;
+                int der_g = 0;
+
+                // First match
+                Referee referee = Referee(10, 5, 125, teamA, teamB, izq, der);
+                string winner = referee.runPlay(IZQUIERDA);
+                izq_g += referee.getScore(IZQUIERDA);
+                der_g += referee.getScore(DERECHA) * 2;
+                if (winner == IZQUIERDA) izq_w++;
+                if (winner == DERECHA) der_w++;
+
+                // Second match
+                Referee referee_2 = Referee(10, 5, 125, teamA, teamB, izq, der);
+                winner = referee_2.runPlay(DERECHA);
+                izq_g += referee_2.getScore(IZQUIERDA) * 2;
+                der_g += referee_2.getScore(DERECHA);
+                if (winner == IZQUIERDA) izq_w++;
+                if (winner == DERECHA) der_w++;
+
+                // Return winner
+                if (izq_w > der_w) return izq;
+                if (izq_w < der_w) return der;
+                if (izq_g > der_g) return izq;
+                if (izq_g < der_g) return der;
+                return izq;
+        }
+
         vector < double > grasp(double distance, bool fast, bool elimination, int amount = 64) {
-            
+            // vector < double > starting
+            // this->reset(1);
+            // this->combinations.push_back(starting);
             this->generate_random_combinations(1);
-            this->local_search(this->combinations[0], distance, fast, elimination);
+            this->local_search(this->combinations[0], distance, fast, elimination, amount);
 
             vector < double > winner = this->get_winner();
             vector < double > old_winner;
@@ -347,9 +394,9 @@ class Tournament {
                 old_winner = winner;
 
                 this->generate_random_combinations(1);
-                this->local_search(this->combinations[0], distance, fast, elimination);
-
-                winner = single_match(old_winner, this->get_winner());
+                this->local_search(this->combinations[0], distance, fast, elimination, amount);
+                
+                winner = home_away_match(old_winner, this->get_winner());
                 iterations++;
                 if (winner == old_winner) {
                     iterations_alive++;
