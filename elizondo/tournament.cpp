@@ -380,7 +380,7 @@ class Tournament {
 
         void update_vector(vector < double >& vec, double distance) {
             for(size_t i = 0; i < vec.size(); i++) {
-                vec[i] = vec[i] + distance;
+                vec[i] = vec[i] + distance >= 0 ? vec[i] + distance : 0;
             }
         }
 
