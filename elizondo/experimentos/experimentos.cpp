@@ -16,6 +16,9 @@ void test_distance_fast_neighbourhood();
 void test_memory_leak();
 void test_grasp_local_search();
 void test_grasp_local_search_less_ties();
+void test_grasp_longrun();
+void winners_grasp_longrun();
+void winners_grasp_longrun_mod();
 
 int main(int argc, char **argv) {
     
@@ -26,10 +29,12 @@ int main(int argc, char **argv) {
     // test_local_search_iterations_10fast_1slow(); // No hay diferencias notables, Listo
     // test_distance(); // Ganó shrinking 3 de 5. Tiene sentido, pero probar más iteraciones
     // test_distance_fast_neighbourhood(); // 16/50 ganó fixed, 34/50 empataron, achicar el radio no ganó nunca 
-    // test_memory_leak(); Listo
-    // test_grasp_local_search(); Listo 
-    // test_grasp_local_search_less_ties(); Listo
-
+    // test_memory_leak(); // Listo
+    // test_grasp_local_search(); // Listo 
+    // test_grasp_local_search_less_ties(); // Listo
+    // test_grasp_longrun(); // Listo
+    // winners_grasp_longrun(); // Listo
+    // winners_grasp_longrun_mod(); // Listo
     return 0;
 }
 
@@ -383,31 +388,31 @@ void test_grasp_local_search() {
         tournament.iterations_alive_cap = 100;
 
         auto local_start = chrono::steady_clock::now();
-        vector < double > local = tournament.local_search(start_solution, 0.05, true, true, 8);
+        // vector < double > local = tournament.local_search(start_solution, 0.05, true, true, 8);
         auto local_end = chrono::steady_clock::now();
         auto local_time = local_end - local_start;
 
         tournament.iterations_cap = 0;
         
         auto grasp_start = chrono::steady_clock::now();
-        vector < double > grasp = tournament.grasp(start_solution, 0.05, true, true, 8);
+        // vector < double > grasp = tournament.grasp(start_solution, 0.05, true, true, 8);
         auto grasp_end = chrono::steady_clock::now();
         auto grasp_time = grasp_end - grasp_start;
 
         int local_wins = 0;
         int grasp_wins = 0;
-        vector < double > winner = tournament.single_match(local, grasp);
-        if (winner == local) {
-            local_wins++;
-        } else {
-            grasp_wins++;
-        }
-        winner = tournament.single_match(grasp, local);
-        if (winner == local) {
-            local_wins++;
-        } else {
-            grasp_wins++;
-        }
+        // vector < double > winner = tournament.single_match(local, grasp);
+        // if (winner == local) {
+        //     local_wins++;
+        // } else {
+        //     grasp_wins++;
+        // }
+        // winner = tournament.single_match(grasp, local);
+        // if (winner == local) {
+        //     local_wins++;
+        // } else {
+        //     grasp_wins++;
+        // }
         if (local_wins < grasp_wins) {
             results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
         } else if (local_wins > grasp_wins) {
@@ -420,92 +425,170 @@ void test_grasp_local_search() {
     results.close();
 }
 
-// void test_grasp_local_search_less_ties() {
-//     string fileName = "test_grasp_local_search_less_ties_distance025_16teams_20iter.txt";
-//     ofstream results;
-//     results.open(fileName, fstream::out);
-//     for (int i = 0; i < 50; i ++) {
-//         Tournament tournament = Tournament(1);
-//         tournament.generate_random_combinations(1);
-//         vector < double > start_solution = tournament.combinations[0];
-//         tournament.iterations_cap = 20;
-//         tournament.iterations_alive_cap = 100;
+void test_grasp_longrun() {
+    Tournament tournament = Tournament(1);
+    tournament.generate_random_combinations(1);
+    tournament.iterations_cap = 500;
+    tournament.iterations_alive_cap = 10;
+    vector < double > grasp = tournament.grasp(0.025, true, true, 32);
+}
 
-//         auto local_start = chrono::steady_clock::now();
-//         vector < double > local = tournament.local_search(start_solution, 0.025, true, true, 16);
-//         auto local_end = chrono::steady_clock::now();
-//         auto local_time = local_end - local_start;
+void winners_grasp_longrun() {
+    Tournament tournament = Tournament(30);
+    tournament.reset(30);
+    tournament.combinations = {
+                                {0.875,0.235,0.975,0.215,0.855,0.385,0.455,0.075,0.095,0.285},
+                                {0.105,0.025,0.05,0.175,0.115,0.575,0.865,0.815,0.775,0.075},
+                                {0.875,1,0.025,0.715,0.675,0.975,0.335,0.075,0.225,0.775},
+                                {0.385,1,0.385,0.205,0.475,0.555,0.535,0.655,0.795,0.295},
+                                {0.245,0.225,0.815,0.615,0.595,0.595,0.415,0.725,0.705,0.265},
+                                {0.595,0.235,0.135,0.735,0.225,0.815,0.555,0.465,0.715,0.195},
+                                {0.875,0.495,0.165,0.955,0.495,0.735,0.285,0.315,0.355,0.125},
+                                {0.495,0.135,0.345,0.855,0.005,0.355,0.545,0.435,0.125,0.455},
+                                {0.375,0.145,0.235,0.445,0.85,0.255,0.915,0.175,0.975,0.425},
+                                {0.605,0.725,0.445,0,0.635,0.825,0.385,0.075,0.875,0.865},
+                                {0.135,0.1,0.055,0.255,0.685,0.935,0.875,0,0.365,0.235},
+                                {0.925,0.525,0.215,0.095,0.355,0.645,0.445,0.705,0.465,0.645},
+                                {0.285,0.915,0.175,0.315,0.865,0.035,0.635,0.855,0.095,0.435},
+                                {0.055,0.335,0.605,0.255,0.475,0.415,0.755,0.385,0.605,0.455},
+                                {0.065,0.425,0.645,0.735,0.755,0.485,0.885,0.285,0.405,0.245},
+                                {0.415,0.315,0.035,0.845,0.925,0.965,0.655,0.675,0.605,0.405},
+                                {0.685,0.875,0.465,0.065,0.385,0.05,0.875,0.935,1,0.925},
+                                {0.4,0.33,0.93,0.47,0.85,0.24,0.57,0.54,0.32,0.88},
+                                {0.565,0.445,0.675,0.95,0.295,0.095,0.525,0.655,0.735,0.845},
+                                {0.745,0.025,0.915,0.745,0.425,0.265,0.195,0.225,0.725,0.205},
+                                {0.655,0.325,0.515,0.835,0.595,0.415,0.295,0.225,0.455,0.205},
+                                {0.725,0.205,0.485,0.745,0.205,0.785,0.825,0.785,0.085,0.145},
+                                {0.875,0.415,0.515,0.435,0.525,0.115,0.315,0,0.555,0.695},
+                                {0.775,0.305,0.675,0.645,0.785,0.425,0.795,0.315,0.715,0.965},
+                                {0.945,0.175,0.625,0.225,0.235,0.885,0.845,0.225,0.235,0.725},
+                                {0.995,0.125,0.805,0.515,0.915,0.855,1,0.755,0.645,0.865},
+                                {0.545,0.365,0.75,0.655,0.935,0.225,0.375,0.275,1,0},
+                                {0.205,0.545,0.695,0.05,0.865,0.345,0.415,0.975,0.395,0.505},
+                                {0,0.77,0.41,0.31,0.85,0.53,0.91,0.12,0.41,0.27},
+                                {0.265,0.565,0.555,0.395,0.855,0.495,0.545,0.735,0.905,1}};
+    for (int i = 0; i < 10; i++) {
+        vector < vector < bool > > ap (30, vector < bool > (30, false));
+        tournament.already_played = ap;
+        tournament.play_tournament();
+    }
+    tournament.print_score_table();
+    cout << "AND THE WINNER IS: " << endl;
+    tournament.print_winner();
+}
 
-//         tournament.iterations_cap = 0;
+void winners_grasp_longrun_mod() {
+    Tournament tournament = Tournament(30);
+    tournament.reset(13);
+    tournament.combinations = {{0.305,0.385,0.215,0.815,0,0.555,0.885,0.385,0.365,0.855},
+                                {0.915,0.705,0,0.785,0.715,0.075,0.835,0.365,0.355,0.755},
+                                {0.375,0.125,0.415,0.935,0.595,0.575,0.785,0.365,0.055,0.325},
+                                {0.295,0.215,0.135,0.05,0.685,0.285,0.165,0,0.545,0.065},
+                                {0.905,0.555,1,0.255,0.085,0.075,0.795,0.355,0.685,0.975},
+                                {1,0.935,0.05,0.045,0.195,0.445,0.625,0.305,0.915,0.05},
+                                {0.915,0.395,0.025,0.025,0.185,0.735,0.675,0.645,0.275,0.135},
+                                {0.805,0.805,0.185,0.235,0,0.095,0.575,0.355,0.375,0.595},
+                                {0.825,0.725,0.075,0.605,0.555,0.955,0.545,0.245,0.485,0.205},
+                                {0.725,0.405,0.745,0.495,0.525,0.425,0.345,0,0.035,0.535},
+                                {0.905,0.285,0.225,0.075,0.625,0.185,0.695,0.215,0.265,0.555},
+                                {0.875,0.275,0.375,0.535,0.975,0.275,0.745,0.535,1,0.845},
+                                {0.925,0.465,0.315,0.835,0.815,0.305,0.545,0.175,0.285,0.645}};
+    for (int i = 0; i < 10; i++) {
+        vector < vector < bool > > ap (13, vector < bool > (13, false));
+        tournament.already_played = ap;
+        tournament.play_tournament();
+    }
+    tournament.print_score_table();
+    cout << "AND THE WINNER IS: " << endl;
+    tournament.print_winner();
+}
+
+void test_grasp_local_search_less_ties() {
+    string fileName = "test_grasp_local_search_less_ties_distance025_16teams_20iter.txt";
+    ofstream results;
+    results.open(fileName, fstream::out);
+    for (int i = 0; i < 50; i ++) {
+        Tournament tournament = Tournament(1);
+        tournament.generate_random_combinations(1);
+        vector < double > start_solution = tournament.combinations[0];
+        tournament.iterations_cap = 20;
+        tournament.iterations_alive_cap = 100;
+
+        auto local_start = chrono::steady_clock::now();
+        // vector < double > local = tournament.local_search(start_solution, 0.025, true, true, 16);
+        auto local_end = chrono::steady_clock::now();
+        auto local_time = local_end - local_start;
+
+        tournament.iterations_cap = 0;
         
-//         auto grasp_start = chrono::steady_clock::now();
-//         vector < double > grasp = tournament.grasp(start_solution, 0.025, true, true, 16);
-//         auto grasp_end = chrono::steady_clock::now();
-//         auto grasp_time = grasp_end - grasp_start;
+        auto grasp_start = chrono::steady_clock::now();
+        // vector < double > grasp = tournament.grasp(start_solution, 0.025, true, true, 16);
+        auto grasp_end = chrono::steady_clock::now();
+        auto grasp_time = grasp_end - grasp_start;
 
-//         int local_wins = 0;
-//         int grasp_wins = 0;
-//         tournament.reset(2);
-//         tournament.combinations.push_back(local);
-//         tournament.combinations.push_back(grasp);
-//         tournament.play_tournament();
+        int local_wins = 0;
+        int grasp_wins = 0;
+        tournament.reset(2);
+        // tournament.combinations.push_back(local);
+        // tournament.combinations.push_back(grasp);
+        tournament.play_tournament();
 
-//         if (tournament.scores[0] < tournament.scores[1]) {
-//             results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-//         } else if (tournament.scores[0] > tournament.scores[1]) {
-//             results << i << ";local;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-//         } else if (tournament.goals[0] < tournament.goals[1]) {
-//             results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-//         } else if (tournament.goals[0] > tournament.goals[1]) {
-//             results << i << ";local;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-//         } else {
-//             results << i << ";tie;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-//         }
-//     }
+        if (tournament.scores[0] < tournament.scores[1]) {
+            results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        } else if (tournament.scores[0] > tournament.scores[1]) {
+            results << i << ";local;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        } else if (tournament.goals[0] < tournament.goals[1]) {
+            results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        } else if (tournament.goals[0] > tournament.goals[1]) {
+            results << i << ";local;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        } else {
+            results << i << ";tie;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        }
+    }
 
-//     results.close();
-// }
+    results.close();
+}
 
-// void test_grasp_criterio_corte() {
-    // string fileName = "test_grasp_criterio_corte.txt";
-    // ofstream results;
-    // results.open(fileName, fstream::out);
-    // for (int i = 0; i < 50; i ++) {
-    //     Tournament tournament = Tournament(1);
-    //     tournament.generate_random_combinations(1);
-    //     vector < double > start_solution = tournament.combinations[0];
-    //     tournament.iterations_cap = 20;
-    //     tournament.iterations_alive_cap = 5;
+void test_grasp_criterio_corte() {
+    string fileName = "test_grasp_criterio_corte.txt";
+    ofstream results;
+    results.open(fileName, fstream::out);
+    for (int i = 0; i < 50; i ++) {
+        Tournament tournament = Tournament(1);
+        tournament.generate_random_combinations(1);
+        vector < double > start_solution = tournament.combinations[0];
+        tournament.iterations_cap = 20;
+        tournament.iterations_alive_cap = 5;
 
-    //     auto local_start = chrono::steady_clock::now();
-    //     vector < double > local = tournament.grasp(0.025, true, true, 64);
-    //     auto local_end = chrono::steady_clock::now();
-    //     auto local_time = local_end - local_start;
+        auto local_start = chrono::steady_clock::now();
+        vector < double > local = tournament.grasp(0.025, true, true, 64);
+        auto local_end = chrono::steady_clock::now();
+        auto local_time = local_end - local_start;
         
-    //     auto grasp_start = chrono::steady_clock::now();
-    //     vector < double > grasp = tournament.grasp(0.025, true, true, 64);
-    //     auto grasp_end = chrono::steady_clock::now();
-    //     auto grasp_time = grasp_end - grasp_start;
+        auto grasp_start = chrono::steady_clock::now();
+        vector < double > grasp = tournament.grasp(0.025, true, true, 64);
+        auto grasp_end = chrono::steady_clock::now();
+        auto grasp_time = grasp_end - grasp_start;
 
-    //     int local_wins = 0;
-    //     int grasp_wins = 0;
-    //     tournament.reset(2);
-    //     tournament.combinations.push_back(local);
-    //     tournament.combinations.push_back(grasp);
-    //     tournament.play_tournament();
+        int local_wins = 0;
+        int grasp_wins = 0;
+        tournament.reset(2);
+        tournament.combinations.push_back(local);
+        tournament.combinations.push_back(grasp);
+        tournament.play_tournament();
 
-    //     if (tournament.scores[0] < tournament.scores[1]) {
-    //         results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-    //     } else if (tournament.scores[0] > tournament.scores[1]) {
-    //         results << i << ";local;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-    //     } else if (tournament.goals[0] < tournament.goals[1]) {
-    //         results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-    //     } else if (tournament.goals[0] > tournament.goals[1]) {
-    //         results << i << ";local;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-    //     } else {
-    //         results << i << ";tie;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
-    //     }
-    // }
+        if (tournament.scores[0] < tournament.scores[1]) {
+            results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        } else if (tournament.scores[0] > tournament.scores[1]) {
+            results << i << ";local;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        } else if (tournament.goals[0] < tournament.goals[1]) {
+            results << i << ";grasp;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        } else if (tournament.goals[0] > tournament.goals[1]) {
+            results << i << ";local;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        } else {
+            results << i << ";tie;" << grasp_time.count() << ";" << local_time.count() << ";" <<  endl;
+        }
+    }
 
-    // results.close();
-// }
+    results.close();
+}
