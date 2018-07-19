@@ -1,0 +1,10 @@
+elimination;2;510.458;
+elimination;4;1356.88;
+elimination;8;2905.27;
+elimination;16;6940.44;
+elimination;32;13796.5;
+elimination;64;28517.3;
+elimination;128;58637.1;
+elimination;256;115932;
+elimination;512;231135;
+elimination;1024;477301;

@@ -1,0 +1,5 @@
+quality;2;same;
+quality;4;diff;tie;
+quality;8;same;
+quality;16;same;
+quality;32;diff;tie;
