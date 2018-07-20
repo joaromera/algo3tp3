@@ -165,7 +165,7 @@ class LogicalBoard {
 
             prob_empty = normalize(prob_ball, prob_empty);
 
-            double random_prob = (rand() % 101) / 100;
+            double random_prob = (rand() % 101) / (double) 100;
 
             if (random_prob <= prob_empty) {
                 p_empty.takeBall(p_ball.ball);
@@ -175,7 +175,7 @@ class LogicalBoard {
 
         void fairFightBall(Player & p1, Player & p2) {
             double prob_p2 = normalize(p1.p_quite, p2.p_quite);
-            double random_prob = (rand() % 101) / 100;
+            double random_prob = (rand() % 101) / (double) 100;
 
             if (random_prob < prob_p2) {
                 p2.takeBall(this->free_ball);
