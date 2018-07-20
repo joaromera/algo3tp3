@@ -127,7 +127,7 @@ class Tournament {
 
         // LIGA DE ELIMINACIÓN DIRECTA, se eliminan de a dos, por lo que en cada iteración se divide a la mitad la cantidad de equipos. también actualiza SCORES.
         void play_leg(vector < pair < vector < double >, int > > combs) {
-            cout << "NOW PLAYING LEG OF " << combs.size() << endl;
+            // cout << "NOW PLAYING LEG OF " << combs.size() << endl;
             vector < pair < vector < double >, int > > winners;
             for (int i = 0; i < combs.size(); i += 2) {
                 vector <player> teamA;
@@ -225,9 +225,9 @@ class Tournament {
             int iterations = 0;
             int iterations_alive = 0;
 
-            while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap) {
+            while (iterations_alive < 5 && iterations < 10) {
                 
-                cout << "NEIGHBOURHOOD: " << iterations << endl;
+                // cout << "NEIGHBOURHOOD: " << iterations << endl;
                 
                 iterations++;
                 old_winner = winner;
@@ -247,9 +247,9 @@ class Tournament {
                 
                 if (winner == old_winner) {
                     iterations_alive++;
-                    cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
+                    // cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
                 } else {
-                    cout << "NEW SOLUTION!!!" << endl;
+                    // cout << "NEW SOLUTION!!!" << endl;
                     iterations_alive = 0;
                 }
             }
@@ -401,6 +401,10 @@ class Tournament {
                 if (winner == old_winner) {
                     iterations_alive++;
                 } else {
+                    for (int i = 0; i < winner.size(); i++) {
+                        cout << winner[i] << " ";
+                    }
+                    cout << endl;
                     iterations_alive = 0;
                 }
 
