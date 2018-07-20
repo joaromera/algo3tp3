@@ -401,10 +401,10 @@ class Tournament {
                 if (winner == old_winner) {
                     iterations_alive++;
                 } else {
-                    for (int i = 0; i < winner.size(); i++) {
-                        cout << winner[i] << " ";
-                    }
-                    cout << endl;
+                    // for (int i = 0; i < winner.size(); i++) {
+                    //     cout << winner[i] << " ";
+                    // }
+                    // cout << endl;
                     iterations_alive = 0;
                 }
 
