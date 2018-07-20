@@ -17,6 +17,7 @@ void test_memory_leak();
 void test_grasp_local_search();
 void test_grasp_local_search_less_ties();
 void test_grasp_longrun();
+void test_grasp_vs_gen();
 void winners_grasp_longrun();
 void winners_grasp_longrun_mod();
 void grasp_vs_gen();
@@ -36,8 +37,26 @@ int main(int argc, char **argv) {
     // test_grasp_longrun(); // Listo
     winners_grasp_longrun(); // Listo
     // winners_grasp_longrun_mod(); // Listo
+<<<<<<< Updated upstream
     // grasp_vs_gen();
+=======
+    // test_grasp_vs_gen();
+>>>>>>> Stashed changes
     return 0;
+}
+
+void test_grasp_vs_gen() {
+    Tournament tournament = Tournament(2);
+    tournament.reset(2);
+    tournament.combinations.push_back({0.64, 0.44, 0.23, 1, 0.4, 0, 0.62, 0.32, 0.29, 0.34});//grasp
+    tournament.combinations.push_back({0.89, 0.35, 0.04, 0.62, 0.03, 0.82, 0.8, 0.02, 0.38, 0.85});//genetic
+    for (int i = 1; i <= 100; i++) {
+        vector < vector < bool > > ap (2, vector < bool > (2, false));
+        tournament.already_played = ap;
+        tournament.play_tournament();
+    }
+    tournament.print_score_table();
+    tournament.print_winner();
 }
 
 void time_allvsall() {
