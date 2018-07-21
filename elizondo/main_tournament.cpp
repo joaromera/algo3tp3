@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
 
 void printAndPlayGraspTournament(int population, double distance, bool fast, bool elimination, int amount, int laps) {
     Tournament tournament = Tournament(population);
-    string file = "results/" + GRASP
+    string file = "experimentos/results/" + GRASP
         + "_" + to_string(population)
         + "_" + to_string(distance*100)
         + "_" + to_string(fast)
@@ -192,7 +192,7 @@ void printAndPlayGraspTournament(int population, double distance, bool fast, boo
 
 void printAndPlayGeneticTournament(int population, bool deterministic, bool elimination, bool crossover, bool fitness, int generations, int laps) {
     Tournament tournament = Tournament(population);
-    string file = "results/" + GENETIC
+    string file = "experimentos/results/" + GENETIC
         + "_" + to_string(population)
         + "_" + to_string(generations)
         + "_" + to_string(deterministic)
@@ -236,7 +236,7 @@ void printAndPlayGeneticTournament(int population, bool deterministic, bool elim
 
 void findBestTeamsAndPlay() {
     vector < vector < double > > combinations;
-    string file = "results/winners.csv";
+    string file = "experimentos/results/winners.csv";
     ofstream results;
     results.open(file, fstream::out);
 
@@ -394,7 +394,7 @@ void testDiferentesGeneticosVariandoGeneracion(int population) {
         cantVictorias[index] = cantVictorias[index] +1;
     }
 
-    string file = "results/geneticos_population_" + to_string(population) + "_victorias_ganadores.csv";
+    string file = "experimentos/results/geneticos_population_" + to_string(population) + "_victorias_ganadores.csv";
     ofstream results;
     results.open(file, fstream::out);
 

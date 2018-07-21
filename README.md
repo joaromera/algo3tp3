@@ -55,4 +55,8 @@ Dicho ejecutable recibe los pesos provenientes de las pruebas y los torneos y es
 
 Dicho ejecutable es estático, provisto por la cátedra, y es consumido por Elizondo.py al momento de jugar un partido con interfaz.
 
+> ./experimentos
+
+En esta subcarpeta se encuentran algunos experimentos realizados y sus resultados
+
 ---

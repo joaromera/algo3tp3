@@ -86,7 +86,7 @@ public:
     }
     
     vector<double> getLoads() {
-        return {0.95, 0.93, 0.39, 0.78, 0.33, 0.15, 0.56, 0.26, 0.62, 0.65};
+        return {0.89, 0.35, 0.04, 0.62, 0.03, 0.82, 0.8, 0.02, 0.38, 0.85};
     }
 
     void get_goal_positions() {
