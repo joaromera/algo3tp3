@@ -51,4 +51,8 @@ Ejecuta un set de algoritmos preconfigurados, tanto ejecuciones de grasp como de
 
 Dicho ejecutable recibe los pesos provenientes de las pruebas y los torneos y es consumido por Elizondo.py al momento de jugar un partido con interfaz.
 
+> ./static_player
+
+Dicho ejecutable es estático, provisto por la cátedra, y es consumido por Elizondo.py al momento de jugar un partido con interfaz.
+
 ---
