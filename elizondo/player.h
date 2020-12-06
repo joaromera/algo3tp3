@@ -1,19 +1,14 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
 #include "board_status.hpp"
 #include "constants.hpp"
 #include "ball.h"
 
-using namespace std;
-
-class Player{
-
-  public:
-
+struct Player
+{
     int id;
     double p_quite;
     tuple<int, int> old_position;
@@ -21,69 +16,78 @@ class Player{
     int j;
     Ball* ball;
 
-    Player(player player) {
-      this->id = player.id;
-      this->p_quite = player.probability;
-      this->old_position = make_tuple(-1, -1);
-      this->ball = nullptr;
-    };
+    Player(const player &player)
+    {
+      id = player.id;
+      p_quite = player.probability;
+      old_position = make_tuple(-1, -1);
+      ball = nullptr;
+    }
 
-    ~Player() {
-      if (this->ball != nullptr) {
+    ~Player()
+    {
+      if (ball != nullptr)
+      {
         delete ball;
       }
-    };
+    }
 
-    Player(int &player_id, double &p_quite) {
-      this->id = player_id;
-      this->p_quite = p_quite;
-      this->old_position = make_tuple(-1, -1);
-      this->ball = nullptr;
-    };
+    Player(const int &pPlayerId, const double &pPQuite)
+    {
+      id = pPlayerId;
+      p_quite = pPQuite;
+      old_position = make_tuple(-1, -1);
+      ball = nullptr;
+    }
 
-    void move(int &direction) {
-      this->old_position = make_tuple(this->i, this->j);
-      this->i += get<0>(moves[direction]);
-      this->j += get<1>(moves[direction]);
+    void move(const int &direction)
+    {
+      old_position = make_tuple(i, j);
+      i += get<0>(moves[direction]);
+      j += get<1>(moves[direction]);
       moveBall();
     }
 
-    void backwardMove(int &direction) {
-      this->old_position = make_tuple(this->i, this->j);
-      this->i -= get<0>(moves[direction]);
-      this->j -= get<1>(moves[direction]);
+    void backwardMove(const int &direction)
+    {
+      old_position = make_tuple(i, j);
+      i -= get<0>(moves[direction]);
+      j -= get<1>(moves[direction]);
       moveBall();
-    };
+    }
 
-    void undoMove() {
-      if (get<0>(this->old_position) != -1 && get<1>(this->old_position) != -1) {
-        this->i = get<0>(this->old_position);
-        this->j = get<1>(this->old_position);
-        this->old_position = make_tuple(-1, -1);
+    void undoMove()
+    {
+      if (get<0>(old_position) != -1 && get<1>(old_position) != -1)
+      {
+        i = get<0>(old_position);
+        j = get<1>(old_position);
+        old_position = make_tuple(-1, -1);
         moveBall();
       }
     }
 
-    void moveBall() {
-      if (this->ball != nullptr) {
-        this->ball->i = this->i;
-        this->ball->j = this->j;
+    void moveBall()
+    {
+      if (ball)
+      {
+        ball->i = i;
+        ball->j = j;
       }
     }
 
-    void takeBall(Ball* ball) {
-      this->ball = ball;
-      this->ball->setMovement(-1, -1);
+    void takeBall(Ball* pBall)
+    {
+      ball = pBall;
+      ball->setMovement(-1, -1);
       moveBall();
     }
 
-    void printPlayer() {
+    void printPlayer()
+    {
       string with_ball = "CON_PELOTA";
       string without_ball = "SIN_PELOTA";
-      string possession = this->ball != nullptr ? with_ball : without_ball;
+      string possession = ball != nullptr ? with_ball : without_ball;
       cout << id << " " << i << " " << j << " " << possession << endl;
     }
-
 };
-
-#endif //PLAYER_H
