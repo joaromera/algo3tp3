@@ -1,6 +1,6 @@
 CXX=g++
 
-STDFLAGS = -std=c++11
+STDFLAGS = -std=c++17 -Wall -Wextra -pedantic
 
 RM=rm -f
 
