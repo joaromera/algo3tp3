@@ -107,8 +107,8 @@ ostream& operator<<(ostream& os, Solution& solution) {
     return os;
 }
 
-int main(int argc, char **argv) {
-
+int main()
+{
     cout.setf(ios::fixed);
 	cout.setf(ios::showpoint);
 	cout.precision(2);

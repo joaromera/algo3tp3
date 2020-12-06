@@ -43,15 +43,15 @@ void test_basic_movements() {
     }
 
     vector<player_move> moves_A = {
-        {0, "MOVIMIENTO", 6},
-        {1, "MOVIMIENTO", 4},
-        {2, "MOVIMIENTO", 5}
+        {0, "MOVIMIENTO", 6, 0},
+        {1, "MOVIMIENTO", 4, 0},
+        {2, "MOVIMIENTO", 5, 0}
     };
 
     vector<player_move> moves_B = {
-        {0, "MOVIMIENTO", 0},
-        {1, "MOVIMIENTO", 7},
-        {2, "MOVIMIENTO", 7}
+        {0, "MOVIMIENTO", 0, 0},
+        {1, "MOVIMIENTO", 7, 0},
+        {2, "MOVIMIENTO", 7, 0}
     };
     
     // Jugador 0 del equipo A está en la posición (0,0)
@@ -130,15 +130,15 @@ void test_ball_is_assigned() {
     board.free_ball = new Ball(3,3);
     
     vector<player_move> moves_A = {
-        {0, "MOVIMIENTO", 0},
-        {1, "MOVIMIENTO", 0},
-        {2, "MOVIMIENTO", 0}
+        {0, "MOVIMIENTO", 0, 0},
+        {1, "MOVIMIENTO", 0, 0},
+        {2, "MOVIMIENTO", 0, 0}
     };
 
     vector<player_move> moves_B = {
-        {0, "MOVIMIENTO", 0},
-        {1, "MOVIMIENTO", 0},
-        {2, "MOVIMIENTO", 0}
+        {0, "MOVIMIENTO", 0, 0},
+        {1, "MOVIMIENTO", 0, 0},
+        {2, "MOVIMIENTO", 0, 0}
     };
     
 

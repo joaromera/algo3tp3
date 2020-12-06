@@ -88,7 +88,7 @@ public:
         std::vector<player_status> initial_positions;
         team.starting_positions(initial_positions);
         send_positions(initial_positions);
-    };
+    }
 
     void play()
     {

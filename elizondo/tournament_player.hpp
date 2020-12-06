@@ -154,7 +154,7 @@ public:
         update_moves(board, made_moves, found_move[0], found_move[1], found_move[2], found_move[3], found_move[4]);
     }
 
-    void finish(string result)
+    void finish(string&)
     {
     }
 
