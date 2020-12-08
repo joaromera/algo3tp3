@@ -122,7 +122,7 @@ public:
     // LIGA DE ELIMINACIÓN DIRECTA, se eliminan de a dos, por lo que en cada iteración se divide a la mitad la cantidad de equipos. también actualiza SCORES.
     void play_leg(const std::vector<std::pair<std::vector<double>, int>> &combs)
     {
-        // cout << "NOW PLAYING LEG OF " << combs.size() << endl;
+        // std::cout << "NOW PLAYING LEG OF " << combs.size() << std::endl;
         std::vector<std::pair<std::vector<double>, int>> winners;
         for (int i = 0; i < combs.size(); i += 2)
         {
@@ -140,7 +140,7 @@ public:
             //Make teams play first match
             Referee referee = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i + 1].first);
             std::string winner = referee.runPlay(IZQUIERDA);
-            // cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee.getScore(DERECHA) << endl;
+            // std::cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee.getScore(DERECHA) << std::endl;
             goals[combs[i].second] += referee.getScore(IZQUIERDA);
             goals[combs[i + 1].second] += referee.getScore(DERECHA);
             int goals_i = referee.getScore(IZQUIERDA);
@@ -152,7 +152,7 @@ public:
             //Make teams play second match
             Referee referee_2 = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i + 1].first);
             winner = referee_2.runPlay(DERECHA);
-            // cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee_2.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee_2.getScore(DERECHA) << endl;
+            // std::cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee_2.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee_2.getScore(DERECHA) << std::endl;
             goals[combs[i].second] += referee_2.getScore(IZQUIERDA);
             goals[combs[i + 1].second] += referee_2.getScore(DERECHA);
             goals_i += referee_2.getScore(IZQUIERDA) * 2;
@@ -241,7 +241,7 @@ public:
 
         while (iterations_alive < 5 && iterations < 10)
         {
-            // cout << "NEIGHBOURHOOD: " << iterations << endl;
+            // std::cout << "NEIGHBOURHOOD: " << iterations << std::endl;
             ++iterations;
             old_winner = winner;
 
@@ -268,11 +268,11 @@ public:
             if (winner == old_winner)
             {
                 ++iterations_alive;
-                // cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
+                // std::cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << std::endl;
             }
             else
             {
-                // cout << "NEW SOLUTION!!!" << endl;
+                // std::cout << "NEW SOLUTION!!!" << std::endl;
                 iterations_alive = 0;
             }
         }
@@ -309,7 +309,7 @@ public:
 
         while (iterations_alive < iterations_alive_cap && iterations < iterations_cap)
         {
-            cout << "NEIGHBOURHOOD: " << iterations << endl;
+            std::cout << "NEIGHBOURHOOD: " << iterations << std::endl;
 
             ++iterations;
             old_winner = winner;
@@ -337,11 +337,11 @@ public:
             if (winner == old_winner)
             {
                 ++iterations_alive;
-                cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << endl;
+                std::cout << "INVICTUS ! ITERATIONS ALIVE: " << iterations_alive << std::endl;
             }
             else
             {
-                cout << "NEW SOLUTION!!!" << endl;
+                std::cout << "NEW SOLUTION!!!" << std::endl;
                 iterations_alive = 0;
             }
 
@@ -448,9 +448,9 @@ public:
             else
             {
                 // for (int i = 0; i < winner.size(); i++) {
-                //     cout << winner[i] << " ";
+                //     std::cout << winner[i] << " ";
                 // }
-                // cout << endl;
+                // std::cout << std::endl;
                 iterations_alive = 0;
             }
 
@@ -530,9 +530,9 @@ public:
         {
             for (int i = 0; i < combination.size(); ++i)
             {
-                cout << combination[i] << " ";
+                std::cout << combination[i] << " ";
             }
-            cout << endl;
+            std::cout << std::endl;
         }
     }
 
@@ -542,9 +542,9 @@ public:
         {
             for (int i = 0; i < combination.size(); ++i)
             {
-                cout << combination[i] << " ";
+                std::cout << combination[i] << " ";
             }
-            cout << endl;
+            std::cout << std::endl;
         }
     }
 
@@ -553,12 +553,12 @@ public:
     {
         for (int i = 0; i < combinations.size(); ++i)
         {
-            cout << "COMBINATION: ";
+            std::cout << "COMBINATION: ";
             for (int j = 0; j < combinations[i].size(); ++j)
             {
-                cout << combinations[i][j] << " ";
+                std::cout << combinations[i][j] << " ";
             }
-            cout << "SCORE: " << scores[i] << " GOALS: " << goals[i] << endl;
+            std::cout << "SCORE: " << scores[i] << " GOALS: " << goals[i] << std::endl;
         }
     }
 
@@ -568,7 +568,7 @@ public:
         ofstream results;
         results.open(file, fstream::out);
 
-        results << "iteration;score;goals;p0;p1;p2;p3;p4;p5;p6;p7;p8;p9" << endl;
+        results << "iteration;score;goals;p0;p1;p2;p3;p4;p5;p6;p7;p8;p9" << std::endl;
 
         for (int i = 0; i < combinations.size(); i++)
         {
@@ -577,7 +577,7 @@ public:
             {
                 results << combinations[i][j] << ";";
             }
-            results << endl;
+            results << std::endl;
         }
 
         results.close();
@@ -590,9 +590,9 @@ public:
         const auto index = it - scores.cbegin();
         for (int i = 0; i < combinations[0].size(); ++i)
         {
-            cout << combinations[index][i] << " ";
+            std::cout << combinations[index][i] << " ";
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 
     // estoy chequeando que todas las combinaciones sean distintas entre sí
@@ -754,7 +754,7 @@ public:
 
     void genetic(int population, bool deterministic, bool elimination, bool crossover_half, bool scores, int generations)
     {
-        cout << "IN GENETIC" << endl;
+        std::cout << "IN GENETIC" << std::endl;
         generational_winners.clear();
         generate_random_combinations(population);
         if (elimination)
@@ -775,7 +775,7 @@ public:
         while (iterations < generations && iterations_alive < iterations_alive_cap)
         {
             old_winner = winner;
-            cout << "ITERATIONS: " << iterations << endl;
+            std::cout << "ITERATIONS: " << iterations << std::endl;
             print_score_table();
             selection(deterministic, scores);
             crossover(population, deterministic, crossover_half);
@@ -807,7 +807,7 @@ public:
         ofstream results;
         results.open(file, fstream::out);
 
-        cout << "IN GENETIC" << endl;
+        std::cout << "IN GENETIC" << std::endl;
 
         generational_winners.clear();
         generate_random_combinations(population);
@@ -827,7 +827,7 @@ public:
         {
             results << winner[j] << ';';
         }
-        results << endl;
+        results << std::endl;
 
         std::vector<double> old_winner;
 
@@ -836,7 +836,7 @@ public:
         while (iterations < generations && iterations_alive < 5)
         {
             old_winner = winner;
-            cout << "ITERATIONS: " << iterations << endl;
+            std::cout << "ITERATIONS: " << iterations << std::endl;
             print_score_table();
             selection(deterministic, scores);
             crossover(population, deterministic, crossover_half);
@@ -864,7 +864,7 @@ public:
             {
                 results << winner[j] << ';';
             }
-            results << endl;
+            results << std::endl;
         }
 
         results.close();
