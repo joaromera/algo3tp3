@@ -1,40 +1,42 @@
-#ifndef BOARD_STATUS
-#define BOARD_STATUS
+#pragma once
 
-struct player {
+struct player
+{
     int id;
     double probability;
 
-    player(int id, double probability): id(id), probability(probability) {}
+    player(int id, double probability) : id(id), probability(probability) {}
 };
 
-struct move {
+struct move
+{
     int number;
     int i;
     int j;
 
-    move(std::initializer_list < int > params) {
+    move(std::initializer_list<int> params)
+    {
         auto it = params.begin();
-        this -> number = * it;
-        ++it;
-        this -> i = * it;
-        ++it;
-        this -> j = * it;
+        number = *(it++);
+        i = *(it++);
+        j = *(it++);
     }
 };
 
-struct player_status {
+struct player_status
+{
     int id;
     int i;
     int j;
     bool in_posetion = false;
 
     player_status() {}
-    player_status(int id): id(id) {}
-    player_status(int id, int i, int j, bool in_posetion): id(id), i(i), j(j), in_posetion(in_posetion) {}
+    player_status(int id) : id(id) {}
+    player_status(int id, int i, int j, bool in_posetion) : id(id), i(i), j(j), in_posetion(in_posetion) {}
 };
 
-struct ball_status {
+struct ball_status
+{
     int i;
     int j;
     int dir;
@@ -42,34 +44,39 @@ struct ball_status {
     bool is_free = false;
 };
 
-struct player_move {
+struct player_move
+{
     int player_id;
     std::string move_type;
     int dir;
     int steps;
 };
 
-struct board_status {
-    std::vector < player_status > team;
-    std::vector < player_status > oponent_team;
+struct board_status
+{
+    std::vector<player_status> team;
+    std::vector<player_status> oponent_team;
     ball_status ball;
 
-    void clear() {
+    void clear()
+    {
         team.clear();
         oponent_team.clear();
         ball.is_free = false;
     }
 };
 
-bool is_neighbor(int & i, int & j,
-    const std::vector < std::tuple < int, int > > & goal) {
-    for (auto c: goal) {
-        if (abs(i - std::get < 0 > (c)) < 2 && abs(j - std::get < 1 > (c)) < 2 && i != std::get < 0 > (c) && j != std::get < 1 > (c)) {
+bool is_neighbor(int &i, int &j, const std::vector<std::tuple<int, int>> &goal)
+{
+    for (const auto &c : goal)
+    {
+        if (abs(i - std::get<0>(c)) < 2 &&
+            abs(j - std::get<1>(c)) < 2 &&
+            i != std::get<0>(c) &&
+            j != std::get<1>(c))
+        {
             return true;
         }
     }
-
     return false;
 }
-
-#endif //BOARD_STATUS
