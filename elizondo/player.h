@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 #include <vector>
 
 #include "board_status.hpp"
@@ -11,7 +12,7 @@ struct Player
 {
     int id;
     double p_quite;
-    tuple<int, int> old_position;
+    std::tuple<int, int> old_position;
     int i;
     int j;
     Ball* ball;
@@ -20,7 +21,7 @@ struct Player
     {
       id = player.id;
       p_quite = player.probability;
-      old_position = make_tuple(-1, -1);
+      old_position = std::make_tuple(-1, -1);
       ball = nullptr;
     }
 
@@ -36,33 +37,33 @@ struct Player
     {
       id = pPlayerId;
       p_quite = pPQuite;
-      old_position = make_tuple(-1, -1);
+      old_position = std::make_tuple(-1, -1);
       ball = nullptr;
     }
 
     void move(const int &direction)
     {
-      old_position = make_tuple(i, j);
-      i += get<0>(moves[direction]);
-      j += get<1>(moves[direction]);
+      old_position = std::make_tuple(i, j);
+      i += std::get<0>(moves[direction]);
+      j += std::get<1>(moves[direction]);
       moveBall();
     }
 
     void backwardMove(const int &direction)
     {
-      old_position = make_tuple(i, j);
-      i -= get<0>(moves[direction]);
-      j -= get<1>(moves[direction]);
+      old_position = std::make_tuple(i, j);
+      i -= std::get<0>(moves[direction]);
+      j -= std::get<1>(moves[direction]);
       moveBall();
     }
 
     void undoMove()
     {
-      if (get<0>(old_position) != -1 && get<1>(old_position) != -1)
+      if (std::get<0>(old_position) != -1 && std::get<1>(old_position) != -1)
       {
-        i = get<0>(old_position);
-        j = get<1>(old_position);
-        old_position = make_tuple(-1, -1);
+        i = std::get<0>(old_position);
+        j = std::get<1>(old_position);
+        old_position = std::make_tuple(-1, -1);
         moveBall();
       }
     }
@@ -85,9 +86,9 @@ struct Player
 
     void printPlayer()
     {
-      string with_ball = "CON_PELOTA";
-      string without_ball = "SIN_PELOTA";
-      string possession = ball != nullptr ? with_ball : without_ball;
-      cout << id << " " << i << " " << j << " " << possession << endl;
+      const std::string with_ball = "CON_PELOTA";
+      const std::string without_ball = "SIN_PELOTA";
+      const std::string possession = ball != nullptr ? with_ball : without_ball;
+      std::cout << id << " " << i << " " << j << " " << possession << std::endl;
     }
 };
