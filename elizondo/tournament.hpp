@@ -10,7 +10,7 @@
 #include "auxiliars.hpp"
 #include "board_status.hpp"
 #include "constants.hpp"
-#include "logical_board.cpp"
+#include "logical_board.hpp"
 #include "referee.cpp"
 
 class heavierThan

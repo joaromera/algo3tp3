@@ -1,6 +1,6 @@
 #include <assert.h>
 
-#include "logical_board.cpp"
+#include "logical_board.hpp"
 #include "board_status.hpp"
 
 using namespace std;

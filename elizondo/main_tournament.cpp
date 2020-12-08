@@ -11,7 +11,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "tournament.cpp"
+#include "tournament.hpp"
 
 using namespace std;
 

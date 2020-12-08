@@ -10,7 +10,7 @@
 #include "auxiliars.hpp"
 #include "board_status.hpp"
 #include "constants.hpp"
-#include "logical_board.cpp"
+#include "logical_board.hpp"
 
 std::random_device rd;
 std::mt19937 generator(rd());

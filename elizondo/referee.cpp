@@ -12,7 +12,7 @@
 #include "board_status.hpp"
 #include "tournament_player.hpp"
 #include "constants.hpp"
-#include "logical_board.cpp"
+#include "logical_board.hpp"
 #include "player.h"
 #include "ball.h"
 
