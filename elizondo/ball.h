@@ -1,92 +1,99 @@
-#ifndef BALL_H
-#define BALL_H
+#pragma once
 
-#include <string>
-#include <random>
-#include <vector>
 #include <map>
+#include <random>
+#include <string>
+#include <vector>
 
 #include "constants.hpp"
 
-using namespace std;
+class Ball
+{
 
-class Ball {
-    
-    public:
-        int i;
-        int j;
-        tuple < int, int > movement;
+public:
+    int i = 0;
+    int j = 0;
+    std::tuple<int, int> movement { -1, -1 };
 
-        Ball() {
-            get<0>(this->movement) = -1;
-            get<1>(this->movement) = -1;
+    Ball()
+    {
+    }
+
+    Ball(const int pI, const int pJ)
+    {
+        i = pI;
+        j = pJ;
+    }
+
+    virtual ~Ball() {}
+
+    void setMovement(const int dir, const int steps)
+    {
+        movement = std::make_tuple(dir, steps);
+    }
+
+    bool isStill()
+    {
+        return std::get<0>(movement) == -1 && std::get<1>(movement) == -1;
+    }
+
+    void move()
+    {
+        if (isStill())
+        {
+            return;
         }
 
-        Ball(int i, int j) {
-            this->i = i;
-            this->j = j;
+        if (std::get<1>(movement) > 0)
+        {
+            const std::pair<int, int> move = moves[std::get<0>(movement)];
+            i += 2 * move.first;
+            j += 2 * move.second;
+            std::get<1>(movement) = std::get<1>(movement) - 1;
+        }
+    }
+
+    std::tuple<int, int> finalPosition()
+    {
+        const std::pair<int, int> move = moves[std::get<0>(movement)];
+        const int steps = 2 * std::get<1>(movement);
+        return { i + steps * move.first, j + steps * move.second };
+    }
+
+    std::vector<std::tuple<int, int>> trajectory()
+    {
+        const std::pair<int, int> move = moves[std::get<0>(movement)];
+        const int steps = 2 * std::get<1>(movement);
+        std::vector<std::tuple<int, int>> trajectory;
+        for (int i = 0; i <= steps; ++i)
+        {
+            trajectory.push_back(std::make_tuple(i + i * move.first, j + i * move.second));
+        }
+        return trajectory;
+    }
+
+    void undoMove()
+    {
+        if (isStill())
+        {
+            return;
         }
 
-        virtual ~Ball() {}
+        const std::pair<int, int> move = moves[std::get<0>(movement)];
+        i -= 2 * move.first;
+        j -= 2 * move.second;
+        std::get<1>(movement) = std::get<1>(movement) + 1;
+    }
 
-        void setMovement(int dir, int steps) {
-            this->movement = make_tuple(dir, steps);
+    void step_back_one()
+    {
+        if (isStill())
+        {
+            return;
         }
 
-        bool isStill() {
-            return get<0>(this->movement) == -1 && get<1>(this->movement) == -1;
-        }
-
-        void move() {
-            if (this->isStill()) {
-                return;
-            }
-
-            if (get<1>(this->movement) > 0) {
-                pair<int,int> move = moves[get<0>(this->movement)];
-                this->i += 2 * move.first;
-                this->j += 2 * move.second;
-                get<1>(this->movement) = get<1>(this->movement) - 1;
-            }
-        }
-
-        tuple<int,int> finalPosition() {
-            pair<int,int> move = moves[get<0>(this->movement)];
-            int steps = 2 * get<1>(this->movement);
-            return make_tuple(this->i + steps * move.first, this->j + steps * move.second);
-        }
-
-        vector< tuple<int,int> > trajectory() {
-            pair<int,int> move = moves[get<0>(this->movement)];
-            int steps = 2 * get<1>(this->movement);
-            vector<tuple<int,int>> trajectory;
-            for(int i = 0; i <= steps; i++) {
-                trajectory.push_back(make_tuple(this->i + this-> i * move.first, this->j + i * move.second));
-            }
-            return trajectory;
-        }
-
-        void undoMove() {
-            if (this->isStill()) {
-                return;
-            }
-
-            pair<int,int> move = moves[get<0>(this->movement)];
-            this->i -= 2 * move.first;
-            this->j -= 2 * move.second;
-            get<1>(this->movement) = get<1>(this->movement) + 1;
-        }
-
-        void step_back_one() {
-            if (this->isStill()) {
-                return;
-            }
-            
-            pair<int,int> move = moves[get<0>(this->movement)];
-            this->i -= move.first;
-            this->j -= move.second;
-        }
-
+        const std::pair<int, int> move = moves[std::get<0>(movement)];
+        i -= move.first;
+        j -= move.second;
+    }
 };
-
-#endif //BALL_H
