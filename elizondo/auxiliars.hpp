@@ -291,13 +291,9 @@ bool in_different_positions(const std::vector<player_status> &team, std::vector<
 
 std::pair<int, int> get_ball_position(const board_status &current_board)
 {
-  int ball_i;
-  int ball_j;
-
   if (current_board.ball.is_free)
   {
-    ball_i = current_board.ball.i;
-    ball_j = current_board.ball.j;
+    return { current_board.ball.i, current_board.ball.j };
   }
   else
   {
@@ -305,8 +301,7 @@ std::pair<int, int> get_ball_position(const board_status &current_board)
     {
       if (p.in_posetion)
       {
-        ball_i = p.i;
-        ball_j = p.j;
+        return { p.i, p.j };
       }
     }
 
@@ -314,13 +309,10 @@ std::pair<int, int> get_ball_position(const board_status &current_board)
     {
       if (p.in_posetion)
       {
-        ball_i = p.i;
-        ball_j = p.j;
+        return { p.i, p.j };
       }
     }
   }
-
-  return { ball_i, ball_j };
 }
 
 double distance_ball_to_opp_goal(ball_status &ball, std::vector<std::pair<int, int>> opponnent_goal)
