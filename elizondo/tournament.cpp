@@ -4,6 +4,7 @@
 #include <iostream>
 #include <queue>
 #include <random>
+#include <utility>
 #include <vector>
 
 #include "auxiliars.hpp"
@@ -15,22 +16,22 @@
 class heavierThan
 {
 public:
-    bool operator()(const pair<vector<double>, int> &a, const pair<vector<double>, int> &b) const
+    bool operator()(const std::pair<std::vector<double>, int> &a, const std::pair<std::vector<double>, int> &b) const
     {
-        return (a.second < b.second);
+        return a.second < b.second;
     }
 };
 
-typedef std::priority_queue<pair<vector<double>, int>, vector<pair<vector<double>, int>>, heavierThan> priorityQueue;
+using priorityQueue = std::priority_queue<std::pair<std::vector<double>, int>, std::vector<std::pair<std::vector<double>, int>>, heavierThan>;
 
 class Tournament
 {
 public:
-    vector<vector<double>> combinations;
-    vector<int> scores;
-    vector<int> goals;
-    vector<vector<bool>> already_played;
-    vector<vector<double>> generational_winners;
+    std::vector<std::vector<double>> combinations;
+    std::vector<int> scores;
+    std::vector<int> goals;
+    std::vector<std::vector<bool>> already_played;
+    std::vector<std::vector<double>> generational_winners;
     int weights_amount = 10;
     int iterations_cap = 5;
     int iterations_alive_cap = 5;
@@ -38,80 +39,80 @@ public:
     Tournament(int candidates)
     {
         srand(time(NULL));
-        vector<vector<bool>> ap(candidates, vector<bool>(candidates, false));
-        this->already_played = ap;
+        std::vector<std::vector<bool>> ap(candidates, std::vector<bool>(candidates, false));
+        already_played = ap;
 
-        vector<int> sc(candidates, 0);
-        this->scores = sc;
+        std::vector<int> sc(candidates, 0);
+        scores = sc;
     }
 
-    // limpia los vectors combinations, scores y already_played e inicializa los 2 últimos en 0.
+    // limpia los std::vectors combinations, scores y already_played e inicializa los 2 últimos en 0.
     void reset(int candidates)
     {
-        this->combinations.clear();
+        combinations.clear();
 
-        vector<vector<bool>> ap(candidates, vector<bool>(candidates, false));
-        this->already_played = ap;
+        std::vector<std::vector<bool>> ap(candidates, std::vector<bool>(candidates, false));
+        already_played = ap;
 
-        vector<int> sc(candidates, 0);
-        this->scores = sc;
+        std::vector<int> sc(candidates, 0);
+        scores = sc;
 
-        vector<int> gs(candidates, 0);
-        this->goals = gs;
+        std::vector<int> gs(candidates, 0);
+        goals = gs;
     }
 
     void reset_scores()
     {
-        int candidates = this->combinations.size();
-        vector<vector<bool>> ap(candidates, vector<bool>(candidates, false));
-        this->already_played = ap;
+        int candidates = combinations.size();
+        std::vector<std::vector<bool>> ap(candidates, std::vector<bool>(candidates, false));
+        already_played = ap;
 
-        vector<int> sc(candidates, 0);
-        this->scores = sc;
+        std::vector<int> sc(candidates, 0);
+        scores = sc;
 
-        vector<int> gs(candidates, 0);
-        this->goals = gs;
+        std::vector<int> gs(candidates, 0);
+        goals = gs;
     }
 
-    // llama a reset y llena this->combinations con vectores de pesos random, para hacer GRASP o para inicializar la población del GENETIC
+    // llama a reset y llena combinations con std::vectores de pesos random, para hacer GRASP o para inicializar la población del GENETIC
     void generate_random_combinations(int candidates)
     {
-        this->reset(candidates);
+        reset(candidates);
         for (int i = 0; i < candidates; i++)
         {
-            vector<double> combination(this->weights_amount, 0);
+            std::vector<double> combination(weights_amount, 0);
             for (int j = 0; j < combination.size(); j++)
             {
                 combination[j] = rand() % 101 / (double)100;
             }
-            this->combinations.push_back(combination);
+            combinations.push_back(combination);
         }
     }
 
-    // devuelve una copia del vector que más puntos hizo en scores
-    vector<double> get_winner()
+    // devuelve una copia del std::vector que más puntos hizo en scores
+    std::vector<double> get_winner()
     {
-        auto it = max_element(this->scores.begin(), this->scores.end());
-        auto index = it - this->scores.begin();
-        return this->combinations[index];
+        auto it = max_element(scores.begin(), scores.end());
+        auto index = it - scores.begin();
+        return combinations[index];
     }
 
     // hace competir todas las combinaciones entre sí, actualiza el puntaje en SCORE y marca los equipos que jugaron en ALREADYPLAYED según índices de COMBINATIONS
     void play_tournament()
     {
-        for (int i = 0; i < this->combinations.size(); i++)
+        for (int i = 0; i < combinations.size(); i++)
         {
-            for (int j = 0; j < this->combinations.size(); j++)
+            for (int j = 0; j < combinations.size(); j++)
             {
                 if (i != j && !already_played[i][j])
                 {
-                    vector<player> teamA;
+                    std::vector<player> teamA;
                     for (int l = 0; l < 3; l++)
                     {
                         player aux = player(l, 0.5);
                         teamA.push_back(aux);
                     }
-                    vector<player> teamB;
+                    std::vector<player> teamB;
                     for (int l = 0; l < 3; l++)
                     {
                         player aux = player(l, 0.5);
@@ -122,42 +123,42 @@ public:
                     Referee referee = Referee(10, 5, 125, teamA, teamB, combinations[i], combinations[j]);
                     string winner = referee.runPlay(IZQUIERDA);
 
-                    this->goals[i] += referee.getScore(IZQUIERDA);
-                    this->goals[j] += referee.getScore(DERECHA);
+                    goals[i] += referee.getScore(IZQUIERDA);
+                    goals[j] += referee.getScore(DERECHA);
 
                     if (winner == IZQUIERDA)
                     {
-                        this->scores[i] += 3;
+                        scores[i] += 3;
                     }
                     else if (winner == DERECHA)
                     {
-                        this->scores[j] += 3;
+                        scores[j] += 3;
                     }
                     else
                     {
-                        this->scores[i] += 1;
-                        this->scores[j] += 1;
+                        scores[i] += 1;
+                        scores[j] += 1;
                     }
-                    this->already_played[i][j] = true;
+                    already_played[i][j] = true;
                 }
             }
         }
     }
 
     // LIGA DE ELIMINACIÓN DIRECTA, se eliminan de a dos, por lo que en cada iteración se divide a la mitad la cantidad de equipos. también actualiza SCORES.
-    void play_leg(vector<pair<vector<double>, int>> combs)
+    void play_leg(std::vector<std::pair<std::vector<double>, int>> combs)
     {
         // cout << "NOW PLAYING LEG OF " << combs.size() << endl;
-        vector<pair<vector<double>, int>> winners;
+        std::vector<std::pair<std::vector<double>, int>> winners;
         for (int i = 0; i < combs.size(); i += 2)
         {
-            vector<player> teamA;
+            std::vector<player> teamA;
             for (int l = 0; l < 3; l++)
             {
                 player aux = player(l, 0.5);
                 teamA.push_back(aux);
             }
-            vector<player> teamB;
+            std::vector<player> teamB;
             for (int l = 0; l < 3; l++)
             {
                 player aux = player(l, 0.5);
@@ -171,8 +172,8 @@ public:
             Referee referee = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i + 1].first);
             string winner = referee.runPlay(IZQUIERDA);
             // cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee.getScore(DERECHA) << endl;
-            this->goals[combs[i].second] += referee.getScore(IZQUIERDA);
-            this->goals[combs[i + 1].second] += referee.getScore(DERECHA);
+            goals[combs[i].second] += referee.getScore(IZQUIERDA);
+            goals[combs[i + 1].second] += referee.getScore(DERECHA);
             int goals_i = referee.getScore(IZQUIERDA);
             int goals_d = referee.getScore(DERECHA) * 2;
 
@@ -183,8 +184,8 @@ public:
             Referee referee_2 = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i + 1].first);
             winner = referee_2.runPlay(DERECHA);
             // cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee_2.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee_2.getScore(DERECHA) << endl;
-            this->goals[combs[i].second] += referee_2.getScore(IZQUIERDA);
-            this->goals[combs[i + 1].second] += referee_2.getScore(DERECHA);
+            goals[combs[i].second] += referee_2.getScore(IZQUIERDA);
+            goals[combs[i + 1].second] += referee_2.getScore(DERECHA);
             goals_i += referee_2.getScore(IZQUIERDA) * 2;
             goals_d += referee_2.getScore(DERECHA);
 
@@ -194,30 +195,30 @@ public:
             // Who passes to next round?
             if (wins_i > wins_d)
             {
-                this->scores[combs[i].second] += 3;
+                scores[combs[i].second] += 3;
                 winners.push_back(combs[i]);
             }
             else if (wins_i < wins_d)
             {
-                this->scores[combs[i + 1].second] += 3;
+                scores[combs[i + 1].second] += 3;
                 winners.push_back(combs[i + 1]);
             }
             else
             {
                 if (goals_i > goals_d)
                 {
-                    this->scores[combs[i].second] += 3;
+                    scores[combs[i].second] += 3;
                     winners.push_back(combs[i]);
                 }
                 else if (goals_i < goals_d)
                 {
-                    this->scores[combs[i + 1].second] += 3;
+                    scores[combs[i + 1].second] += 3;
                     winners.push_back(combs[i + 1]);
                 }
                 else
                 {
-                    this->scores[combs[i].second] += 1;
-                    this->scores[combs[i + 1].second] += 1;
+                    scores[combs[i].second] += 1;
+                    scores[combs[i + 1].second] += 1;
                     winners.push_back(combs[i]);
                 }
             }
@@ -231,11 +232,11 @@ public:
     // Antes de usar PLAY LEG hay que guardar cada combinación con su índice en SCORES
     void elimination_cup()
     {
-        vector<pair<vector<double>, int>> indexed_combs;
-        indexed_combs.reserve(this->combinations.size());
-        for (int i = 0; i < this->combinations.size(); i++)
+        std::vector<std::pair<std::vector<double>, int>> indexed_combs;
+        indexed_combs.reserve(combinations.size());
+        for (int i = 0; i < combinations.size(); i++)
         {
-            indexed_combs.push_back(make_pair(this->combinations[i], i));
+            indexed_combs.push_back(std::make_pair(combinations[i], i));
         }
         play_leg(indexed_combs);
     }
@@ -243,27 +244,27 @@ public:
     // genera los vecinos del input, juega el torneo, guarda el ganador
     // genera los vecinos del ganador, juega el torneo, si es mejor lo reemplaza
     // si no es mejor que el ganador anterior, termina y devuelve el ganador anterior
-    vector<double> local_search(vector<double> vec, double distance, bool fast, bool elimination, int amount = 64)
+    std::vector<double> local_search(std::vector<double> vec, double distance, bool fast, bool elimination, int amount = 64)
     {
         if (fast)
         {
-            this->fast_neighbourhood(vec, distance, amount);
+            fast_neighbourhood(vec, distance, amount);
         }
         else
         {
-            this->neighbourhood(vec, distance);
+            neighbourhood(vec, distance);
         }
         if (elimination)
         {
-            this->elimination_cup();
+            elimination_cup();
         }
         else
         {
-            this->play_tournament();
+            play_tournament();
         }
 
-        vector<double> winner = this->get_winner();
-        vector<double> old_winner;
+        std::vector<double> winner = get_winner();
+        std::vector<double> old_winner;
 
         int iterations = 0;
         int iterations_alive = 0;
@@ -278,22 +279,22 @@ public:
 
             if (fast)
             {
-                this->fast_neighbourhood(old_winner, distance, amount);
+                fast_neighbourhood(old_winner, distance, amount);
             }
             else
             {
-                this->neighbourhood(old_winner, distance);
+                neighbourhood(old_winner, distance);
             }
             if (elimination)
             {
-                this->elimination_cup();
+                elimination_cup();
             }
             else
             {
-                this->play_tournament();
+                play_tournament();
             }
 
-            winner = this->get_winner();
+            winner = get_winner();
 
             if (winner == old_winner)
             {
@@ -310,34 +311,34 @@ public:
         return winner;
     }
 
-    vector<double> shrinking_local_search(vector<double> vec, double distance, bool fast, bool elimination, bool shrink, int amount = 64)
+    std::vector<double> shrinking_local_search(std::vector<double> vec, double distance, bool fast, bool elimination, bool shrink, int amount = 64)
     {
         if (fast)
         {
-            this->fast_neighbourhood(vec, distance, amount);
+            fast_neighbourhood(vec, distance, amount);
         }
         else
         {
-            this->neighbourhood(vec, distance);
+            neighbourhood(vec, distance);
         }
         if (elimination)
         {
-            this->elimination_cup();
+            elimination_cup();
         }
         else
         {
-            this->play_tournament();
+            play_tournament();
         }
 
         if (shrink) distance /= 2;
 
-        vector<double> winner = this->get_winner();
-        vector<double> old_winner;
+        std::vector<double> winner = get_winner();
+        std::vector<double> old_winner;
 
         int iterations = 0;
         int iterations_alive = 0;
 
-        while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap)
+        while (iterations_alive < iterations_alive_cap && iterations < iterations_cap)
         {
 
             cout << "NEIGHBOURHOOD: " << iterations << endl;
@@ -347,22 +348,22 @@ public:
 
             if (fast)
             {
-                this->fast_neighbourhood(old_winner, distance, amount);
+                fast_neighbourhood(old_winner, distance, amount);
             }
             else
             {
-                this->neighbourhood(old_winner, distance);
+                neighbourhood(old_winner, distance);
             }
             if (elimination)
             {
-                this->elimination_cup();
+                elimination_cup();
             }
             else
             {
-                this->play_tournament();
+                play_tournament();
             }
 
-            winner = this->get_winner();
+            winner = get_winner();
 
             if (winner == old_winner)
             {
@@ -381,15 +382,15 @@ public:
     }
 
     // Unico partido devuelve el ganador, o el izq si empatan
-    vector<double> single_match(const vector<double> &izq, const vector<double> &der)
+    std::vector<double> single_match(const std::vector<double> &izq, const std::vector<double> &der)
     {
-        vector<player> teamA;
+        std::vector<player> teamA;
         for (int l = 0; l < 3; l++)
         {
             player aux = player(l, 0.5);
             teamA.push_back(aux);
         }
-        vector<player> teamB;
+        std::vector<player> teamB;
         for (int l = 0; l < 3; l++)
         {
             player aux = player(l, 0.5);
@@ -412,15 +413,15 @@ public:
     // Juegan ida y vuelta. Si hay empatan devuelve el que mas goles hizo
     // si hay empate de goles el que mas hizo empezando sin la pelota
     // si aun asi hay empate, devuelve izq
-    vector<double> home_away_match(const vector<double> &izq, const vector<double> &der)
+    std::vector<double> home_away_match(const std::vector<double> &izq, const std::vector<double> &der)
     {
-        vector<player> teamA;
+        std::vector<player> teamA;
         for (int l = 0; l < 3; l++)
         {
             player aux = player(l, 0.5);
             teamA.push_back(aux);
         }
-        vector<player> teamB;
+        std::vector<player> teamB;
         for (int l = 0; l < 3; l++)
         {
             player aux = player(l, 0.5);
@@ -456,16 +457,16 @@ public:
         return izq;
     }
 
-    vector<double> grasp(double distance, bool fast, bool elimination, int amount = 64)
+    std::vector<double> grasp(double distance, bool fast, bool elimination, int amount = 64)
     {
-        // vector < double > starting
-        // this->reset(1);
-        // this->combinations.push_back(starting);
-        this->generate_random_combinations(1);
-        this->local_search(this->combinations[0], distance, fast, elimination, amount);
+        // std::vector < double > starting
+        // reset(1);
+        // combinations.push_back(starting);
+        generate_random_combinations(1);
+        local_search(combinations[0], distance, fast, elimination, amount);
 
-        vector<double> winner = this->get_winner();
-        vector<double> old_winner;
+        std::vector<double> winner = get_winner();
+        std::vector<double> old_winner;
 
         int iterations = 0;
         int iterations_alive = 0;
@@ -474,10 +475,10 @@ public:
         {
             old_winner = winner;
 
-            this->generate_random_combinations(1);
-            this->local_search(this->combinations[0], distance, fast, elimination, amount);
+            generate_random_combinations(1);
+            local_search(combinations[0], distance, fast, elimination, amount);
 
-            winner = home_away_match(old_winner, this->get_winner());
+            winner = home_away_match(old_winner, get_winner());
             iterations++;
             if (winner == old_winner)
             {
@@ -492,17 +493,17 @@ public:
                 iterations_alive = 0;
             }
 
-        } while (iterations_alive < this->iterations_alive_cap && iterations < this->iterations_cap);
+        } while (iterations_alive < iterations_alive_cap && iterations < iterations_cap);
 
         return winner;
     }
 
     // helper de neighbourhood
-    void neighbourhood_recursive(vector<double> vec1, int index, double distance)
+    void neighbourhood_recursive(std::vector<double> vec1, int index, double distance)
     {
         if (index < vec1.size())
         {
-            vector<double> new_vec = vec1;
+            std::vector<double> new_vec = vec1;
             new_vec[index] += distance;
             if (new_vec[index] > 1) new_vec[index] = 1;
             if (new_vec[index] < 0) new_vec[index] = 0;
@@ -513,11 +514,11 @@ public:
         }
         else if (index == vec1.size())
         {
-            this->combinations.push_back(vec1);
+            combinations.push_back(vec1);
         }
     }
 
-    void update_vector(vector<double> &vec, double distance)
+    void update_vector(std::vector<double> &vec, double distance)
     {
         for (size_t i = 0; i < vec.size(); i++)
         {
@@ -525,25 +526,25 @@ public:
         }
     }
 
-    // genera vecindario recursivamente. llama a reset y sobrescribe this->combinations con los vecinos de vec. todas las combinaciones sumando y restando distance
-    void neighbourhood(vector<double> vec, double distance)
+    // genera vecindario recursivamente. llama a reset y sobrescribe combinations con los vecinos de vec. todas las combinaciones sumando y restando distance
+    void neighbourhood(std::vector<double> vec, double distance)
     {
         int size = pow(2, vec.size());
-        this->reset(size);
-        vector<double> lower_values = vec;
+        reset(size);
+        std::vector<double> lower_values = vec;
         update_vector(lower_values, -1.0 * distance);
-        this->neighbourhood_recursive(lower_values, 0, distance * 2);
+        neighbourhood_recursive(lower_values, 0, distance * 2);
     }
 
-    // genera 64 vecinos a partir de un vector de entrada, suma o resta distance
-    void fast_neighbourhood(vector<double> comb, double distance, int amount)
+    // genera 64 vecinos a partir de un std::vector de entrada, suma o resta distance
+    void fast_neighbourhood(std::vector<double> comb, double distance, int amount)
     {
-        this->reset(amount);
-        this->combinations.push_back(comb);
+        reset(amount);
+        combinations.push_back(comb);
         for (int i = 0; i < amount - 1; i++)
         {
-            vector<double> neighbour(10, 0);
-            for (int j = 0; j < this->weights_amount; j++)
+            std::vector<double> neighbour(10, 0);
+            for (int j = 0; j < weights_amount; j++)
             {
                 int chance = rand() % 101;
                 if (chance < 50)
@@ -557,14 +558,14 @@ public:
                     if (neighbour[j] < 0) neighbour[j] = 0;
                 }
             }
-            this->combinations.push_back(neighbour);
+            combinations.push_back(neighbour);
         }
     }
 
-    // imprime todos los vectores en combinations
+    // imprime todos los std::vectores en combinations
     void print_combinations()
     {
-        for (auto combination : this->combinations)
+        for (auto combination : combinations)
         {
             for (int i = 0; i < combination.size(); i++)
             {
@@ -576,7 +577,7 @@ public:
 
     void print_gen_winners()
     {
-        for (auto combination : this->generational_winners)
+        for (auto combination : generational_winners)
         {
             for (int i = 0; i < combination.size(); i++)
             {
@@ -589,14 +590,14 @@ public:
     // imprime la tabla con los puntos de cada combinacion
     void print_score_table()
     {
-        for (int i = 0; i < this->combinations.size(); i++)
+        for (int i = 0; i < combinations.size(); i++)
         {
             cout << "COMBINATION: ";
             for (int j = 0; j < combinations[i].size(); j++)
             {
                 cout << combinations[i][j] << " ";
             }
-            cout << "SCORE: " << this->scores[i] << " GOALS: " << this->goals[i] << endl;
+            cout << "SCORE: " << scores[i] << " GOALS: " << goals[i] << endl;
         }
     }
 
@@ -609,9 +610,9 @@ public:
 
         results << "iteration;score;goals;p0;p1;p2;p3;p4;p5;p6;p7;p8;p9" << endl;
 
-        for (int i = 0; i < this->combinations.size(); i++)
+        for (int i = 0; i < combinations.size(); i++)
         {
-            results << i << ";" << this->scores[i] << ";" << this->goals[i] << ";";
+            results << i << ";" << scores[i] << ";" << goals[i] << ";";
             for (int j = 0; j < combinations[i].size(); j++)
             {
                 results << combinations[i][j] << ";";
@@ -622,12 +623,12 @@ public:
         results.close();
     }
 
-    // imprime el vector con más puntos según score
+    // imprime el std::vector con más puntos según score
     void print_winner()
     {
-        auto it = max_element(this->scores.begin(), this->scores.end());
-        auto index = it - this->scores.begin();
-        for (int i = 0; i < this->combinations[0].size(); i++)
+        auto it = max_element(scores.begin(), scores.end());
+        auto index = it - scores.begin();
+        for (int i = 0; i < combinations[0].size(); i++)
         {
             cout << combinations[index][i] << " ";
         }
@@ -637,14 +638,14 @@ public:
     // estoy chequeando que todas las combinaciones sean distintas entre sí
     void check_comb()
     {
-        cout << this->combinations.size() << endl;
-        for (int i = 0; i < this->combinations.size(); i++)
+        cout << combinations.size() << endl;
+        for (int i = 0; i < combinations.size(); i++)
         {
-            for (int j = 0; j < this->combinations.size(); j++)
+            for (int j = 0; j < combinations.size(); j++)
             {
                 if (i != j)
                 {
-                    if (this->combinations[i] == this->combinations[j])
+                    if (combinations[i] == combinations[j])
                     {
                         cout << "IGUALES" << endl;
                     }
@@ -653,9 +654,9 @@ public:
         }
     }
 
-    vector<double> crossover_half(const vector<double> &parent_A, const vector<double> &parent_B)
+    std::vector<double> crossover_half(const std::vector<double> &parent_A, const std::vector<double> &parent_B)
     {
-        vector<double> child;
+        std::vector<double> child;
         for (int i = 0; i < 3; i++)
         {
             child.push_back(parent_A[i]);
@@ -683,9 +684,9 @@ public:
         return child;
     }
 
-    vector<double> crossover_random(const vector<double> &parent_A, const vector<double> &parent_B)
+    std::vector<double> crossover_random(const std::vector<double> &parent_A, const std::vector<double> &parent_B)
     {
-        vector<double> child;
+        std::vector<double> child;
         for (int i = 0; i < parent_A.size(); i++)
         {
             if (rand() % 101 < 50)
@@ -704,22 +705,22 @@ public:
         return child;
     }
 
-    void crossover(int population, bool deterministic, bool crossover_half)
+    void crossover(int pPopulation, bool pDeterministic, bool pCrossoverHalf)
     {
-        int size = this->combinations.size();
-        if (deterministic)
+        int size = combinations.size();
+        if (pDeterministic)
         {
             for (int i = 0; i < size - 1; i += 2)
             {
-                if (crossover_half)
+                if (pCrossoverHalf)
                 {
-                    this->combinations.push_back(this->crossover_half(this->combinations[i], this->combinations[i + 1]));
-                    this->combinations.push_back(this->crossover_half(this->combinations[i + 1], this->combinations[i]));
+                    combinations.push_back(crossover_half(combinations[i], combinations[i + 1]));
+                    combinations.push_back(crossover_half(combinations[i + 1], combinations[i]));
                 }
                 else
                 {
-                    this->combinations.push_back(this->crossover_random(this->combinations[i], this->combinations[i + 1]));
-                    this->combinations.push_back(this->crossover_random(this->combinations[i + 1], this->combinations[i]));
+                    combinations.push_back(crossover_random(combinations[i], combinations[i + 1]));
+                    combinations.push_back(crossover_random(combinations[i + 1], combinations[i]));
                 }
             }
         }
@@ -729,62 +730,62 @@ public:
             int parent_B = 1;
             if (size == 1) parent_B = 0;
             int parents = size;
-            while (size < population)
+            while (size < pPopulation)
             {
-                if (crossover_half)
+                if (pCrossoverHalf)
                 {
-                    this->combinations.push_back(this->crossover_half(this->combinations[parent_A], this->combinations[parent_B]));
-                    this->combinations.push_back(this->crossover_half(this->combinations[parent_B], this->combinations[parent_A]));
+                    combinations.push_back(crossover_half(combinations[parent_A], combinations[parent_B]));
+                    combinations.push_back(crossover_half(combinations[parent_B], combinations[parent_A]));
                 }
                 else
                 {
-                    this->combinations.push_back(this->crossover_random(this->combinations[parent_A], this->combinations[parent_B]));
-                    this->combinations.push_back(this->crossover_random(this->combinations[parent_B], this->combinations[parent_A]));
+                    combinations.push_back(crossover_random(combinations[parent_A], combinations[parent_B]));
+                    combinations.push_back(crossover_random(combinations[parent_B], combinations[parent_A]));
                 }
                 parent_A = (parent_A + 1) % parents;
                 parent_B = (parent_B + 1) % parents;
                 size += 2;
             }
-            if (size > population) this->combinations.pop_back();
+            if (size > pPopulation) combinations.pop_back();
         }
     }
 
-    void selection(bool deterministic, bool scores)
+    void selection(bool pDeterministic, bool pScores)
     {
         priorityQueue ranking;
-        for (int i = 0; i < this->combinations.size(); i++)
+        for (int i = 0; i < combinations.size(); i++)
         {
-            if (scores)
+            if (pScores)
             {
-                ranking.push(make_pair(this->combinations[i], this->scores[i]));// FITNESS POR PUNTOS EN TABLA
+                ranking.push(std::make_pair(combinations[i], scores[i]));// FITNESS POR PUNTOS EN TABLA
             }
             else
             {
-                ranking.push(make_pair(this->combinations[i], this->goals[i]));// FITNESS POR CANTIDAD DE GOLES
+                ranking.push(std::make_pair(combinations[i], goals[i]));// FITNESS POR CANTIDAD DE GOLES
             }
         }
-        if (deterministic)
+        if (pDeterministic)
         {
-            int new_size = this->combinations.size() / 2;
-            this->reset(this->combinations.size());
+            int new_size = combinations.size() / 2;
+            reset(combinations.size());
             for (int i = 0; i < new_size; i++)
             {
-                this->combinations.push_back(ranking.top().first);
+                combinations.push_back(ranking.top().first);
                 ranking.pop();
             }
         }
         else
         {
             double max_score = ranking.top().second;
-            int new_size = this->combinations.size() / 2;
-            this->reset(this->combinations.size());
-            while (this->combinations.size() < new_size && ranking.size() > 0)
+            int new_size = combinations.size() / 2;
+            reset(combinations.size());
+            while (combinations.size() < new_size && ranking.size() > 0)
             {
                 double probability = ranking.top().second / max_score;
                 double chance = rand() % 101 / (double)100;
                 if (chance < probability)
                 {
-                    this->combinations.push_back(ranking.top().first);
+                    combinations.push_back(ranking.top().first);
                 }
                 ranking.pop();
             }
@@ -794,40 +795,40 @@ public:
     void genetic(int population, bool deterministic, bool elimination, bool crossover_half, bool scores, int generations)
     {
         cout << "IN GENETIC" << endl;
-        this->generational_winners.clear();
-        this->generate_random_combinations(population);
+        generational_winners.clear();
+        generate_random_combinations(population);
         if (elimination)
         {
-            this->elimination_cup();
+            elimination_cup();
         }
         else
         {
-            this->play_tournament();
+            play_tournament();
         }
 
-        vector<double> winner = this->get_winner();
-        this->generational_winners.push_back(winner);
-        vector<double> old_winner;
+        std::vector<double> winner = get_winner();
+        generational_winners.push_back(winner);
+        std::vector<double> old_winner;
 
         int iterations_alive = 0;
         int iterations = 0;
-        while (iterations < generations && iterations_alive < this->iterations_alive_cap)
+        while (iterations < generations && iterations_alive < iterations_alive_cap)
         {
             old_winner = winner;
             cout << "ITERATIONS: " << iterations << endl;
-            this->print_score_table();
-            this->selection(deterministic, scores);
-            this->crossover(population, deterministic, crossover_half);
+            print_score_table();
+            selection(deterministic, scores);
+            crossover(population, deterministic, crossover_half);
             if (elimination)
             {
-                this->elimination_cup();
+                elimination_cup();
             }
             else
             {
-                this->play_tournament();
+                play_tournament();
             }
-            winner = this->get_winner();
-            this->generational_winners.push_back(winner);
+            winner = get_winner();
+            generational_winners.push_back(winner);
             if (winner == old_winner)
             {
                 iterations_alive++;
@@ -840,7 +841,7 @@ public:
         }
     }
 
-    vector<double> genetic_test(string name, int population, bool elimination, bool deterministic, bool crossover_half, bool scores, int generations)
+    std::vector<double> genetic_test(string name, int population, bool elimination, bool deterministic, bool crossover_half, bool scores, int generations)
     {
 
         string file = "results/" + name + ".csv";
@@ -849,19 +850,19 @@ public:
 
         cout << "IN GENETIC" << endl;
 
-        this->generational_winners.clear();
-        this->generate_random_combinations(population);
+        generational_winners.clear();
+        generate_random_combinations(population);
 
         if (elimination)
         {
-            this->elimination_cup();
+            elimination_cup();
         }
         else
         {
-            this->play_tournament();
+            play_tournament();
         }
 
-        vector<double> winner = this->get_winner();
+        std::vector<double> winner = get_winner();
 
         for (int j = 0; j < winner.size(); ++j)
         {
@@ -869,7 +870,7 @@ public:
         }
         results << endl;
 
-        vector<double> old_winner;
+        std::vector<double> old_winner;
 
         int iterations_alive = 1;
         int iterations = 0;
@@ -877,19 +878,19 @@ public:
         {
             old_winner = winner;
             cout << "ITERATIONS: " << iterations << endl;
-            this->print_score_table();
-            this->selection(deterministic, scores);
-            this->crossover(population, deterministic, crossover_half);
+            print_score_table();
+            selection(deterministic, scores);
+            crossover(population, deterministic, crossover_half);
             if (elimination)
             {
-                this->elimination_cup();
+                elimination_cup();
             }
             else
             {
-                this->play_tournament();
+                play_tournament();
             }
-            winner = this->get_winner();
-            this->generational_winners.push_back(winner);
+            winner = get_winner();
+            generational_winners.push_back(winner);
             if (winner == old_winner)
             {
                 iterations_alive++;
