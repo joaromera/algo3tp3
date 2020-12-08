@@ -83,7 +83,7 @@ std::pair<int, int> get_ball_position(const board_status &current_board)
 
 int distance_player_ball(const board_status &current_board, const player_status &player)
 {
-  auto [ball_i, ball_j] = get_ball_position(current_board);
+  const auto [ball_i, ball_j] = get_ball_position(current_board);
 
   const int di1 = distance(player.i, player.j, ball_i, ball_j);
   const int di2 = distance(player.i, player.j, ball_i, ball_j);
@@ -109,8 +109,7 @@ double distance_player_closest_opponnent(const board_status &current_board, cons
 
 bool is_in_same_rect(int pos_i, int pos_j, int goal_row, int a, const std::vector<std::pair<int, int>> &opponnent_goal)
 {
-  // y = a*x => y - a*x = 0
-  // a puede ser 1 o -1
+  // y = a*x => y - a*x = 0, a puede ser 1 o -1
   return opponnent_goal[goal_row].first - a * opponnent_goal[goal_row].second == pos_i - a * pos_j;
 }
 
@@ -123,9 +122,9 @@ bool closer_to_opponent_goal(int player_j, int opp_player_j, const std::vector<s
 bool opponents_blocking_goal(const board_status &current_board, player_status player, int goal_row, int a, std::vector<std::pair<int, int>> opponnent_goal)
 {
   bool is_in_between = false;
-  for (auto opp_p : current_board.oponent_team)
+  for (const auto &opp_p : current_board.oponent_team)
   {
-    is_in_between = is_in_between || (is_in_same_rect(opp_p.i, opp_p.j, goal_row, a, opponnent_goal) && !closer_to_opponent_goal(player.j, opp_p.j, opponnent_goal));
+    is_in_between |= (is_in_same_rect(opp_p.i, opp_p.j, goal_row, a, opponnent_goal) && !closer_to_opponent_goal(player.j, opp_p.j, opponnent_goal));
   }
   return is_in_between;
 }
@@ -143,18 +142,13 @@ double distance_ball_opponnent_goal(const board_status &current_board, const std
 
 bool moving_towards_goal(const ball_status &ball, int a, const std::vector<std::pair<int, int>> &opponnent_goal)
 {
-  bool is_moving_ok = false;
   if (opponnent_goal[0].second == -1)
   {
     // arco rival en columna -1
-    is_moving_ok = (a == -1 && ball.dir == 1) || (a == 0 && ball.dir == 8) || (a == 1 && ball.dir == 7);
+    return (a == -1 && ball.dir == 1) || (a == 0 && ball.dir == 8) || (a == 1 && ball.dir == 7);
   }
-  else
-  {
     // arco rival en ultima columna
-    is_moving_ok = (a == -1 && ball.dir == 5) || (a == 0 && ball.dir == 4) || (a == 1 && ball.dir == 3);
-  }
-  return is_moving_ok;
+  return (a == -1 && ball.dir == 5) || (a == 0 && ball.dir == 4) || (a == 1 && ball.dir == 3);
 }
 
 bool has_kicked_to_goal(const board_status &board, std::vector<std::pair<int, int>> &opponnent_goal)
@@ -164,24 +158,26 @@ bool has_kicked_to_goal(const board_status &board, std::vector<std::pair<int, in
 
   for (int goal_row = 0; goal_row < 3; goal_row++)
   {
-    has_goal_direction = has_goal_direction || (is_in_same_rect(ball.i, ball.j, goal_row, -1, opponnent_goal) && moving_towards_goal(ball, -1, opponnent_goal));
-    has_goal_direction = has_goal_direction || (is_in_same_rect(ball.i, ball.j, goal_row, 0, opponnent_goal) && moving_towards_goal(ball, 0, opponnent_goal));
-    has_goal_direction = has_goal_direction || (is_in_same_rect(ball.i, ball.j, goal_row, 1, opponnent_goal) && moving_towards_goal(ball, 1, opponnent_goal));
+    has_goal_direction |= (is_in_same_rect(ball.i, ball.j, goal_row, -1, opponnent_goal) && moving_towards_goal(ball, -1, opponnent_goal));
+    has_goal_direction |= (is_in_same_rect(ball.i, ball.j, goal_row, 0, opponnent_goal) && moving_towards_goal(ball, 0, opponnent_goal));
+    has_goal_direction |= (is_in_same_rect(ball.i, ball.j, goal_row, 1, opponnent_goal) && moving_towards_goal(ball, 1, opponnent_goal));
   }
+
   return has_goal_direction;
 }
 
 bool can_kick_to_goal(const board_status &current_board, player_status player, std::vector<std::pair<int, int>> &opponnent_goal)
 {
   bool can_kick = false;
+
   for (int goal_row = 0; goal_row < 3; goal_row++)
   {
     // esta en diagonal al arco
-    can_kick = can_kick || (is_in_same_rect(player.i, player.j, goal_row, -1, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, -1, opponnent_goal));
+    can_kick |= (is_in_same_rect(player.i, player.j, goal_row, -1, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, -1, opponnent_goal));
     // esta derecho al arco
-    can_kick = can_kick || (is_in_same_rect(player.i, player.j, goal_row, 0, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, 0, opponnent_goal));
+    can_kick |= (is_in_same_rect(player.i, player.j, goal_row, 0, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, 0, opponnent_goal));
     // esta en diagonal al arco
-    can_kick = can_kick || (is_in_same_rect(player.i, player.j, goal_row, 1, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, 1, opponnent_goal));
+    can_kick |= (is_in_same_rect(player.i, player.j, goal_row, 1, opponnent_goal) && !opponents_blocking_goal(current_board, player, goal_row, 1, opponnent_goal));
   }
 
   return can_kick;
@@ -204,8 +200,8 @@ bool is_valid_kick(const player_status &player, int dir, int steps, int rows, in
 {
   bool isValid = false;
 
-  int i = player.i + (moves[dir].first * 2) * steps;
-  int j = player.j + (moves[dir].second * 2) * steps;
+  const int i = player.i + (moves[dir].first * 2) * steps;
+  const int j = player.j + (moves[dir].second * 2) * steps;
 
   if (position_is_in_board(i, j, rows, columns))
   {
@@ -219,12 +215,13 @@ bool is_valid_kick(const player_status &player, int dir, int steps, int rows, in
       isValid = true;
     }
   }
+
   return isValid;
 }
 
 int calculate_max_steps(const player_status &player, int dir, int rows, int columns, std::vector<std::pair<int, int>> opponnent_goal)
 {
-  int middle_row = rows / 2;
+  const int middle_row = rows / 2;
   int steps = 0;
 
   for (int k = 0; k <= middle_row; k++)
@@ -240,12 +237,12 @@ int calculate_max_steps(const player_status &player, int dir, int rows, int colu
 
 bool inside_board(const player_status &player, int dir, std::vector<std::pair<int, int>> opponnent_goal, int rows, int columns)
 {
-  int i = player.i + moves[dir].first;
-  int j = player.j + moves[dir].second;
+  const int i = player.i + moves[dir].first;
+  const int j = player.j + moves[dir].second;
 
   if (player.in_posetion)
   {
-    for (auto g : opponnent_goal)
+    for (const auto &g : opponnent_goal)
     {
       if (g.first == i && g.second == j) return true;
     }
