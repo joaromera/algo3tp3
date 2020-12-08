@@ -66,7 +66,7 @@ public:
     // devuelve una copia del std::vector que más puntos hizo en scores
     std::vector<double> get_winner() const
     {
-        const auto it = max_element(scores.cbegin(), scores.cend());
+        const auto it = std::max_element(scores.cbegin(), scores.cend());
         const auto index = it - scores.begin();
         return combinations[index];
     }
@@ -74,24 +74,14 @@ public:
     // hace competir todas las combinaciones entre sí, actualiza el puntaje en SCORE y marca los equipos que jugaron en ALREADYPLAYED según índices de COMBINATIONS
     void play_tournament()
     {
-        for (int i = 0; i < combinations.size(); i++)
+        for (int i = 0; i < combinations.size(); ++i)
         {
-            for (int j = 0; j < combinations.size(); j++)
+            for (int j = 0; j < combinations.size(); ++j)
             {
                 if (i != j && !already_played[i][j])
                 {
-                    std::vector<player> teamA;
-                    for (int l = 0; l < 3; l++)
-                    {
-                        player aux = player(l, 0.5);
-                        teamA.push_back(aux);
-                    }
-                    std::vector<player> teamB;
-                    for (int l = 0; l < 3; l++)
-                    {
-                        player aux = player(l, 0.5);
-                        teamB.push_back(aux);
-                    }
+                    std::vector<player> teamA = generate_team();
+                    std::vector<player> teamB = generate_team();
 
                     //Make teams play
                     Referee referee = Referee(10, 5, 125, teamA, teamB, combinations[i], combinations[j]);
@@ -126,13 +116,8 @@ public:
         std::vector<std::pair<std::vector<double>, int>> winners;
         for (int i = 0; i < combs.size(); i += 2)
         {
-            std::vector<player> teamA;
-            std::vector<player> teamB;
-            for (int l = 0; l < 3; ++l)
-            {
-                teamA.emplace_back(l, 0.5);
-                teamB.emplace_back(l, 0.5);
-            }
+            std::vector<player> teamA = generate_team();
+            std::vector<player> teamB = generate_team();
 
             int wins_i = 0;
             int wins_d = 0;
@@ -353,14 +338,8 @@ public:
     // Unico partido devuelve el ganador, o el izq si empatan
     std::vector<double> single_match(const std::vector<double> &izq, const std::vector<double> &der)
     {
-        std::vector<player> teamA;
-        std::vector<player> teamB;
-
-        for (int l = 0; l < 3; l++)
-        {
-            teamA.emplace_back(l, 0.5);
-            teamB.emplace_back(l, 0.5);
-        }
+        std::vector<player> teamA = generate_team();
+        std::vector<player> teamB = generate_team();
 
         Referee referee = Referee(10, 5, 125, teamA, teamB, izq, der);
         const std::string winner = referee.runPlay(IZQUIERDA);
@@ -380,14 +359,8 @@ public:
     // si aun asi hay empate, devuelve izq
     std::vector<double> home_away_match(const std::vector<double> &izq, const std::vector<double> &der)
     {
-        std::vector<player> teamA;
-        std::vector<player> teamB;
-
-        for (int l = 0; l < 3; l++)
-        {
-            teamA.emplace_back(l, 0.5);
-            teamB.emplace_back(l, 0.5);
-        }
+        std::vector<player> teamA = generate_team();
+        std::vector<player> teamB = generate_team();
 
         int izq_w = 0;
         int der_w = 0;
@@ -885,6 +858,18 @@ public:
     std::vector<int>& get_scores()
     {
         return scores;
+    }
+
+    std::vector<player> generate_team() const
+    {
+        std::vector<player> team;
+
+        for (int l = 0; l < 3; ++l)
+        {
+            team.emplace_back(l, 0.5);
+        }
+
+        return team;
     }
 
 private:
