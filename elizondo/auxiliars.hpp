@@ -8,13 +8,11 @@
 #include "board_status.hpp"
 #include "constants.hpp"
 
-using namespace std;
-
 double distance(int from_i, int from_j, int to_i, int to_j)
 {
   const double x = static_cast<double>(from_i) - static_cast<double>(to_i);
   const double y = static_cast<double>(from_j) - static_cast<double>(to_j);
-  return sqrt(pow(x, 2) + pow(y, 2));
+  return std::sqrt(pow(x, 2) + pow(y, 2));
 }
 
 double distance_player_opponnent_goal(const player_status &player, const std::vector<std::pair<int, int>> &opponnent_goal)
@@ -92,7 +90,7 @@ int distance_player_ball(const board_status &current_board, const player_status 
   int di2 = distance(player.i, player.j, ball_i, ball_j);
   int di3 = distance(player.i, player.j, ball_i, ball_j);
 
-  return min(di1, min(di2, di3));
+  return std::min(di1, std::min(di2, di3));
 }
 
 double distance_player_closest_opponnent(const board_status &current_board, const player_status &player)
@@ -168,7 +166,7 @@ double distance_ball_opponnent_goal(const board_status &current_board, const std
   const double di2 = distance(ball_i, ball_j, opponnent_goal[1].first, opponnent_goal[1].second);
   const double di3 = distance(ball_i, ball_j, opponnent_goal[2].first, opponnent_goal[2].second);
 
-  return min(di1, min(di2, di3));
+  return std::min(di1, std::min(di2, di3));
 }
 
 bool moving_towards_goal(const ball_status &ball, int a, const std::vector<std::pair<int, int>> &opponnent_goal)
@@ -219,8 +217,8 @@ bool can_kick_to_goal(const board_status &current_board, player_status player, s
 
 bool in_same_position(const player_status &p1, int dir1, const player_status &p2, int dir2)
 {
-  std::pair<int, int> new_p1_pos = make_pair(p1.i + moves[dir1].first, p1.j + moves[dir1].second);
-  std::pair<int, int> new_p2_pos = make_pair(p2.i + moves[dir2].first, p2.j + moves[dir2].second);
+  std::pair<int, int> new_p1_pos = std::make_pair(p1.i + moves[dir1].first, p1.j + moves[dir1].second);
+  std::pair<int, int> new_p2_pos = std::make_pair(p2.i + moves[dir2].first, p2.j + moves[dir2].second);
 
   return new_p1_pos == new_p2_pos;
 }
@@ -230,7 +228,7 @@ bool position_is_in_board(int i, int j, int rows, int columns)
   return 0 <= i && i < rows && 0 <= j && j < columns;
 }
 
-bool is_valid_kick(const player_status &player, int dir, int steps, int rows, int columns, std::vector<pair<int, int>> opponnent_goal)
+bool is_valid_kick(const player_status &player, int dir, int steps, int rows, int columns, std::vector<std::pair<int, int>> opponnent_goal)
 {
   bool isValid = false;
 
@@ -242,9 +240,9 @@ bool is_valid_kick(const player_status &player, int dir, int steps, int rows, in
     isValid = true;
   }
 
-  for (auto goal : opponnent_goal)
+  for (const auto &goal : opponnent_goal)
   {
-    if (make_pair(i, j) == goal || make_pair(i - moves[dir].first, j - moves[dir].second) == goal)
+    if (std::make_pair(i, j) == goal || std::make_pair(i - moves[dir].first, j - moves[dir].second) == goal)
     {
       isValid = true;
     }
@@ -252,7 +250,7 @@ bool is_valid_kick(const player_status &player, int dir, int steps, int rows, in
   return isValid;
 }
 
-int calculate_max_steps(const player_status &player, int dir, int rows, int columns, std::vector<pair<int, int>> opponnent_goal)
+int calculate_max_steps(const player_status &player, int dir, int rows, int columns, std::vector<std::pair<int, int>> opponnent_goal)
 {
   int middle_row = rows / 2;
   int steps = 0;
@@ -268,7 +266,7 @@ int calculate_max_steps(const player_status &player, int dir, int rows, int colu
   return steps;
 }
 
-bool inside_board(const player_status &player, int dir, std::vector<pair<int, int>> opponnent_goal, int rows, int columns)
+bool inside_board(const player_status &player, int dir, std::vector<std::pair<int, int>> opponnent_goal, int rows, int columns)
 {
   int i = player.i + moves[dir].first;
   int j = player.j + moves[dir].second;
@@ -286,7 +284,9 @@ bool inside_board(const player_status &player, int dir, std::vector<pair<int, in
 
 bool in_different_positions(const std::vector<player_status> &team, std::vector<int> &player_moves)
 {
-  return !(in_same_position(team[0], player_moves[0], team[1], player_moves[1]) || in_same_position(team[0], player_moves[0], team[2], player_moves[2]) || in_same_position(team[1], player_moves[1], team[2], player_moves[2]));
+  return !(in_same_position(team[0], player_moves[0], team[1], player_moves[1]) ||
+           in_same_position(team[0], player_moves[0], team[2], player_moves[2]) ||
+           in_same_position(team[1], player_moves[1], team[2], player_moves[2]));
 }
 
 std::pair<int, int> get_ball_position(const board_status &current_board)
@@ -320,21 +320,21 @@ std::pair<int, int> get_ball_position(const board_status &current_board)
     }
   }
 
-  return make_pair(ball_i, ball_j);
+  return { ball_i, ball_j };
 }
 
-double distance_ball_to_opp_goal(ball_status &ball, std::vector<pair<int, int>> opponnent_goal)
+double distance_ball_to_opp_goal(ball_status &ball, std::vector<std::pair<int, int>> opponnent_goal)
 {
   const double di1 = distance(ball.i, ball.j, opponnent_goal[0].first, opponnent_goal[0].second);
   const double di2 = distance(ball.i, ball.j, opponnent_goal[1].first, opponnent_goal[1].second);
   const double di3 = distance(ball.i, ball.j, opponnent_goal[2].first, opponnent_goal[2].second);
 
-  return min(di1, min(di2, di3));
+  return std::min(di1, std::min(di2, di3));
 }
 
-bool scored(const board_status &board, std::vector<pair<int, int>> opponnent_goal)
+bool scored(const board_status &board, std::vector<std::pair<int, int>> opponnent_goal)
 {
-  for (auto goal : opponnent_goal)
+  for (const auto &goal : opponnent_goal)
   {
     if (get_ball_position(board) == goal)
     {
