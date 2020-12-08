@@ -52,15 +52,17 @@ public:
     void generate_random_combinations(const int candidates)
     {
         reset(candidates);
-        for (int i = 0; i < candidates; ++i)
-        {
-            std::vector<double> combination(weights_amount, 0);
-            for (int j = 0; j < combination.size(); ++j)
+        
+        std::generate(
+            combinations.begin(),
+            combinations.end(),
+            [n = weights_amount] ()
             {
-                combination[j] = rand() % 101 / (double) 100;
+                std::vector<double> combination;
+                std::generate_n(std::back_inserter(combination), n, []() { return rand() % 101 / (double) 100; });
+                return combination;
             }
-            combinations.push_back(combination);
-        }
+        );
     }
 
     // devuelve una copia del std::vector que más puntos hizo en scores
@@ -119,9 +121,6 @@ public:
             std::vector<player> teamA = generate_team();
             std::vector<player> teamB = generate_team();
 
-            int wins_i = 0;
-            int wins_d = 0;
-
             //Make teams play first match
             Referee referee = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i + 1].first);
             std::string winner = referee.runPlay(IZQUIERDA);
@@ -131,17 +130,18 @@ public:
             int goals_i = referee.getScore(IZQUIERDA);
             int goals_d = referee.getScore(DERECHA) * 2;
 
+            int wins_i = 0;
+            int wins_d = 0;
             if (winner == IZQUIERDA) ++wins_i;
             if (winner == DERECHA) ++wins_d;
 
             //Make teams play second match
-            Referee referee_2 = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i + 1].first);
-            winner = referee_2.runPlay(DERECHA);
+            winner = referee.runPlay(DERECHA);
             // std::cout << winner << " TEAM LEFT: " << combs[i].second << " GOALS: " << referee_2.getScore(IZQUIERDA) << " TEAM RIGHT: " << combs[i+1].second << " GOALS: " << referee_2.getScore(DERECHA) << std::endl;
-            goals[combs[i].second] += referee_2.getScore(IZQUIERDA);
-            goals[combs[i + 1].second] += referee_2.getScore(DERECHA);
-            goals_i += referee_2.getScore(IZQUIERDA) * 2;
-            goals_d += referee_2.getScore(DERECHA);
+            goals[combs[i].second] += referee.getScore(IZQUIERDA);
+            goals[combs[i + 1].second] += referee.getScore(DERECHA);
+            goals_i += referee.getScore(IZQUIERDA) * 2;
+            goals_d += referee.getScore(DERECHA);
 
             if (winner == IZQUIERDA) ++wins_i;
             if (winner == DERECHA) ++wins_d;
@@ -590,51 +590,57 @@ public:
     std::vector<double> crossover_half(const std::vector<double> &parent_A, const std::vector<double> &parent_B)
     {
         std::vector<double> child;
-        for (int i = 0; i < 3; i++)
+
+        for (int i = 0; i < 3; ++i)
         {
             child.push_back(parent_A[i]);
             if (rand() % 101 < 5)
             {
-                child[i] = rand() % 101 / (double)100;
+                child[i] = rand() % 101 / (double) 100;
             }
         }
-        for (int i = 3; i < 6; i++)
+
+        for (int i = 3; i < 6; ++i)
         {
             child.push_back(parent_B[i]);
             if (rand() % 101 < 5)
             {// MUTACION
-                child[i] = rand() % 101 / (double)100;
+                child[i] = rand() % 101 / (double) 100;
             }
         }
-        for (int i = 6; i < 10; i++)
+
+        for (int i = 6; i < 10; ++i)
         {
             child.push_back(parent_A[i]);
             if (rand() % 101 < 5)
             {
-                child[i] = rand() % 101 / (double)100;
+                child[i] = rand() % 101 / (double) 100;
             }
         }
+
         return child;
     }
 
     std::vector<double> crossover_random(const std::vector<double> &parent_A, const std::vector<double> &parent_B)
     {
         std::vector<double> child;
-        for (int i = 0; i < parent_A.size(); i++)
-        {
-            if (rand() % 101 < 50)
+
+        std::generate_n(std::back_inserter(child), parent_A.size(), [&, i = 0] () mutable {
+            const int chance = rand() % 101;
+            if (chance < 5)
+            {   // MUTATION
+                return rand() % 101 / (double) 100;
+            }
+            else if (chance < 50)
             {
-                child.push_back(parent_A[i]);
+                return parent_A[i++];
             }
             else
             {
-                child.push_back(parent_B[i]);
+                return parent_B[i++];
             }
-            if (rand() % 101 < 5)
-            {// MUTACION
-                child[i] = rand() % 101 / (double)100;
-            }
-        }
+        });
+
         return child;
     }
 
@@ -686,6 +692,7 @@ public:
     void selection(bool pDeterministic, bool pScores)
     {
         priorityQueue ranking;
+
         for (int i = 0; i < combinations.size(); i++)
         {
             if (pScores)
@@ -697,6 +704,7 @@ public:
                 ranking.push(std::make_pair(combinations[i], goals[i]));// FITNESS POR CANTIDAD DE GOLES
             }
         }
+
         if (pDeterministic)
         {
             int new_size = combinations.size() / 2;
@@ -712,14 +720,17 @@ public:
             double max_score = ranking.top().second;
             int new_size = combinations.size() / 2;
             reset(combinations.size());
+
             while (combinations.size() < new_size && ranking.size() > 0)
             {
                 double probability = ranking.top().second / max_score;
                 double chance = rand() % 101 / (double)100;
+
                 if (chance < probability)
                 {
                     combinations.push_back(ranking.top().first);
                 }
+
                 ranking.pop();
             }
         }
@@ -730,6 +741,7 @@ public:
         std::cout << "IN GENETIC" << std::endl;
         generational_winners.clear();
         generate_random_combinations(population);
+
         if (elimination)
         {
             elimination_cup();
@@ -745,6 +757,7 @@ public:
 
         int iterations_alive = 0;
         int iterations = 0;
+
         while (iterations < generations && iterations_alive < iterations_alive_cap)
         {
             old_winner = winner;
@@ -752,6 +765,7 @@ public:
             print_score_table();
             selection(deterministic, scores);
             crossover(population, deterministic, crossover_half);
+
             if (elimination)
             {
                 elimination_cup();
@@ -760,8 +774,10 @@ public:
             {
                 play_tournament();
             }
+
             winner = get_winner();
             generational_winners.push_back(winner);
+
             if (winner == old_winner)
             {
                 ++iterations_alive;
@@ -806,6 +822,7 @@ public:
 
         int iterations_alive = 1;
         int iterations = 0;
+
         while (iterations < generations && iterations_alive < 5)
         {
             old_winner = winner;
@@ -813,6 +830,7 @@ public:
             print_score_table();
             selection(deterministic, scores);
             crossover(population, deterministic, crossover_half);
+
             if (elimination)
             {
                 elimination_cup();
@@ -821,8 +839,10 @@ public:
             {
                 play_tournament();
             }
+
             winner = get_winner();
             generational_winners.push_back(winner);
+
             if (winner == old_winner)
             {
                 ++iterations_alive;
@@ -837,6 +857,7 @@ public:
             {
                 results << winner[j] << ';';
             }
+
             results << std::endl;
         }
 
