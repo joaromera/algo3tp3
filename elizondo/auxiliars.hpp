@@ -297,7 +297,7 @@ std::pair<int, int> get_ball_position(const board_status &current_board)
   }
   else
   {
-    for (auto p : current_board.team)
+    for (const auto &p : current_board.team)
     {
       if (p.in_posetion)
       {
@@ -305,7 +305,7 @@ std::pair<int, int> get_ball_position(const board_status &current_board)
       }
     }
 
-    for (auto p : current_board.oponent_team)
+    for (const auto &p : current_board.oponent_team)
     {
       if (p.in_posetion)
       {
