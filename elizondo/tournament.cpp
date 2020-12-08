@@ -27,23 +27,11 @@ using priorityQueue = std::priority_queue<std::pair<std::vector<double>, int>, s
 class Tournament
 {
 public:
-    std::vector<std::vector<double>> combinations;
-    std::vector<int> scores;
-    std::vector<int> goals;
-    std::vector<std::vector<bool>> already_played;
-    std::vector<std::vector<double>> generational_winners;
-    int weights_amount = 10;
-    int iterations_cap = 5;
-    int iterations_alive_cap = 5;
-
-    Tournament(int candidates)
+    explicit Tournament(const int candidates)
     {
         srand(time(NULL));
-        std::vector<std::vector<bool>> ap(candidates, std::vector<bool>(candidates, false));
-        already_played = ap;
-
-        std::vector<int> sc(candidates, 0);
-        scores = sc;
+        already_played = std::vector<std::vector<bool>>(candidates, std::vector<bool>(candidates, false));
+        scores = std::vector<int>(candidates, 0);
     }
 
     // limpia los std::vectors combinations, scores y already_played e inicializa los 2 últimos en 0.
@@ -912,4 +900,30 @@ public:
 
         return winner;
     }
+
+    std::vector<std::vector<double>>& get_combinations()
+    {
+        return combinations;
+    }
+
+    std::vector<std::vector<double>>& get_generational_winners()
+    {
+        return generational_winners;
+    }
+
+    std::vector<int>& get_scores()
+    {
+        return scores;
+    }
+
+private:
+
+    std::vector<std::vector<double>> combinations;
+    std::vector<int> scores;
+    std::vector<int> goals;
+    std::vector<std::vector<bool>> already_played;
+    std::vector<std::vector<double>> generational_winners;
+    int weights_amount = 10;
+    int iterations_cap = 5;
+    int iterations_alive_cap = 5;
 };
