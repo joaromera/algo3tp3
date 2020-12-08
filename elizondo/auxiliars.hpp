@@ -55,15 +55,11 @@ std::string who_has_the_ball(const board_status &current_board)
   return "FREE";
 }
 
-int distance_player_ball(const board_status &current_board, const player_status &player)
+std::pair<int, int> get_ball_position(const board_status &current_board)
 {
-  int ball_i;
-  int ball_j;
-
   if (current_board.ball.is_free)
   {
-    ball_i = current_board.ball.i;
-    ball_j = current_board.ball.j;
+    return { current_board.ball.i, current_board.ball.j };
   }
   else
   {
@@ -71,8 +67,7 @@ int distance_player_ball(const board_status &current_board, const player_status 
     {
       if (p.in_posetion)
       {
-        ball_i = p.i;
-        ball_j = p.j;
+        return { p.i, p.j };
       }
     }
 
@@ -80,15 +75,19 @@ int distance_player_ball(const board_status &current_board, const player_status 
     {
       if (p.in_posetion)
       {
-        ball_i = p.i;
-        ball_j = p.j;
+        return { p.i, p.j };
       }
     }
   }
+}
 
-  int di1 = distance(player.i, player.j, ball_i, ball_j);
-  int di2 = distance(player.i, player.j, ball_i, ball_j);
-  int di3 = distance(player.i, player.j, ball_i, ball_j);
+int distance_player_ball(const board_status &current_board, const player_status &player)
+{
+  auto [ball_i, ball_j] = get_ball_position(current_board);
+
+  const int di1 = distance(player.i, player.j, ball_i, ball_j);
+  const int di2 = distance(player.i, player.j, ball_i, ball_j);
+  const int di3 = distance(player.i, player.j, ball_i, ball_j);
 
   return std::min(di1, std::min(di2, di3));
 }
@@ -133,34 +132,7 @@ bool opponents_blocking_goal(const board_status &current_board, player_status pl
 
 double distance_ball_opponnent_goal(const board_status &current_board, const std::vector<std::pair<int, int>> &opponnent_goal)
 {
-  int ball_i;
-  int ball_j;
-
-  if (current_board.ball.is_free)
-  {
-    ball_i = current_board.ball.i;
-    ball_j = current_board.ball.j;
-  }
-  else
-  {
-    for (const auto &p : current_board.team)
-    {
-      if (p.in_posetion)
-      {
-        ball_i = p.i;
-        ball_j = p.j;
-      }
-    }
-
-    for (const auto &p : current_board.oponent_team)
-    {
-      if (p.in_posetion)
-      {
-        ball_i = p.i;
-        ball_j = p.j;
-      }
-    }
-  }
+  auto [ball_i, ball_j] = get_ball_position(current_board);
 
   const double di1 = distance(ball_i, ball_j, opponnent_goal[0].first, opponnent_goal[0].second);
   const double di2 = distance(ball_i, ball_j, opponnent_goal[1].first, opponnent_goal[1].second);
@@ -287,32 +259,6 @@ bool in_different_positions(const std::vector<player_status> &team, std::vector<
   return !(in_same_position(team[0], player_moves[0], team[1], player_moves[1]) ||
            in_same_position(team[0], player_moves[0], team[2], player_moves[2]) ||
            in_same_position(team[1], player_moves[1], team[2], player_moves[2]));
-}
-
-std::pair<int, int> get_ball_position(const board_status &current_board)
-{
-  if (current_board.ball.is_free)
-  {
-    return { current_board.ball.i, current_board.ball.j };
-  }
-  else
-  {
-    for (const auto &p : current_board.team)
-    {
-      if (p.in_posetion)
-      {
-        return { p.i, p.j };
-      }
-    }
-
-    for (const auto &p : current_board.oponent_team)
-    {
-      if (p.in_posetion)
-      {
-        return { p.i, p.j };
-      }
-    }
-  }
 }
 
 double distance_ball_to_opp_goal(ball_status &ball, std::vector<std::pair<int, int>> opponnent_goal)
