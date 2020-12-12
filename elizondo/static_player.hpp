@@ -11,54 +11,52 @@ std::mt19937 generator(rd());
 
 class static_player
 {
-  int columns, rows, steps;
-  std::string team, side;
-
 public:
-  static_player() = default;
+    static_player() = default;
 
-  static_player(
-    int columns,
-    int rows,
-    int steps,
-    std::string side,
-    const std::vector<player> &,
-    const std::vector<player> &)
-  {
-    this->columns = columns;
-    this->rows = rows;
-    this->steps = steps;
-    this->side = side;
-    this->team = team;
-  }
-
-  void starting_positions(std::vector<player_status> &positions)
-  {
-    int column = this->columns - 1;
-    if (this->side == IZQUIERDA)
+    static_player(
+        int pColumns,
+        int pRows,
+        int pSteps,
+        std::string pSide,
+        const std::vector<player> &,
+        const std::vector<player> &)
+        : columns(pColumns), rows(pRows), steps(pSteps), side(pSide)
     {
-      column = 0;
     }
 
-    for (int i = 0; i < 3; i++)
+    void starting_positions(std::vector<player_status> &positions)
     {
-      positions.emplace_back(i, i, column, false);
+        int column = columns - 1;
+
+        if (side == IZQUIERDA)
+        {
+            column = 0;
+        }
+
+        for (int i = 0; i < 3; ++i)
+        {
+            positions.emplace_back(i, i, column, false);
+        }
     }
-  }
 
-  void make_move(const board_status &current_board, std::vector<player_move> &made_moves)
-  {
-    made_moves.clear();
-    player_move new_move;
-
-    for (auto &p : current_board.team)
+    void make_move(const board_status &current_board, std::vector<player_move> &made_moves)
     {
-      new_move.player_id = p.id;
-      new_move.move_type = MOVIMIENTO;
-      new_move.dir = 0;
-      made_moves.push_back(new_move);
-    }
-  }
+        made_moves.clear();
 
-  void finish(std::string) {}
+        for (const auto &p : current_board.team)
+        {
+            made_moves.emplace_back(p.id, MOVIMIENTO, 0, 0);
+        }
+    }
+
+    void finish(std::string) {}
+
+private:
+
+    int columns;
+    int rows;
+    int steps;
+    std::string team;
+    std::string side;
 };

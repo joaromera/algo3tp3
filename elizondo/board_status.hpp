@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 struct player
 {
     int id;
@@ -50,6 +52,9 @@ struct player_move
     std::string move_type;
     int dir;
     int steps;
+
+    player_move() = default;
+    player_move(int pId, const std::string& pMove, int pDir, int pSteps) : player_id(pId), move_type(pMove), dir(pDir), steps(pSteps) {}
 };
 
 struct board_status
