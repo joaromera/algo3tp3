@@ -1,4 +1,5 @@
 *.pyc
+*.dSYM
 static_player
 greedy_player
 tournament

@@ -13,8 +13,6 @@
 
 #include "tournament.hpp"
 
-using namespace std;
-
 const string GENETIC = "genetic";
 const string GRASP = "grasp";
 

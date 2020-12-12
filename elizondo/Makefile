@@ -1,10 +1,10 @@
 CXX=g++
 
-STDFLAGS = -std=c++17 -Wall -Wextra -pedantic
+STDFLAGS = -std=c++17 -Wall -Wextra -pedantic -g
 
 RM=rm -f
 
-BINARIES = greedy_player static_player tournament logical_board
+BINARIES = greedy_player static_player tournament
 
 all: $(BINARIES)
 
@@ -17,12 +17,8 @@ static_player:
 tournament:
 	$(CXX) $(STDFLAGS) main_tournament.cpp -o tournament
 
-logical_board:
-	$(CXX) $(STDFLAGS) main_logical.cpp -o logical_board
-
 clean:
 	$(RM) greedy_player
 	$(RM) static_player
 	$(RM) tournament
-	$(RM) logical_board
 	$(RM) *.o *~

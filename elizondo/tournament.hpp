@@ -11,7 +11,7 @@
 #include "board_status.hpp"
 #include "constants.hpp"
 #include "logical_board.hpp"
-#include "referee.cpp"
+#include "referee.h"
 
 class heavierThan
 {
@@ -52,10 +52,10 @@ public:
     void generate_random_combinations(const int candidates)
     {
         reset(candidates);
-        
-        std::generate(
-            combinations.begin(),
-            combinations.end(),
+
+        std::generate_n(
+            std::back_inserter(combinations),
+            candidates,
             [n = weights_amount] ()
             {
                 std::vector<double> combination;

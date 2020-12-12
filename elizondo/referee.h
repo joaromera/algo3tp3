@@ -83,8 +83,8 @@ class Referee {
 
         int getScore(string team) {
             if (team == IZQUIERDA)
-                return this->board->scoreA;
-            return this->board->scoreB;
+                return this->board->get_scoreA();
+            return this->board->get_scoreB();
         }
 
         string runPlay(string startingTeam) {
