@@ -9,7 +9,6 @@
 
 class Ball
 {
-
 public:
     int i = 0;
     int j = 0;
@@ -25,7 +24,7 @@ public:
     {
     }
 
-    virtual ~Ball() {}
+    ~Ball() {}
 
     void setMovement(const int dir, const int steps)
     {

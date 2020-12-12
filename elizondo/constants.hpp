@@ -29,13 +29,13 @@ const std::vector<move> _moves = {
 };
 
 const std::vector<std::pair<int, int>> moves = {
-    std::make_pair(0, 0),//0
-    std::make_pair(-1, -1),//1
-    std::make_pair(-1, 0),//2
-    std::make_pair(-1, 1),//3
-    std::make_pair(0, 1),//4
-    std::make_pair(1, 1),//5
-    std::make_pair(1, 0),//6
-    std::make_pair(1, -1),//7
-    std::make_pair(0, -1)//8
+    {  0,  0 },
+    { -1, -1 },
+    { -1,  0 },
+    { -1,  1 },
+    {  0,  1 },
+    {  1,  1 },
+    {  1,  0 },
+    {  1, -1 },
+    {  0, -1 }
 };
