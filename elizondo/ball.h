@@ -20,9 +20,9 @@ public:
     }
 
     Ball(const int pI, const int pJ)
+    : i(pI)
+    , j(pJ)
     {
-        i = pI;
-        j = pJ;
     }
 
     virtual ~Ball() {}
