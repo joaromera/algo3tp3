@@ -66,7 +66,7 @@ public:
         std::vector<std::tuple<int, int>> trajectory;
         for (int i = 0; i <= steps; ++i)
         {
-            trajectory.push_back(std::make_tuple(i + i * move.first, j + i * move.second));
+            trajectory.emplace_back(i + i * move.first, j + i * move.second);
         }
         return trajectory;
     }

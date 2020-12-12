@@ -27,19 +27,13 @@ public:
         this->scoreA = 0;
         this->scoreB = 0;
 
-        vector < Player* > _teamA;
         for(auto p : teamA) {
-            Player *aux = new Player(p);
-            _teamA.push_back(aux);
+            this->teamA.emplace_back(new Player(p));
         }
-        this->teamA = _teamA;
 
-        vector < Player* > _teamB;
         for(auto p : teamB) {
-            Player *aux = new Player(p);
-            _teamB.push_back(aux);
+            this->teamB.emplace_back(new Player(p));
         }
-        this->teamB = _teamB;
 
         this->columns = columns;
         this->rows = rows;
@@ -67,19 +61,13 @@ public:
         this->free_ball = new Ball();
         this->last_state = nullptr;
 
-        vector < Player* > _teamA;
         for(int i = 0; i < 3; i++) {
-            Player *aux = new Player(i, teamA[i].probability);
-            _teamA.push_back(aux);
+            this->teamA.emplace_back(new Player(i, teamA[i].probability));
         }
-        this->teamA = _teamA;
 
-        vector < Player* > _teamB;
         for(int i = 0; i < 3; i++) {
-            Player *aux = new Player(i, teamB[i].probability);
-            _teamB.push_back(aux);
+            this->teamB.emplace_back(new Player(i, teamB[i].probability));
         }
-        this->teamB = _teamB;
 
         for (auto ps : status.team) {
             for (auto p : this->teamA) {
@@ -480,7 +468,7 @@ public:
                 ball = p->ball;
                 this->last_state->ball.is_free = false;
             }
-            this->last_state->team.push_back(player_status(id,i,j,in_posetion));
+            this->last_state->team.emplace_back(id,i,j,in_posetion);
         }
 
         for (auto p : this->teamB) {
@@ -493,7 +481,7 @@ public:
                 ball = p->ball;
                 this->last_state->ball.is_free = false;
             }
-            this->last_state->oponent_team.push_back(player_status(id,i,j,in_posetion));
+            this->last_state->oponent_team.emplace_back(id,i,j,in_posetion);
         }
     }
 

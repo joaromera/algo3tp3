@@ -749,8 +749,8 @@ void grasp_vs_gen()
 {
     Tournament tournament = Tournament(2);
     tournament.reset(2);
-    tournament.combinations.push_back({ 0.925, 0.465, 0.315, 0.835, 0.815, 0.305, 0.545, 0.175, 0.285, 0.645 });
-    tournament.combinations.push_back({ 0.990, 1.000, 0.640, 0.120, 0.790, 0.340, 0.750, 0.030, 0.710, 0.610 });
+    tournament.combinations.emplace_back(0.925, 0.465, 0.315, 0.835, 0.815, 0.305, 0.545, 0.175, 0.285, 0.645);
+    tournament.combinations.emplace_back(0.990, 1.000, 0.640, 0.120, 0.790, 0.340, 0.750, 0.030, 0.710, 0.610);
     for (int i = 1; i <= 10; i++)
     {
         vector<vector<bool>> ap(2, vector<bool>(2, false));

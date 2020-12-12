@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -114,8 +115,8 @@ public:
 
         for (int i = -1; i < 2; i++)
         {
-            own_goal.push_back(make_pair(mid_row + i, column_own_goal));
-            opponnent_goal.push_back(make_pair(mid_row + i, column_opponnent_goal));
+            own_goal.emplace_back(mid_row + i, column_own_goal);
+            opponnent_goal.emplace_back(mid_row + i, column_opponnent_goal);
         }
     }
 
@@ -137,10 +138,7 @@ public:
     void make_move(const board_status& current_board, vector<player_move>& made_moves)
     {
         made_moves.clear();
-        player_move p_move;
-        made_moves.push_back(p_move);
-        made_moves.push_back(p_move);
-        made_moves.push_back(p_move);
+        made_moves.resize(3);
 
         board_status board = current_board;
 
