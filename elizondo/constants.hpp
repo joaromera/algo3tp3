@@ -4,6 +4,8 @@
 #include <utility>
 #include <vector>
 
+#include "board_status.hpp"
+
 static const std::string IZQUIERDA = "IZQUIERDA";
 static const std::string DERECHA = "DERECHA";
 static const std::string MOVIMIENTO = "MOVIMIENTO";
