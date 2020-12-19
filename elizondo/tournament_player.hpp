@@ -19,7 +19,7 @@ std::mt19937 generator(rd());
 class tournament_player
 {
 
-    int columns, rows, steps;
+    int columns, rows;
     double MAX_DIST;
     std::string team, side;
     std::vector<std::pair<int, int>> own_goal;
@@ -37,14 +37,13 @@ public:
     tournament_player(
         int pColumns,
         int pRows,
-        int pSteps,
+        int,
         string pSide,
         const vector<Player>& pPlayers,
         const vector<Player>& pOpponnents
     )
     : columns(pColumns)
     , rows(pRows)
-    , steps(pSteps)
     , side(pSide)
     , players(pPlayers)
     , opponnents(pOpponnents)
@@ -67,7 +66,7 @@ public:
     tournament_player(
         int pColumns,
         int pRows,
-        int pSteps,
+        int,
         string pSide,
         const vector<Player>& pPlayers,
         const vector<Player>& pOpponnents,
@@ -75,7 +74,6 @@ public:
     )
     : columns(pColumns)
     , rows(pRows)
-    , steps(pSteps)
     , side(pSide)
     , players(pPlayers)
     , opponnents(pOpponnents)

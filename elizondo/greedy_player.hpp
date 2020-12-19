@@ -32,7 +32,7 @@ public:
     greedy_player(
         int pColumns,
         int pRows,
-        int pSteps,
+        int,
         std::string pSide,
         const std::vector<Player> &pPlayers,
         const std::vector<Player> &pOpponnents)
@@ -52,7 +52,7 @@ public:
     greedy_player(
         int pColumns,
         int pRows,
-        int pSteps,
+        int,
         std::string pSide,
         const std::vector<Player> &pPlayers,
         const std::vector<Player> &pOpponnents,

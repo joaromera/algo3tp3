@@ -29,8 +29,8 @@ class Tournament
 {
 public:
     explicit Tournament(const int candidates)
-    : already_played(std::vector<std::vector<bool>>(candidates, std::vector<bool>(candidates, false)))
-    , scores(std::vector<int>(candidates, 0))
+    : scores(std::vector<int>(candidates, 0))
+    , already_played(std::vector<std::vector<bool>>(candidates, std::vector<bool>(candidates, false)))
     {
         srand(time(NULL));
     }
@@ -77,9 +77,9 @@ public:
     // hace competir todas las combinaciones entre sí, actualiza el puntaje en SCORE y marca los equipos que jugaron en ALREADYPLAYED según índices de COMBINATIONS
     void play_tournament()
     {
-        for (int i = 0; i < combinations.size(); ++i)
+        for (size_t i = 0; i < combinations.size(); ++i)
         {
-            for (int j = 0; j < combinations.size(); ++j)
+            for (size_t j = 0; j < combinations.size(); ++j)
             {
                 if (i != j && !already_played[i][j])
                 {
@@ -117,7 +117,7 @@ public:
     {
         // std::cout << "NOW PLAYING LEG OF " << combs.size() << std::endl;
         std::vector<std::pair<std::vector<double>, int>> winners;
-        for (int i = 0; i < combs.size(); i += 2)
+        for (size_t i = 0; i < combs.size(); i += 2)
         {
             std::vector<Player> teamA = generate_team();
             std::vector<Player> teamB = generate_team();
@@ -189,7 +189,7 @@ public:
     {
         std::vector<std::pair<std::vector<double>, int>> indexed_combs;
         indexed_combs.reserve(combinations.size());
-        for (int i = 0; i < combinations.size(); ++i)
+        for (size_t i = 0; i < combinations.size(); ++i)
         {
             indexed_combs.emplace_back(combinations[i], i);
         }
@@ -434,7 +434,7 @@ public:
     }
 
     // helper de neighbourhood
-    void neighbourhood_recursive(std::vector<double> vec1, int index, double distance)
+    void neighbourhood_recursive(std::vector<double> vec1, size_t index, double distance)
     {
         if (index < vec1.size())
         {
@@ -502,7 +502,7 @@ public:
     {
         for (const auto &combination : combinations)
         {
-            for (int i = 0; i < combination.size(); ++i)
+            for (size_t i = 0; i < combination.size(); ++i)
             {
                 std::cout << combination[i] << " ";
             }
@@ -514,7 +514,7 @@ public:
     {
         for (const auto &combination : generational_winners)
         {
-            for (int i = 0; i < combination.size(); ++i)
+            for (size_t i = 0; i < combination.size(); ++i)
             {
                 std::cout << combination[i] << " ";
             }
@@ -525,10 +525,10 @@ public:
     // imprime la tabla con los puntos de cada combinacion
     void print_score_table() const
     {
-        for (int i = 0; i < combinations.size(); ++i)
+        for (size_t i = 0; i < combinations.size(); ++i)
         {
             std::cout << "COMBINATION: ";
-            for (int j = 0; j < combinations[i].size(); ++j)
+            for (size_t j = 0; j < combinations[i].size(); ++j)
             {
                 std::cout << combinations[i][j] << " ";
             }
@@ -544,10 +544,10 @@ public:
 
         results << "iteration;score;goals;p0;p1;p2;p3;p4;p5;p6;p7;p8;p9" << std::endl;
 
-        for (int i = 0; i < combinations.size(); i++)
+        for (size_t i = 0; i < combinations.size(); i++)
         {
             results << i << ";" << scores[i] << ";" << goals[i] << ";";
-            for (int j = 0; j < combinations[i].size(); j++)
+            for (size_t j = 0; j < combinations[i].size(); j++)
             {
                 results << combinations[i][j] << ";";
             }
@@ -562,7 +562,7 @@ public:
     {
         const auto it = max_element(scores.cbegin(), scores.cend());
         const auto index = it - scores.cbegin();
-        for (int i = 0; i < combinations[0].size(); ++i)
+        for (size_t i = 0; i < combinations[0].size(); ++i)
         {
             std::cout << combinations[index][i] << " ";
         }
@@ -573,9 +573,9 @@ public:
     void check_comb() const
     {
         std::cout << combinations.size() << std::endl;
-        for (int i = 0; i < combinations.size(); ++i)
+        for (size_t i = 0; i < combinations.size(); ++i)
         {
-            for (int j = 0; j < combinations.size(); ++j)
+            for (size_t j = 0; j < combinations.size(); ++j)
             {
                 if (i != j)
                 {
@@ -694,7 +694,7 @@ public:
     {
         priorityQueue ranking;
 
-        for (int i = 0; i < combinations.size(); i++)
+        for (size_t i = 0; i < combinations.size(); i++)
         {
             if (pScores)
             {
@@ -708,9 +708,9 @@ public:
 
         if (pDeterministic)
         {
-            int new_size = combinations.size() / 2;
+            size_t new_size = combinations.size() / 2;
             reset(combinations.size());
-            for (int i = 0; i < new_size; i++)
+            for (size_t i = 0; i < new_size; i++)
             {
                 combinations.push_back(ranking.top().first);
                 ranking.pop();
@@ -719,10 +719,10 @@ public:
         else
         {
             double max_score = ranking.top().second;
-            int new_size = combinations.size() / 2;
+            size_t new_size = combinations.size() / 2;
             reset(combinations.size());
 
-            while (combinations.size() < new_size && ranking.size() > 0)
+            while (combinations.size() < new_size && !ranking.empty())
             {
                 double probability = ranking.top().second / max_score;
                 double chance = rand() % 101 / (double)100;
@@ -813,7 +813,7 @@ public:
 
         std::vector<double> winner = get_winner();
 
-        for (int j = 0; j < winner.size(); ++j)
+        for (size_t j = 0; j < winner.size(); ++j)
         {
             results << winner[j] << ';';
         }
@@ -854,7 +854,7 @@ public:
             }
             ++iterations;
 
-            for (int j = 0; j < winner.size(); ++j)
+            for (size_t j = 0; j < winner.size(); ++j)
             {
                 results << winner[j] << ';';
             }

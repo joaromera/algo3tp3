@@ -165,9 +165,9 @@ void printAndPlayGraspTournament(int population, double distance, bool fast, boo
         average += diff;
     }
 
-    for (int i = 0; i < tournament.get_combinations().size(); i++)
+    for (size_t i = 0; i < tournament.get_combinations().size(); i++)
     {
-        for (int j = 0; j < tournament.get_combinations()[i].size(); j++)
+        for (size_t j = 0; j < tournament.get_combinations()[i].size(); j++)
         {
             results << tournament.get_combinations()[i][j] << ' ';
         }
@@ -213,9 +213,9 @@ void printAndPlayGeneticTournament(int population, bool deterministic, bool elim
         average += diff;
     }
 
-    for (int i = 0; i < tournament.get_combinations().size(); i++)
+    for (size_t i = 0; i < tournament.get_combinations().size(); i++)
     {
-        for (int j = 0; j < tournament.get_combinations()[i].size(); j++)
+        for (size_t j = 0; j < tournament.get_combinations()[i].size(); j++)
         {
             results << tournament.get_combinations()[i][j] << ' ';
         }
@@ -408,7 +408,7 @@ void testDiferentesGeneticosVariandoGeneracion(int population)
     ofstream results;
     results.open(file, fstream::out);
 
-    for (int j = 0; j < cantVictorias.size(); ++j)
+    for (size_t j = 0; j < cantVictorias.size(); ++j)
     {
         results << cantVictorias[j] << endl;
     }

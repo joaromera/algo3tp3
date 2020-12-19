@@ -79,6 +79,7 @@ std::pair<int, int> get_ball_position(const board_status &current_board)
       }
     }
   }
+  return {-1, -1};
 }
 
 int distance_player_ball(const board_status &current_board, const player_status &player)

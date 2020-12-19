@@ -17,12 +17,12 @@ public:
 
     static_player(
         int pColumns,
-        int pRows,
-        int pSteps,
+        int,
+        int,
         std::string pSide,
         const std::vector<Player> &,
         const std::vector<Player> &)
-        : columns(pColumns), rows(pRows), steps(pSteps), side(pSide)
+        : columns(pColumns), side(pSide)
     {
     }
 
@@ -56,8 +56,6 @@ public:
 private:
 
     int columns;
-    int rows;
-    int steps;
     std::string team;
     std::string side;
 };
