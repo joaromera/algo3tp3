@@ -11,6 +11,7 @@
 #include "board_status.hpp"
 #include "constants.hpp"
 #include "logical_board.hpp"
+#include "player.h"
 #include "referee.h"
 
 class heavierThan
@@ -82,8 +83,8 @@ public:
             {
                 if (i != j && !already_played[i][j])
                 {
-                    std::vector<player> teamA = generate_team();
-                    std::vector<player> teamB = generate_team();
+                    std::vector<Player> teamA = generate_team();
+                    std::vector<Player> teamB = generate_team();
 
                     //Make teams play
                     Referee referee = Referee(10, 5, 125, teamA, teamB, combinations[i], combinations[j]);
@@ -118,8 +119,8 @@ public:
         std::vector<std::pair<std::vector<double>, int>> winners;
         for (int i = 0; i < combs.size(); i += 2)
         {
-            std::vector<player> teamA = generate_team();
-            std::vector<player> teamB = generate_team();
+            std::vector<Player> teamA = generate_team();
+            std::vector<Player> teamB = generate_team();
 
             //Make teams play first match
             Referee referee = Referee(10, 5, 125, teamA, teamB, combs[i].first, combs[i + 1].first);
@@ -338,8 +339,8 @@ public:
     // Unico partido devuelve el ganador, o el izq si empatan
     std::vector<double> single_match(const std::vector<double> &izq, const std::vector<double> &der)
     {
-        std::vector<player> teamA = generate_team();
-        std::vector<player> teamB = generate_team();
+        std::vector<Player> teamA = generate_team();
+        std::vector<Player> teamB = generate_team();
 
         Referee referee = Referee(10, 5, 125, teamA, teamB, izq, der);
         const std::string winner = referee.runPlay(IZQUIERDA);
@@ -359,8 +360,8 @@ public:
     // si aun asi hay empate, devuelve izq
     std::vector<double> home_away_match(const std::vector<double> &izq, const std::vector<double> &der)
     {
-        std::vector<player> teamA = generate_team();
-        std::vector<player> teamB = generate_team();
+        std::vector<Player> teamA = generate_team();
+        std::vector<Player> teamB = generate_team();
 
         int izq_w = 0;
         int der_w = 0;
@@ -881,9 +882,9 @@ public:
         return scores;
     }
 
-    std::vector<player> generate_team() const
+    std::vector<Player> generate_team() const
     {
-        std::vector<player> team;
+        std::vector<Player> team;
 
         for (int l = 0; l < 3; ++l)
         {

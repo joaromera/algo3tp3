@@ -17,13 +17,13 @@ struct Player
     int j;
     Ball* ball;
 
-    Player(const player &player)
-    {
-      id = player.id;
-      p_quite = player.probability;
-      old_position = std::make_tuple(-1, -1);
-      ball = nullptr;
-    }
+    // explicit Player(const int player_id)
+    // {
+    //   id = player_id;
+    //   p_quite = 0.5;
+    //   old_position = std::make_tuple(-1, -1);
+    //   ball = nullptr;
+    // }
 
     ~Player()
     {

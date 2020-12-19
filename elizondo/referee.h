@@ -39,8 +39,8 @@ class Referee {
             int columns,
             int rows,
             int steps,
-            vector < player > teamA,
-            vector < player > teamB,
+            vector < Player > teamA,
+            vector < Player > teamB,
             vector < double > loadsA,
             vector < double > loadsB
         ) {

@@ -24,8 +24,8 @@ class tournament_player
     std::string team, side;
     std::vector<std::pair<int, int>> own_goal;
     std::vector<std::pair<int, int>> opponnent_goal;
-    std::vector<player> players;
-    std::vector<player> opponnents;
+    std::vector<Player> players;
+    std::vector<Player> opponnents;
     std::vector<double> loads;
 
 public:
@@ -39,8 +39,8 @@ public:
         int pRows,
         int pSteps,
         string pSide,
-        const vector<player>& pPlayers,
-        const vector<player>& pOpponnents
+        const vector<Player>& pPlayers,
+        const vector<Player>& pOpponnents
     )
     : columns(pColumns)
     , rows(pRows)
@@ -69,8 +69,8 @@ public:
         int pRows,
         int pSteps,
         string pSide,
-        const vector<player>& pPlayers,
-        const vector<player>& pOpponnents,
+        const vector<Player>& pPlayers,
+        const vector<Player>& pOpponnents,
         vector<double>& pLoads
     )
     : columns(pColumns)

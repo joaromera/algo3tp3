@@ -21,18 +21,18 @@ public:
     LogicalBoard(
         int columns,
         int rows,
-        vector < player > teamA,
-        vector < player > teamB
+        vector < Player > pTeamA,
+        vector < Player > pTeamB
     ) {
         this->scoreA = 0;
         this->scoreB = 0;
 
-        for(auto p : teamA) {
-            this->teamA.emplace_back(new Player(p));
+        for(auto p : pTeamA) {
+            this->teamA.emplace_back(new Player(p.id, p.p_quite));
         }
 
-        for(auto p : teamB) {
-            this->teamB.emplace_back(new Player(p));
+        for(auto p : pTeamB) {
+            this->teamB.emplace_back(new Player(p.id, p.p_quite));
         }
 
         this->columns = columns;
@@ -48,8 +48,8 @@ public:
     LogicalBoard( // con board status
         int columns,
         int rows,
-        vector < player > teamA,
-        vector < player > teamB,
+        vector < Player > pTeamA,
+        vector < Player > pTeamB,
         board_status status
     ) {
         this->columns = columns;
@@ -62,11 +62,11 @@ public:
         this->last_state = nullptr;
 
         for(int i = 0; i < 3; i++) {
-            this->teamA.emplace_back(new Player(i, teamA[i].probability));
+            this->teamA.emplace_back(new Player(i, pTeamA[i].p_quite));
         }
 
         for(int i = 0; i < 3; i++) {
-            this->teamB.emplace_back(new Player(i, teamB[i].probability));
+            this->teamB.emplace_back(new Player(i, pTeamB[i].p_quite));
         }
 
         for (auto ps : status.team) {

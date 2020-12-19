@@ -2,13 +2,13 @@
 
 #include <string>
 
-struct player
-{
-    int id;
-    double probability;
+// struct player
+// {
+//     int id;
+//     double probability;
 
-    player(int id, double probability) : id(id), probability(probability) {}
-};
+//     player(int id, double probability) : id(id), probability(probability) {}
+// };
 
 struct move
 {

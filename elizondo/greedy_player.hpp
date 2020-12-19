@@ -20,8 +20,8 @@ class greedy_player
     std::string team, side;
     std::vector<std::pair<int, int>> own_goal;
     std::vector<std::pair<int, int>> opponnent_goal;
-    std::vector<player> players;
-    std::vector<player> opponnents;
+    std::vector<Player> players;
+    std::vector<Player> opponnents;
     std::vector<double> loads;
 
 public:
@@ -34,8 +34,8 @@ public:
         int pRows,
         int pSteps,
         std::string pSide,
-        const std::vector<player> &pPlayers,
-        const std::vector<player> &pOpponnents)
+        const std::vector<Player> &pPlayers,
+        const std::vector<Player> &pOpponnents)
         : columns(pColumns), rows(pRows), side(pSide), players(pPlayers), opponnents(pOpponnents)
     {
         for (int i = 0; i < 3; ++i)
@@ -54,8 +54,8 @@ public:
         int pRows,
         int pSteps,
         std::string pSide,
-        const std::vector<player> &pPlayers,
-        const std::vector<player> &pOpponnents,
+        const std::vector<Player> &pPlayers,
+        const std::vector<Player> &pOpponnents,
         std::vector<double> &pLoads)
         : columns(pColumns), rows(pRows), side(pSide), players(pPlayers), opponnents(pOpponnents), loads(pLoads)
     {

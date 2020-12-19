@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 
+#include "board_status.hpp"
+#include "player.h"
+
 template <typename T>
 void send(const T& msg)
 {
@@ -67,14 +70,14 @@ public:
 
 
         // Lee los jugadores del equipo
-        std::vector<player> players;
+        std::vector<Player> players;
         for (int i = 0; i < players_per_team; i++)
         {
             players.emplace_back(read_int(), read_double());
         }
 
         // Lee los jugadores del equipo contrario
-        std::vector<player> oponent_players;
+        std::vector<Player> oponent_players;
         for (int i = 0; i < players_per_team; i++)
         {
             oponent_players.emplace_back(read_int(), read_double());

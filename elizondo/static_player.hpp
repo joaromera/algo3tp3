@@ -5,6 +5,7 @@
 
 #include "board_status.hpp"
 #include "constants.hpp"
+#include "player.h"
 
 std::random_device rd;
 std::mt19937 generator(rd());
@@ -19,8 +20,8 @@ public:
         int pRows,
         int pSteps,
         std::string pSide,
-        const std::vector<player> &,
-        const std::vector<player> &)
+        const std::vector<Player> &,
+        const std::vector<Player> &)
         : columns(pColumns), rows(pRows), steps(pSteps), side(pSide)
     {
     }
