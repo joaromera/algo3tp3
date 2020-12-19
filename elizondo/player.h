@@ -17,14 +17,6 @@ struct Player
     int j;
     Ball* ball;
 
-    // explicit Player(const int player_id)
-    // {
-    //   id = player_id;
-    //   p_quite = 0.5;
-    //   old_position = std::make_tuple(-1, -1);
-    //   ball = nullptr;
-    // }
-
     ~Player()
     {
       if (ball != nullptr)
