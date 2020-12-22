@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <fstream>
 
+#include "ai.hpp"
 #include "board_status.hpp"
 #include "greedy_player.hpp"
 #include "constants.hpp"
@@ -25,8 +26,8 @@ class Referee {
         int columns;
         int rows;
         int steps;
-        greedy_player* teamA;
-        greedy_player* teamB;
+        AI* teamA;
+        AI* teamB;
         LogicalBoard* board;
 
         ~Referee() {
