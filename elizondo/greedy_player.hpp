@@ -1,32 +1,19 @@
 #pragma once
 
 #include <algorithm>
-#include <fstream>
 #include <iostream>
-#include <map>
 #include <random>
 #include <string>
 #include <vector>
 
+#include "ai.hpp"
 #include "auxiliars.hpp"
 #include "board_status.hpp"
 #include "constants.hpp"
 #include "logical_board.hpp"
 
-std::random_device rd;
-std::mt19937 generator(rd());
-
-class greedy_player
+class greedy_player : public AI
 {
-    int columns, rows;
-    double MAX_DIST;
-    std::string team, side;
-    std::vector<std::pair<int, int>> own_goal;
-    std::vector<std::pair<int, int>> opponnent_goal;
-    std::vector<Player> players;
-    std::vector<Player> opponnents;
-    std::vector<double> loads;
-
 public:
     greedy_player() = default;
 
@@ -72,6 +59,41 @@ public:
         MAX_DIST = distance(0, 0, rows, columns);
     }
 
+    void starting_positions(std::vector<player_status> &positions) const override
+    {
+        int column = columns - 1;
+
+        if (side == IZQUIERDA)
+        {
+            column = 0;
+        }
+
+        for (int i = 0; i < 3; ++i)
+        {
+            positions.emplace_back(i, i, column, false);
+        }
+    }
+
+    // Aca se usa la función punteadora, greedy, genetica, etc
+    void make_move(const board_status &current_board, std::vector<player_move> &made_moves) override
+    {
+        made_moves.clear();
+        made_moves.resize(3);
+
+        board_status board = current_board;
+
+        if (side == "DERECHA")
+        {
+            board.team = current_board.oponent_team;
+            board.oponent_team = current_board.team;
+        }
+
+        std::vector<int> found_move = search_move(board);
+        update_moves(board, made_moves, found_move[0], found_move[1], found_move[2], found_move[3], found_move[4]);
+    }
+
+private:
+
     const std::vector<double> getLoads() const
     {
         return { 0.89, 0.35, 0.04, 0.62, 0.03, 0.82, 0.8, 0.02, 0.38, 0.85 };
@@ -96,42 +118,6 @@ public:
         }
     }
 
-    void starting_positions(std::vector<player_status> &positions) const
-    {
-        int column = columns - 1;
-
-        if (side == IZQUIERDA)
-        {
-            column = 0;
-        }
-
-        for (int i = 0; i < 3; ++i)
-        {
-            positions.emplace_back(i, i, column, false);
-        }
-    }
-
-    // Aca se usa la función punteadora, greedy, genetica, etc
-    void make_move(const board_status &current_board, std::vector<player_move> &made_moves)
-    {
-        made_moves.clear();
-        made_moves.resize(3);
-
-        board_status board = current_board;
-
-        if (side == "DERECHA")
-        {
-            board.team = current_board.oponent_team;
-            board.oponent_team = current_board.team;
-        }
-
-        std::vector<int> found_move = search_move(board);
-        update_moves(board, made_moves, found_move[0], found_move[1], found_move[2], found_move[3], found_move[4]);
-    }
-
-    void finish(const std::string &) {}
-
-private:
     std::vector<int> search_move(const board_status &current_board)
     {
         double max_rank = -999999;
@@ -335,4 +321,14 @@ private:
 
         return updated_board;
     }
+
+private:
+    int columns, rows;
+    double MAX_DIST;
+    std::string team, side;
+    std::vector<std::pair<int, int>> own_goal;
+    std::vector<std::pair<int, int>> opponnent_goal;
+    std::vector<Player> players;
+    std::vector<Player> opponnents;
+    std::vector<double> loads;
 };
