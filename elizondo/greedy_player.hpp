@@ -1,3 +1,6 @@
+#pragma once
+
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -69,7 +72,7 @@ public:
         MAX_DIST = distance(0, 0, rows, columns);
     }
 
-    static const std::vector<double> getLoads()
+    const std::vector<double> getLoads() const
     {
         return { 0.89, 0.35, 0.04, 0.62, 0.03, 0.82, 0.8, 0.02, 0.38, 0.85 };
     }
@@ -112,12 +115,15 @@ public:
     void make_move(const board_status &current_board, std::vector<player_move> &made_moves)
     {
         made_moves.clear();
-
-        made_moves.emplace_back();
-        made_moves.emplace_back();
-        made_moves.emplace_back();
+        made_moves.resize(3);
 
         board_status board = current_board;
+
+        if (side == "DERECHA")
+        {
+            board.team = current_board.oponent_team;
+            board.oponent_team = current_board.team;
+        }
 
         std::vector<int> found_move = search_move(board);
         update_moves(board, made_moves, found_move[0], found_move[1], found_move[2], found_move[3], found_move[4]);
