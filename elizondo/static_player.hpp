@@ -1,16 +1,12 @@
 #include <string>
-#include <random>
 #include <vector>
-#include <map>
 
+#include "ai.hpp"
 #include "board_status.hpp"
 #include "constants.hpp"
 #include "player.h"
 
-std::random_device rd;
-std::mt19937 generator(rd());
-
-class static_player
+class static_player : public AI
 {
 public:
     static_player() = default;
@@ -26,7 +22,7 @@ public:
     {
     }
 
-    void starting_positions(std::vector<player_status> &positions)
+    void starting_positions(std::vector<player_status> &positions) const override
     {
         int column = columns - 1;
 
@@ -41,7 +37,7 @@ public:
         }
     }
 
-    void make_move(const board_status &current_board, std::vector<player_move> &made_moves)
+    void make_move(const board_status &current_board, std::vector<player_move> &made_moves) override
     {
         made_moves.clear();
 
@@ -54,7 +50,6 @@ public:
     void finish(std::string) {}
 
 private:
-
     int columns;
     std::string team;
     std::string side;
