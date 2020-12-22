@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <memory>
+#include <tuple>
 #include <vector>
 
 #include "board_status.hpp"

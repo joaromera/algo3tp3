@@ -1,12 +1,8 @@
-#ifndef LOGICAL_BOARD
-#define LOGICAL_BOARD
+#pragma once
 
-#include <initializer_list>
 #include <string>
-#include <random>
+#include <tuple>
 #include <vector>
-#include <map>
-#include <stdbool.h>
 
 #include "board_status.hpp"
 #include "player.h"
@@ -574,5 +570,3 @@ private:
     Ball* free_ball;
     board_status* last_state;
 };
-
-#endif //BOARD_STATUS

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <map>
-#include <random>
+#include <cmath>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "board_status.hpp"
