@@ -1,21 +1,16 @@
-#ifndef REFEREE
-#define REFEREE
+#pragma once
 
-#include <initializer_list>
-#include <string>
-#include <random>
-#include <vector>
-#include <map>
-#include <stdbool.h>
 #include <fstream>
+#include <random>
+#include <string>
+#include <vector>
 
-#include "ai.hpp"
+#include "ai_greedy.hpp"
+#include "ball.h"
 #include "board_status.hpp"
-#include "greedy_player.hpp"
 #include "constants.hpp"
 #include "logical_board.hpp"
 #include "player.h"
-#include "ball.h"
 
 using namespace std;
 
@@ -150,6 +145,4 @@ class Referee {
 
             return board->winner();
         }
-    };
-
-#endif //REFEREE
+};

@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 
-#include "greedy_player.hpp"
+#include "ai_greedy.hpp"
 #include "player_controller.hpp"
 
 int main(int argc, char **argv)

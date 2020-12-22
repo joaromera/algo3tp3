@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 
-#include "static_player.hpp"
+#include "ai_static.hpp"
 #include "player_controller.hpp"
 
 int main(int argc, char **argv) {
