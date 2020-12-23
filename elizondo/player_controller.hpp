@@ -88,8 +88,7 @@ public:
         log_file.open ("log/cpp_log_" + team_name + ".log");
         log_file << "Parameters: " << columns << " " << rows << " " << steps << std::endl;
 
-        std::vector<player_status> initial_positions;
-        team.starting_positions(initial_positions);
+        std::vector<player_status> initial_positions = team.starting_positions();
         send_positions(initial_positions);
     }
 

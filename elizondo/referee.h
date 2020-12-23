@@ -51,11 +51,8 @@ struct Referee
 
     std::string runPlay(std::string startingTeam)
     {
-        std::vector<player_status> positionsA;
-        teamA->starting_positions(positionsA);
-
-        std::vector<player_status> positionsB;
-        teamB->starting_positions(positionsB);
+        std::vector<player_status> positionsA = teamA->starting_positions();
+        std::vector<player_status> positionsB = teamB->starting_positions();
 
         board.reset(positionsA, positionsB, startingTeam);
 

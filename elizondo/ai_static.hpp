@@ -18,13 +18,8 @@ public:
         std::string pSide,
         const std::vector<Player> &,
         const std::vector<Player> &)
-        : columns(pColumns), side(pSide)
+        : AI(pColumns, pSide)
     {
-    }
-
-    std::vector<player_status> starting_positions(int columns, const std::string &side) const override
-    {
-        return AI::starting_positions(columns, side);
     }
 
     void make_move(const board_status &current_board, std::vector<player_move> &made_moves) override
@@ -40,7 +35,6 @@ public:
     void finish(std::string) {}
 
 private:
-    int columns;
+
     std::string team;
-    std::string side;
 };

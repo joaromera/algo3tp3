@@ -24,7 +24,7 @@ public:
         std::string pSide,
         const std::vector<Player> &pPlayers,
         const std::vector<Player> &pOpponnents)
-        : columns(pColumns), rows(pRows), side(pSide), players(pPlayers), opponnents(pOpponnents)
+        : AI(pColumns, pSide), rows(pRows), players(pPlayers), opponnents(pOpponnents)
     {
         for (int i = 0; i < 3; ++i)
         {
@@ -45,7 +45,7 @@ public:
         const std::vector<Player> &pPlayers,
         const std::vector<Player> &pOpponnents,
         std::vector<double> &pLoads)
-        : columns(pColumns), rows(pRows), side(pSide), players(pPlayers), opponnents(pOpponnents), loads(pLoads)
+        : AI(pColumns, pSide), rows(pRows), players(pPlayers), opponnents(pOpponnents), loads(pLoads)
     {
         for (int i = 0; i < 3; ++i)
         {
@@ -55,11 +55,6 @@ public:
 
         get_goal_positions();
         MAX_DIST = distance(0, 0, rows, columns);
-    }
-
-    std::vector<player_status> starting_positions(int columns, const std::string &side) const override
-    {
-        return AI::starting_positions(columns, side);
     }
 
     // Aca se usa la función punteadora, greedy, genetica, etc
@@ -311,9 +306,9 @@ private:
     }
 
 private:
-    int columns, rows;
+    int rows;
     double MAX_DIST;
-    std::string team, side;
+    std::string team;
     std::vector<std::pair<int, int>> own_goal;
     std::vector<std::pair<int, int>> opponnent_goal;
     std::vector<Player> players;

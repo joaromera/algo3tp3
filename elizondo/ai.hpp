@@ -9,9 +9,12 @@
 class AI
 {
 public:
+
+    AI() = default;
+    AI(int pColumns, std::string pSide) : columns(pColumns), side(pSide) {}
     virtual ~AI() = default;
 
-    virtual std::vector<player_status> starting_positions(int columns, const std::string &side) const
+    virtual std::vector<player_status> starting_positions() const
     {
         int column = columns - 1;
 
@@ -33,4 +36,9 @@ public:
     virtual void make_move(const board_status &current_board, std::vector<player_move> &made_moves) = 0;
 
     void finish(const std::string &) {}
+
+protected:
+
+    int columns;
+    std::string side;
 };
