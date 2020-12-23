@@ -22,19 +22,9 @@ public:
     {
     }
 
-    void starting_positions(std::vector<player_status> &positions) const override
+    std::vector<player_status> starting_positions(int columns, const std::string &side) const override
     {
-        int column = columns - 1;
-
-        if (side == IZQUIERDA)
-        {
-            column = 0;
-        }
-
-        for (int i = 0; i < 3; ++i)
-        {
-            positions.emplace_back(i, i, column, false);
-        }
+        return AI::starting_positions(columns, side);
     }
 
     void make_move(const board_status &current_board, std::vector<player_move> &made_moves) override

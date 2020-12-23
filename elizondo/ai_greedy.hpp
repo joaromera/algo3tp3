@@ -57,19 +57,9 @@ public:
         MAX_DIST = distance(0, 0, rows, columns);
     }
 
-    void starting_positions(std::vector<player_status> &positions) const override
+    std::vector<player_status> starting_positions(int columns, const std::string &side) const override
     {
-        int column = columns - 1;
-
-        if (side == IZQUIERDA)
-        {
-            column = 0;
-        }
-
-        for (int i = 0; i < 3; ++i)
-        {
-            positions.emplace_back(i, i, column, false);
-        }
+        return AI::starting_positions(columns, side);
     }
 
     // Aca se usa la función punteadora, greedy, genetica, etc
