@@ -31,8 +31,8 @@ struct Referee
         : columns(pColumns)
         , rows(pRows)
         , steps(pSteps)
-        , teamA(std::make_unique<AI>(pColumns, pRows, pSteps, IZQUIERDA, pTeamA, pTeamB, pLoadsA))
-        , teamB(std::make_unique<AI>(pColumns, pRows, pSteps, IZQUIERDA, pTeamB, pTeamA, pLoadsB))
+        , teamA(std::make_unique<greedy_player>(pColumns, pRows, pSteps, IZQUIERDA, pTeamA, pTeamB, pLoadsA))
+        , teamB(std::make_unique<greedy_player>(pColumns, pRows, pSteps, IZQUIERDA, pTeamB, pTeamA, pLoadsB))
         , board(columns, rows, pTeamA, pTeamB)
     {
     }
