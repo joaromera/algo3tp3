@@ -33,7 +33,7 @@ public:
         return positions;
     }
 
-    virtual void make_move(const board_status &current_board, std::vector<player_move> &made_moves) = 0;
+    virtual std::vector<player_move> make_move(const board_status &current_board) const = 0;
 
     void finish(const std::string &) {}
 

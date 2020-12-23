@@ -22,14 +22,16 @@ public:
     {
     }
 
-    void make_move(const board_status &current_board, std::vector<player_move> &made_moves) override
+    std::vector<player_move> make_move(const board_status &current_board) const override
     {
-        made_moves.clear();
+        std::vector<player_move> made_moves;
 
         for (const auto &p : current_board.team)
         {
             made_moves.emplace_back(p.id, MOVIMIENTO, 0, 0);
         }
+
+        return made_moves;
     }
 
     void finish(std::string) {}

@@ -61,11 +61,8 @@ struct Referee
         {
             board_status board_state = board.getCurrentState();
 
-            std::vector<player_move> madeMovesA;
-            teamA->make_move(board_state, madeMovesA);
-
-            std::vector<player_move> madeMovesB;
-            teamB->make_move(board_state, madeMovesB);
+            std::vector<player_move> madeMovesA = teamA->make_move(board_state);
+            std::vector<player_move> madeMovesB = teamB->make_move(board_state);
 
             std::string starter = board.makeMove(madeMovesA, madeMovesB);
 

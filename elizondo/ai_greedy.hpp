@@ -58,11 +58,9 @@ public:
     }
 
     // Aca se usa la función punteadora, greedy, genetica, etc
-    void make_move(const board_status &current_board, std::vector<player_move> &made_moves) override
+    std::vector<player_move> make_move(const board_status &current_board) const override
     {
-        made_moves.clear();
-        made_moves.resize(3);
-
+        std::vector<player_move> made_moves;
         board_status board = current_board;
 
         if (side == "DERECHA")
@@ -73,6 +71,8 @@ public:
 
         std::vector<int> found_move = search_move(board);
         update_moves(board, made_moves, found_move[0], found_move[1], found_move[2], found_move[3], found_move[4]);
+
+        return made_moves;
     }
 
 private:
@@ -101,7 +101,7 @@ private:
         }
     }
 
-    std::vector<int> search_move(const board_status &current_board)
+    std::vector<int> search_move(const board_status &current_board) const
     {
         double max_rank = -999999;
         double current_rank;
@@ -156,7 +156,7 @@ private:
         return result;
     }
 
-    void update_moves(const board_status &current_board, std::vector<player_move> &made_moves, int p0, int p1, int p2, int player_with_ball = 0, int steps = 0)
+    void update_moves(const board_status &current_board, std::vector<player_move> &made_moves, int p0, int p1, int p2, int player_with_ball = 0, int steps = 0) const
     {
         //si nadie patea todos tienen step 0
         std::vector<int> steps_players(3, 0);
@@ -174,7 +174,7 @@ private:
         }
     }
 
-    double evaluate_board(const board_status &current_board, int i, int j, int k, int jugador = 0, int steps = 0)
+    double evaluate_board(const board_status &current_board, int i, int j, int k, int jugador = 0, int steps = 0) const
     {
         board_status updated_board = update_board(current_board, i, j, k, jugador, steps);
 
@@ -238,7 +238,7 @@ private:
         return result;
     }
 
-    board_status update_board(const board_status &current_board, int i, int j, int k, int jugador, int steps)
+    board_status update_board(const board_status &current_board, int i, int j, int k, int jugador, int steps) const
     {
         board_status updated_board = current_board;
 

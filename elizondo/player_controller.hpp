@@ -96,13 +96,13 @@ public:
     {
         board_status current_board;
         std::vector<player_move> moves;
-        
+
         for (int step = 0; step < steps; step++)
         {
             log_file << "Step: " << step << std::endl;
             current_board.clear();
             read_board_status(current_board);
-            team.make_move(current_board, moves);
+            moves = team.make_move(current_board);
             send_move(moves);
         }
 
