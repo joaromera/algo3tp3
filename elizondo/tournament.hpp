@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <queue>
 #include <utility>
@@ -25,8 +26,8 @@ class Tournament
 {
 public:
     explicit Tournament(const int candidates)
-    : scores(std::vector<int>(candidates, 0))
-    , already_played(std::vector<std::vector<bool>>(candidates, std::vector<bool>(candidates, false)))
+        : scores(std::vector<int>(candidates, 0))
+        , already_played(std::vector<std::vector<bool>>(candidates, std::vector<bool>(candidates, false)))
     {
         srand(time(NULL));
     }
@@ -694,11 +695,11 @@ public:
         {
             if (pScores)
             {
-                ranking.push(std::make_pair(combinations[i], scores[i]));// FITNESS POR PUNTOS EN TABLA
+                ranking.emplace(combinations[i], scores[i]); // FITNESS POR PUNTOS EN TABLA
             }
             else
             {
-                ranking.push(std::make_pair(combinations[i], goals[i]));// FITNESS POR CANTIDAD DE GOLES
+                ranking.emplace(combinations[i], goals[i]); // FITNESS POR CANTIDAD DE GOLES
             }
         }
 

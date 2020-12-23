@@ -547,12 +547,12 @@ public:
         return goal;
     }
 
-    int get_scoreA()
+    int get_scoreA() const
     {
         return scoreA;
     }
 
-    int get_scoreB()
+    int get_scoreB() const
     {
         return scoreB;
     }
